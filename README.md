@@ -20,9 +20,9 @@
 ### Links
 
 #### Front-end
-[staging](https://jarvis-staging.netlify.app/pages/login/login3)
+[staging](https://jarvis-staging.netlify.app/pages/login/login3) &rarr; 
 [production](https://jarvis-production.netlify.app/pages/login/login3)
 
 #### Back-end
-[staging](https://jarvis-backend-test.herokuapp.com/).
+[staging](https://jarvis-backend-test.herokuapp.com/) &rarr; 
 [production](https://jarvis-backend-production.herokuapp.com/)

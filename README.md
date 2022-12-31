@@ -16,7 +16,11 @@
     * 2 Factor Authentication (Email, Text, Call)
 - Services (Activate - Deactivate)
 - Notes
-
+```
 ### Links
-[prod - site](https://63afe46ac0e36a67c6279cf6--jarvis-production.netlify.app/pages/login/login3)
-[staging - backend](https://jarvis-backend-test.herokuapp.com/)
+
+#### Front-end
+[production](https://63afe46ac0e36a67c6279cf6--jarvis-production.netlify.app/pages/login/login3).
+
+#### Back-end
+[staging](https://jarvis-backend-test.herokuapp.com/).

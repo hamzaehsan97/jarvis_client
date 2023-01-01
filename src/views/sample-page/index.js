@@ -11,6 +11,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 30 },
@@ -44,6 +45,7 @@ const columns = [
 const SamplePage = () => {
     const [refresh, setRefresh] = useState(false);
     const [rows, setRows] = useState([{ id: 0 }]);
+    const [selectedRows, setSelectedRows] = useState([]);
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -113,7 +115,7 @@ const SamplePage = () => {
         setSnackbar({ children: error.message, severity: 'error' });
     }, []);
 
-    const addTextie = () => {
+    const addNote = () => {
         axios
             .post('https://jarvis-backend-test.herokuapp.com/texties?content=' + '', {}, config)
             .then((result) => {
@@ -122,10 +124,28 @@ const SamplePage = () => {
             .catch((err) => console.log('error', err));
     };
 
+    const deleteNote = () => {
+        const selectedRowsData = selectedRows.map((id) => rows.find((row) => row.id === id));
+        selectedRowsData.forEach(function (val, index) {
+            const delete_id = val._id;
+            axios
+                .delete('https://jarvis-backend-test.herokuapp.com/texties?id=' + delete_id, config)
+                .then((result) => {
+                    console.log('result', result);
+                    setRefresh(!refresh);
+                })
+                .catch((error) => console.log('error', error));
+        });
+        console.log(selectedRowsData);
+    };
+
     return (
         <MainCard title="Notes">
-            <IconButton aria-label="add" color="primary" onClick={addTextie}>
+            <IconButton aria-label="add" color="primary" onClick={addNote}>
                 <AddBoxIcon />
+            </IconButton>
+            <IconButton aria-label="add" color="error" onClick={deleteNote}>
+                <DeleteIcon />
             </IconButton>
             <Box sx={{ height: 400, width: '100%' }}>
                 <DataGrid
@@ -143,6 +163,7 @@ const SamplePage = () => {
                     processRowUpdate={processRowUpdate}
                     onProcessRowUpdateError={handleProcessRowUpdateError}
                     experimentalFeatures={{ newEditingApi: true }}
+                    onSelectionModelChange={(ids) => setSelectedRows(ids)}
                 />
             </Box>
             {!!snackbar && (

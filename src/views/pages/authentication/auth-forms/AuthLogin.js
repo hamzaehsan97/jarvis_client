@@ -85,12 +85,12 @@ const FirebaseLogin = ({ ...others }) => {
                         })
                         .then(function (response) {
                             // handle success
-                            console.log('response', response);
-                            console.log('data', response.data);
-                            localStorage.setItem('token', token);
-                            localStorage.setItem('user', 'something');
+                            // console.log('response', response);
+                            // console.log('data', response.data);
+                            localStorage.setItem('token', response.data.token);
+                            localStorage.setItem('user', values.email);
                             setToken(response.data.token);
-                            setUser(values.email);
+                            // setUser(values.email);
                         })
                         .catch(function (error) {
                             // handle error

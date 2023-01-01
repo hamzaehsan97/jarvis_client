@@ -40,6 +40,7 @@ const App = () => {
             if (decode_token.exp < dateNum) {
                 return false;
             } else {
+                setUser(decode_token.email);
                 setUser_Name(decode_token.first_name);
                 return true;
             }
@@ -57,7 +58,7 @@ const App = () => {
             // console.log('path', Router.pathname());
             console.log('changing route');
             console.log('user', user);
-            console.log('toke', token);
+            console.log('token', token);
             console.log('auth is valid');
             navigate('/');
         } else if (!validateAuth(user, token) && location.pathname !== '/pages/login/login3') {

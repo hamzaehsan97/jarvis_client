@@ -16,7 +16,7 @@ const pages = {
     children: [
         {
             id: 'sample-page',
-            title: 'Notes',
+            title: 'Properties',
             type: 'item',
             url: '/sample-page',
             icon: icons.IconBrandChrome,

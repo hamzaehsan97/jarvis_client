@@ -140,7 +140,7 @@ const SamplePage = () => {
     };
 
     return (
-        <MainCard title="Notes">
+        <MainCard title="Properties">
             <IconButton aria-label="add" color="primary" onClick={addNote}>
                 <AddBoxIcon />
             </IconButton>

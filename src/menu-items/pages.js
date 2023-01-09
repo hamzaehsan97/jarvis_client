@@ -22,7 +22,8 @@ const pages = {
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         },
-        { id: 'passwords', title: 'Passwords', type: 'item', url: '/passwords', icon: icons.IconBrandChrome, breadcrumbs: false }
+        { id: 'passwords', title: 'Passwords', type: 'item', url: '/passwords', icon: icons.IconBrandChrome, breadcrumbs: false },
+        { id: 'settings', title: 'Settings', type: 'item', url: '/settings', icon: icons.IconBrandChrome, breadcrumbs: false }
     ]
 };
 

@@ -48,7 +48,7 @@ const App = () => {
             }
         }
         console.log('user', user);
-        console.log('toke', token);
+        console.log('token', token);
         return false;
     };
 

@@ -51,7 +51,7 @@ const columns = [
     },
     {
         field: '_id',
-        headerName: 'IDENTITY',
+        headerName: 'Identity',
         width: 100,
         editable: true
     }
@@ -193,12 +193,11 @@ const Passwords = () => {
                             <IconButton aria-label="add" color="primary" onClick={addNote}>
                                 <AddBoxIcon />
                             </IconButton>
-                        </Grid>
-                        <Grid item xs={8}>
                             <IconButton aria-label="add" color="error" onClick={deleteNote}>
                                 <DeleteIcon />
                             </IconButton>
                         </Grid>
+                        <Grid item xs={8}></Grid>
                         <Grid item xs={3}>
                             <TextField id="outlined-basic" label="Decryption Pin" variant="outlined" onChange={handlePinChange} />
                         </Grid>

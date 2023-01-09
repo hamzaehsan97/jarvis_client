@@ -119,6 +119,7 @@ const SamplePage = () => {
         axios
             .post('https://jarvis-backend-test.herokuapp.com/texties?content=' + '', {}, config)
             .then((result) => {
+                setSelectedRows([]);
                 setRefresh(!refresh);
             })
             .catch((err) => console.log('error', err));
@@ -132,6 +133,7 @@ const SamplePage = () => {
                 .delete('https://jarvis-backend-test.herokuapp.com/texties?id=' + delete_id, config)
                 .then((result) => {
                     console.log('result', result);
+                    setSelectedRows([]);
                     setRefresh(!refresh);
                 })
                 .catch((error) => console.log('error', error));

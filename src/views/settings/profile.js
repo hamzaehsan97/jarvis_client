@@ -12,10 +12,12 @@ import Alert from '@mui/material/Alert';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import UserContext from 'UserContext';
 const Profile = () => {
+    const navigate = useNavigate();
     const { user } = useContext(UserContext);
     const [refresh, setRefresh] = useState(false);
     const [rows, setRows] = useState([{ id: 0 }]);
@@ -51,12 +53,20 @@ const Profile = () => {
     const errorHandle = React.useCallback((error) => {
         setSnackbar({ children: error.message, severity: 'error' });
     }, []);
+
+    function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
     const sendPasswordEmail = async function () {
         axios
             .patch('https://jarvis-backend-test.herokuapp.com/users/otp?email=' + user, config)
             .then((result) => {
                 console.log('result', result);
                 setSnackbar({ children: result.data.message, severity: 'success' });
+                sleep(2500).then(() => {
+                    navigate('/pages/settings/password');
+                });
             })
             .catch((error) => {
                 console.log(error);

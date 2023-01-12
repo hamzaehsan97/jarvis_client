@@ -80,8 +80,8 @@ const PasswordResetForm = ({ ...others }) => {
                     newPassword: Yup.string()
                         .required('New Password is required')
                         .matches(
-                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-                            'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@\$%\^&\*])(?=.{8,})/,
+                            'Must Contain 8 Characters, One Uppercase, One Lowercase and One Special Case Character from !@$%^&*'
                         ),
                     confirmPassword: Yup.string().when('newPassword', {
                         is: (val) => (val && val.length > 0 ? true : false),

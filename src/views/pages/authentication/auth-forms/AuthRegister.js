@@ -93,7 +93,13 @@ const FirebaseRegister = ({ ...others }) => {
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required'),
+                    password: Yup.string()
+                        .max(255)
+                        .required('Password is required')
+                        .matches(
+                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@\$%\^&\*])(?=.{8,})/,
+                            'Password must Contain 8 Characters, One Uppercase, One Lowercase and One Special Case Character from !@$%^&*'
+                        ),
                     phone_number: Yup.string().min(10, '10 digit phone number required').required('phone number is required'),
                     fname: Yup.string().max(64).required('first name is required'),
                     lname: Yup.string().max(64).required('last name is required')

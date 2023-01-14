@@ -84,13 +84,9 @@ const FirebaseLogin = ({ ...others }) => {
                             params: { email: values.email, password: values.password }
                         })
                         .then(function (response) {
-                            // handle success
-                            // console.log('response', response);
-                            // console.log('data', response.data);
                             localStorage.setItem('token', response.data.token);
                             localStorage.setItem('user', values.email);
                             setToken(response.data.token);
-                            // setUser(values.email);
                         })
                         .catch(function (error) {
                             // handle error

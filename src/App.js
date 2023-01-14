@@ -23,6 +23,7 @@ const App = () => {
     const [user, setUser] = useState(localStorage.getItem('user'));
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user_name, setUser_Name] = useState(localStorage.getItem('user_name'));
+    const [secretKey, setSecretKey] = useState(localStorage.getItem('secretKey'));
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -42,11 +43,12 @@ const App = () => {
             } else {
                 setUser(decode_token.email);
                 setUser_Name(decode_token.first_name);
+                setSecretKey(decode_token.secret);
                 return true;
             }
         }
         console.log('user', user);
-        console.log('toke', token);
+        console.log('token', token);
         return false;
     };
 
@@ -79,7 +81,8 @@ const App = () => {
                     token: token,
                     setUser: setUser,
                     setToken: setToken,
-                    user_name: user_name
+                    user_name: user_name,
+                    secretKey: secretKey
                 }}
             >
                 <ThemeProvider theme={themes(customization)}>

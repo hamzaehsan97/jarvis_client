@@ -3748,6 +3748,13 @@ axe-core@^4.4.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.4.2.tgz#dcf7fb6dea866166c3eab33d68208afe4d5f670c"
   integrity sha512-LVAaGp/wkkgYJcjmHsoKx4juT1aQvJyPcW09MLCjVTh3V2cc6PnyempiLMNH5iMdfIX/zdbjUx2KDjMLCTdPeA==
 
+axios@0.21.4:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
+
 axios@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.2.1.tgz#44cf04a3c9f0c2252ebd85975361c026cb9f864a"
@@ -5788,7 +5795,7 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
   integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
 
-follow-redirects@^1.15.0:
+follow-redirects@^1.14.0, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -8259,6 +8266,13 @@ pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
+plaid@^12.2.0:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/plaid/-/plaid-12.2.0.tgz#80b39e957374330193e63a722140fe2a309757c5"
+  integrity sha512-6AoktOH+/ZZOKt/RHBpewNzN6Av5nFeow8RMlYv9Xy12TMN7d0JoWZaeK0/UjCN3ApBCUDoLIySukpaqsBgWnw==
+  dependencies:
+    axios "0.21.4"
+
 popmotion@11.0.3:
   version "11.0.3"
   resolved "https://registry.yarnpkg.com/popmotion/-/popmotion-11.0.3.tgz#565c5f6590bbcddab7a33a074bb2ba97e24b0cc9"
@@ -9098,6 +9112,14 @@ react-perfect-scrollbar@^1.5.8:
     perfect-scrollbar "^1.5.0"
     prop-types "^15.6.1"
 
+react-plaid-link@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/react-plaid-link/-/react-plaid-link-3.3.2.tgz#58799baf7dc35a68cc84b62f721aa51f12df927b"
+  integrity sha512-W2L9C4RCE/KFFia2SUFFTi8SYRQ1UMUXh4iLE/oo4EQ8UYAT6msKzWvauj8bJirlrkzeiUtY6wgkmWil/okaNg==
+  dependencies:
+    prop-types "^15.7.2"
+    react-script-hook "^1.6.0"
+
 react-redux@^8.0.2:
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.2.tgz#bc2a304bb21e79c6808e3e47c50fe1caf62f7aad"
@@ -9136,6 +9158,11 @@ react-router@6.6.1:
   integrity sha512-YkvlYRusnI/IN0kDtosUCgxqHeulN5je+ew8W+iA1VvFhf86kA+JEI/X/8NqYcr11hCDDp906S+SGMpBheNeYQ==
   dependencies:
     "@remix-run/router" "1.2.1"
+
+react-script-hook@^1.6.0:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/react-script-hook/-/react-script-hook-1.7.2.tgz#ec130d67f9a25fcde57fbfd1faa87e5b97521948"
+  integrity sha512-fhyCEfXb94fag34UPRF0zry1XGwmVY+79iibWwTqAoOiCzYJQOYTiWJ7CnqglA9tMSV8g45cQpHCMcBwr7dwhA==
 
 react-scripts@^5.0.1:
   version "5.0.1"

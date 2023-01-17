@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
 import Profile from './profile';
 import Finance from './finance';
+import Services from './services';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 30 },
@@ -87,6 +88,9 @@ const Settings = () => {
             <Grid container direction="column" spacing={2}>
                 <Grid item>
                     <Profile />
+                </Grid>
+                <Grid item>
+                    <Services />
                 </Grid>
                 <Grid item>
                     <Finance />

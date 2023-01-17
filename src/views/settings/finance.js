@@ -90,9 +90,12 @@ function Finance(props) {
     const { open, ready } = usePlaidLink(config);
 
     useEffect(() => {
-        console.log('this is token', token);
+        // console.log('this is token', token);
+        console.log('these are props', props);
+        const mango = props.active;
+        console.log('manog', mango);
         if (token == null) {
-            // console.log('setting token');
+            console.log('setting token');
             createLinkToken();
         } else {
             console.log('THE TOKEN', token);
@@ -111,9 +114,13 @@ function Finance(props) {
 
     return (
         <MainCard title="Finance">
-            <Button variant="contained" onClick={() => open()} disabled={!ready}>
-                <strong>Link account</strong>
-            </Button>
+            {props.active === true ? (
+                <Button variant="contained" onClick={() => open()} disabled={!ready}>
+                    <strong>Link account</strong>
+                </Button>
+            ) : (
+                <h3>Service not activated</h3>
+            )}
 
             {!loading &&
                 data != null &&

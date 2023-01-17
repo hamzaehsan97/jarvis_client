@@ -48,8 +48,7 @@ const columns = [
 
 const Settings = () => {
     const [refresh, setRefresh] = useState(false);
-    const [rows, setRows] = useState([{ id: 0 }]);
-    const [selectedRows, setSelectedRows] = useState([]);
+    const [services, setServices] = useState({});
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -60,17 +59,14 @@ const Settings = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         async function fetchData() {
+            const req = 'https://jarvis-backend-test.herokuapp.com/services';
             axios
-                .get('https://jarvis-backend-test.herokuapp.com/texties', config)
+                .get(req, config)
                 .then((result) => {
-                    let collectRows = [];
-                    result.data.forEach(function (val, index) {
-                        collectRows.push({ id: index, ...val });
-                    });
-                    setRows(collectRows);
+                    setServices(result.data);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log('err', error);
                 });
         }
         fetchData();
@@ -93,7 +89,7 @@ const Settings = () => {
                     <Services />
                 </Grid>
                 <Grid item>
-                    <Finance />
+                    <Finance active={services.finance} />
                 </Grid>
             </Grid>
             {!!snackbar && (

@@ -49,25 +49,6 @@ const Profile = () => {
         }
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         axios
-    //             .get('https://jarvis-backend-test.herokuapp.com/texties', config)
-    //             .then((result) => {
-    //                 let collectRows = [];
-    //                 result.data.forEach(function (val, index) {
-    //                     collectRows.push({ id: index, ...val });
-    //                 });
-    //                 setRows(collectRows);
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error);
-    //             });
-    //     }
-    //     fetchData();
-    // }, [refresh]);
-
     const [snackbar, setSnackbar] = React.useState(null);
     const handleCloseSnackbar = () => setSnackbar(null);
     const errorHandle = React.useCallback((error) => {

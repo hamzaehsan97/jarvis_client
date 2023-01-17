@@ -1,59 +1,146 @@
-// material-ui
-import { Typography } from '@mui/material';
-import React from 'react';
-// project imports
-import MainCard from 'ui-component/cards/MainCard';
-import { DataGrid } from '@mui/x-data-grid';
-import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { usePlaidLink } from 'react-plaid-link';
+import UserContext from 'UserContext';
 import axios from 'axios';
+import Button from '@mui/material/Button';
+import MainCard from 'ui-component/cards/MainCard';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Grid from '@mui/material/Grid';
 
-const Finance = () => {
-    const [refresh, setRefresh] = useState(false);
-    const [rows, setRows] = useState([{ id: 0 }]);
-    const [selectedRows, setSelectedRows] = useState([]);
-    const token = localStorage.getItem('token');
-    const config = {
+function Finance(props) {
+    const site_token = localStorage.getItem('token');
+    const backend_config = {
         headers: {
-            token: token
+            token: site_token
         }
     };
+    const [token, setToken] = useState(null);
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => {
+    const onSuccess = useCallback(async (publicToken) => {
+        setLoading(true);
         async function fetchData() {
             axios
-                .get('https://jarvis-backend-test.herokuapp.com/texties', config)
+                .post(
+                    'https://jarvis-backend-test.herokuapp.com/finance/plaid/set_access_token?public_token=' + publicToken,
+                    {},
+                    backend_config
+                )
                 .then((result) => {
-                    let collectRows = [];
-                    result.data.forEach(function (val, index) {
-                        collectRows.push({ id: index, ...val });
-                    });
-                    setRows(collectRows);
+                    setLoading(false);
+                    console.log('Set Public Token = ', result);
+                    setSnackbar({ children: result.data.message, severity: 'success' });
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log('THIS IS THE ERROR', error);
+                    setSnackbar({ children: result.data.message, severity: 'error' });
                 });
         }
         fetchData();
-    }, [refresh]);
+        // await getBalance();
+    }, []);
+
+    // Creates a Link token
+    const createLinkToken = React.useCallback(async () => {
+        // For OAuth, use previously generated Link token
+        if (window.location.href.includes('?oauth_state_id=')) {
+            const linkToken = localStorage.getItem('link_token');
+            setToken(linkToken);
+        } else {
+            async function fetchData() {
+                axios
+                    .get('https://jarvis-backend-test.herokuapp.com/finance/plaid/create_link_token', backend_config)
+                    .then((result) => {
+                        console.log('Result', result);
+                        setToken(result.data.link_token);
+                        localStorage.setItem('link_token', result.data.link_token);
+                    })
+                    .catch((error) => {
+                        console.log('error', error);
+                        console.log(error);
+                    });
+            }
+            fetchData();
+        }
+    }, [token]);
+
+    // Fetch balance data
+    const getBalance = React.useCallback(async () => {
+        setLoading(true);
+        const response = await fetch('/api/balance', {});
+        const data = await response.json();
+        setData(data);
+        setLoading(false);
+    }, [setData, setLoading]);
+
+    let isOauth = false;
+
+    const config = {
+        token,
+        onSuccess
+    };
+
+    // For OAuth, configure the received redirect URI
+    if (window.location.href.includes('?oauth_state_id=')) {
+        // console.log('This is the config', config);
+        config.receivedRedirectUri = window.location.href;
+        isOauth = true;
+    }
+    const { open, ready } = usePlaidLink(config);
+
+    useEffect(() => {
+        // console.log('this is token', token);
+        console.log('these are props', props);
+        const mango = props.active;
+        console.log('manog', mango);
+        if (token == null) {
+            console.log('setting token');
+            createLinkToken();
+        } else {
+            console.log('THE TOKEN', token);
+        }
+        if (isOauth && ready) {
+            console.log('OPEN', open);
+            open();
+        }
+    }, [token, isOauth, ready, open]);
 
     const [snackbar, setSnackbar] = React.useState(null);
     const handleCloseSnackbar = () => setSnackbar(null);
-    const handleProcessRowUpdateError = React.useCallback((error) => {
+    const errorHandle = React.useCallback((error) => {
         setSnackbar({ children: error.message, severity: 'error' });
     }, []);
+
     return (
         <MainCard title="Finance">
-            <Grid container direction="column" spacing={2}></Grid>
+            {props.active === true ? (
+                <Button variant="contained" onClick={() => open()} disabled={!ready}>
+                    <strong>Link account</strong>
+                </Button>
+            ) : (
+                <h3>Service not activated</h3>
+            )}
+
+            {!loading &&
+                data != null &&
+                Object.entries(data).map((entry, i) => (
+                    <pre key={i}>
+                        <code>{JSON.stringify(entry[1], null, 2)}</code>
+                    </pre>
+                ))}
+            {!!snackbar && (
+                <Snackbar
+                    open
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    onClose={handleCloseSnackbar}
+                    autoHideDuration={6000}
+                >
+                    <Alert {...snackbar} onClose={handleCloseSnackbar} />
+                </Snackbar>
+            )}
         </MainCard>
     );
-};
+}
 
 export default Finance;

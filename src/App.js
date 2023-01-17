@@ -24,7 +24,7 @@ const App = () => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user_name, setUser_Name] = useState(localStorage.getItem('user_name'));
     const [secretKey, setSecretKey] = useState(localStorage.getItem('secretKey'));
-
+    const [userObject, setUserObject] = useState(localStorage.getItem('userObject'));
     const navigate = useNavigate();
     const location = useLocation();
     const validateAuth = (user, token) => {
@@ -44,6 +44,7 @@ const App = () => {
                 setUser(decode_token.email);
                 setUser_Name(decode_token.first_name);
                 setSecretKey(decode_token.secret);
+                setUserObject(decode_token);
                 return true;
             }
         }
@@ -82,7 +83,8 @@ const App = () => {
                     setUser: setUser,
                     setToken: setToken,
                     user_name: user_name,
-                    secretKey: secretKey
+                    secretKey: secretKey,
+                    userObject: userObject
                 }}
             >
                 <ThemeProvider theme={themes(customization)}>

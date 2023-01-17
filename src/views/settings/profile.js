@@ -16,37 +16,38 @@ import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import UserContext from 'UserContext';
+import UpdateUser from './components/updateUser';
+import { TextField } from '@mui/material';
+import Modal from '@mui/material/Modal';
+import PasswordResetForm from 'views/pages/authentication/auth-forms/PasswordResetForm';
+
 const Profile = () => {
     const navigate = useNavigate();
-    const { user } = useContext(UserContext);
+    const { user, userObject } = useContext(UserContext);
     const [refresh, setRefresh] = useState(false);
     const [rows, setRows] = useState([{ id: 0 }]);
     const [selectedRows, setSelectedRows] = useState([]);
+    const [openPasswordReset, setOpenPasswordReset] = useState(false);
+    const handleOpen = () => setOpenPasswordReset(true);
+    const handleClose = () => setOpenPasswordReset(false);
+    const [disableForm, setDisableForm] = useState(true);
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4
+    };
     const token = localStorage.getItem('token');
     const config = {
         headers: {
             token: token
         }
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => {
-        async function fetchData() {
-            axios
-                .get('https://jarvis-backend-test.herokuapp.com/texties', config)
-                .then((result) => {
-                    let collectRows = [];
-                    result.data.forEach(function (val, index) {
-                        collectRows.push({ id: index, ...val });
-                    });
-                    setRows(collectRows);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-        fetchData();
-    }, [refresh]);
 
     const [snackbar, setSnackbar] = React.useState(null);
     const handleCloseSnackbar = () => setSnackbar(null);
@@ -65,7 +66,8 @@ const Profile = () => {
                 console.log('result', result);
                 setSnackbar({ children: result.data.message, severity: 'success' });
                 sleep(2500).then(() => {
-                    navigate('/pages/settings/password');
+                    setOpenPasswordReset(true);
+                    // navigate('/pages/settings/password');
                 });
             })
             .catch((error) => {
@@ -77,9 +79,72 @@ const Profile = () => {
         <MainCard title="Profile">
             <Grid container direction="column" spacing={2}>
                 <Grid item>
-                    <Button variant="contained" onClick={sendPasswordEmail}>
-                        Reset Password
-                    </Button>
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="flex-start"
+                        spacing={{ xs: 1, md: 2 }}
+                        columns={{ xs: 2, sm: 3, md: 4 }}
+                    >
+                        <Grid item>
+                            <TextField
+                                id="outlined-basic"
+                                label="First Name"
+                                variant="outlined"
+                                value={userObject.first_name}
+                                style={{ marginRight: 5 + 'px' }}
+                                disabled={disableForm}
+                            />
+                            <TextField
+                                id="outlined-basic"
+                                label="Last Name"
+                                variant="outlined"
+                                value={userObject.last_name}
+                                style={{ marginRight: 5 + 'px' }}
+                                disabled={disableForm}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                id="outlined-basic"
+                                label="Email Address"
+                                variant="outlined"
+                                value={userObject.email}
+                                style={{ marginRight: 5 + 'px' }}
+                                disabled={disableForm}
+                            />
+                            <TextField
+                                id="outlined-basic"
+                                label="Phone Number"
+                                variant="outlined"
+                                value={userObject.phone_number}
+                                style={{ marginRight: 5 + 'px' }}
+                                disabled={disableForm}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" onClick={sendPasswordEmail}>
+                                Reset Password
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            {/* <Button onClick={handleOpen}>Open modal</Button> */}
+                            <Modal
+                                open={openPasswordReset}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                        Reset Account Password
+                                    </Typography>
+                                    <PasswordResetForm />
+                                </Box>
+                            </Modal>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
             {!!snackbar && (

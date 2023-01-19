@@ -16,6 +16,9 @@ import NavigationScroll from 'layout/NavigationScroll';
 import UserContext from 'UserContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import React from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 // ==============================|| APP ||============================== //
 
 const App = () => {
@@ -25,6 +28,12 @@ const App = () => {
     const [user_name, setUser_Name] = useState(localStorage.getItem('user_name'));
     const [secretKey, setSecretKey] = useState(localStorage.getItem('secretKey'));
     const [userObject, setUserObject] = useState(localStorage.getItem('userObject'));
+    const [snackbar, setSnackbar] = React.useState(null);
+    const handleCloseSnackbar = () => setSnackbar(null);
+    const errorHandle = React.useCallback((error) => {
+        setSnackbar({ children: error.message, severity: 'error' });
+    }, []);
+
     const navigate = useNavigate();
     const location = useLocation();
     const validateAuth = (user, token) => {
@@ -84,13 +93,24 @@ const App = () => {
                     setToken: setToken,
                     user_name: user_name,
                     secretKey: secretKey,
-                    userObject: userObject
+                    userObject: userObject,
+                    openSnackBar: setSnackbar
                 }}
             >
                 <ThemeProvider theme={themes(customization)}>
                     <CssBaseline />
                     <NavigationScroll>
                         <Routes />
+                        {!!snackbar && (
+                            <Snackbar
+                                open
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                                onClose={handleCloseSnackbar}
+                                autoHideDuration={6000}
+                            >
+                                <Alert {...snackbar} onClose={handleCloseSnackbar} />
+                            </Snackbar>
+                        )}
                     </NavigationScroll>
                 </ThemeProvider>
             </UserContext.Provider>

@@ -65,7 +65,7 @@ const Passwords = () => {
     const [rows, setRows] = useState([{ id: 0 }]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [password, setPassword] = useState('');
-    const { secretKey } = useContext(UserContext);
+    const { secretKey, openSnackBar } = useContext(UserContext);
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -92,6 +92,7 @@ const Passwords = () => {
                 })
                 .catch((error) => {
                     console.log(error);
+                    openSnackBar({ children: error.response.data.message, severity: 'error' });
                 });
         }
         fetchData();
@@ -124,7 +125,7 @@ const Passwords = () => {
                         })
                         .catch((error) => {
                             console.log(error);
-                            reject(new Error("Error while saving user: name can't be empty."));
+                            reject(openSnackBar({ children: error.response.data.message, severity: 'error' }));
                         });
                 }),
             []
@@ -154,7 +155,7 @@ const Passwords = () => {
             .then((result) => {
                 setRefresh(!refresh);
             })
-            .catch((err) => console.log('error', err));
+            .catch((err) => openSnackBar({ children: error.response.data.message, severity: 'error' }));
     };
 
     const deleteNote = () => {
@@ -164,12 +165,13 @@ const Passwords = () => {
             axios
                 .delete('https://jarvis-backend-test.herokuapp.com/passwords?id=' + delete_id, config)
                 .then((result) => {
+                    openSnackBar({ children: 'Password deletion successful', severity: 'success' });
                     console.log('result', result);
                     setSelectedRows([]);
                     setRefresh(!refresh);
                 })
                 .catch((error) => {
-                    console.log('error', error);
+                    openSnackBar({ children: error.response.data.message, severity: 'error' });
                     setRefresh(!refresh);
                 });
         });

@@ -74,6 +74,13 @@ const Passwords = (props) => {
             {props.active === true ? (
                 <Grid container direction="column" spacing={2}>
                     <Grid item>
+                        <Typography variant="caption">
+                            Your account's secret pin is used to decrypt any form of encrypted data for your account.
+                            <br /> Changing your pin wont help you decrypt data encrypted with previous secret pin.
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <br />
                         <Button variant="contained" onClick={handleOpen}>
                             <strong>Reset Secret Pin</strong>
                         </Button>

@@ -90,10 +90,6 @@ function Finance(props) {
     const { open, ready } = usePlaidLink(config);
 
     useEffect(() => {
-        // console.log('this is token', token);
-        console.log('these are props', props);
-        const mango = props.active;
-        console.log('manog', mango);
         if (token == null) {
             console.log('setting token');
             createLinkToken();

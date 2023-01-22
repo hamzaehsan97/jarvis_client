@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/material';
 import React from 'react';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -22,12 +22,17 @@ import UserContext from 'UserContext';
 import SetPin from './set-pin';
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 30 },
     {
         field: 'portal',
         headerName: 'Portal',
         type: 'text',
-        width: 100,
+        width: 200,
+        editable: true
+    },
+    {
+        field: 'username',
+        headerName: 'Username',
+        width: 200,
         editable: true
     },
     {
@@ -37,29 +42,39 @@ const columns = [
         editable: true
     },
     {
+        field: 'creationTime',
+        headerName: 'Time',
+        width: 100,
+        editable: true,
+        hide: true //This will be deprecated in next major release
+    },
+    {
         field: 'type',
         headerName: 'Type',
         type: 'text',
         width: 100,
-        editable: true
-    },
-    {
-        field: 'creationTime',
-        headerName: 'Time',
-        width: 100,
-        editable: true
+        editable: true,
+        hide: true //This will be deprecated in next major release
     },
     {
         field: '_id',
         headerName: 'Identity',
         width: 100,
-        editable: true
+        editable: true,
+        hide: true //This will be deprecated in next major release
+    },
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 30,
+        hide: true //This will be deprecated in next major release
     }
 ];
 
 const Passwords = () => {
     const [decryptionKey, setDecryptionKey] = useState('0000');
     const [testing, setTesting] = useState('null');
+    const [correctPin, setCorrectPin] = useState(false);
     const [decrypted, setDecrypted] = useState('null');
     const [refresh, setRefresh] = useState(false);
     const [rows, setRows] = useState([{ id: 0 }]);
@@ -76,13 +91,15 @@ const Passwords = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         async function fetchData() {
+            console.log('this is decryption key', decryptionKey);
             const req = 'https://jarvis-backend-test.herokuapp.com/passwords?key=' + decryptionKey;
             axios
                 .get(req, config)
                 .then((result) => {
-                    console.log('result', result);
+                    console.log('result', result.data);
+                    setCorrectPin(result.data.correct_pin);
                     let collectRows = [];
-                    result.data.forEach(function (val, index) {
+                    result.data.result.forEach(function (val, index) {
                         collectRows.push({
                             id: index,
                             ...val
@@ -108,7 +125,9 @@ const Passwords = () => {
                     const identity = user._id;
                     const content = user.content;
                     const type = user.type;
+                    const username = user.username;
                     const portal = user.portal;
+                    const base_req = 'https://jarvis-backend-test.herokuapp.com/passwords';
                     const req =
                         'https://jarvis-backend-test.herokuapp.com/passwords?content=' +
                         content +
@@ -117,9 +136,11 @@ const Passwords = () => {
                         '&type=' +
                         type +
                         '&portal=' +
-                        portal;
+                        portal +
+                        '&username=' +
+                        username;
                     axios
-                        .patch(req, {}, config)
+                        .patch(correctPin ? req : base_req, {}, config)
                         .then((result) => {
                             resolve({ ...user, name: user.name?.toUpperCase() });
                         })
@@ -128,7 +149,7 @@ const Passwords = () => {
                             reject(openSnackBar({ children: error.response.data.message, severity: 'error' }));
                         });
                 }),
-            []
+            [correctPin]
         );
     };
 
@@ -137,12 +158,14 @@ const Passwords = () => {
     const processRowUpdate = React.useCallback(
         async (newRow) => {
             // Make the HTTP request to save in the backend
-            console.log('in here');
             const response = await mutateRow(newRow);
-            setSnackbar({ children: 'User successfully saved', severity: 'success' });
+            console.log('THIS is correctPin', correctPin);
+            correctPin
+                ? setSnackbar({ children: 'Successfully saved', severity: 'success' })
+                : setSnackbar({ children: 'Incorrect decryption pin', severity: 'error' });
             return response;
         },
-        [mutateRow]
+        [mutateRow, correctPin]
     );
 
     const handleProcessRowUpdateError = React.useCallback((error) => {
@@ -222,6 +245,9 @@ const Passwords = () => {
                             experimentalFeatures={{ newEditingApi: true }}
                             onSelectionModelChange={(ids) => setSelectedRows(ids)}
                             selectionModel={selectedRows}
+                            components={{
+                                Toolbar: GridToolbar
+                            }}
                         />
                     </Box>
                     {!!snackbar && (

@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import MainCard from 'ui-component/cards/MainCard';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import BankAccountsList from './components/listBankAccounts';
 
 function Finance(props) {
     const site_token = localStorage.getItem('token');
@@ -90,10 +91,6 @@ function Finance(props) {
     const { open, ready } = usePlaidLink(config);
 
     useEffect(() => {
-        // console.log('this is token', token);
-        console.log('these are props', props);
-        const mango = props.active;
-        console.log('manog', mango);
         if (token == null) {
             console.log('setting token');
             createLinkToken();
@@ -115,9 +112,12 @@ function Finance(props) {
     return (
         <MainCard title="Finance">
             {props.active === true ? (
-                <Button variant="contained" onClick={() => open()} disabled={!ready}>
-                    <strong>Link account</strong>
-                </Button>
+                <>
+                    <Button variant="contained" onClick={() => open()} disabled={!ready}>
+                        <strong>Link account</strong>
+                    </Button>
+                    <BankAccountsList />
+                </>
             ) : (
                 <h3>Service not activated</h3>
             )}

@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 import Profile from './profile';
 import Finance from './finance';
 import Services from './services';
-
+import Passwords from './passwords';
 const columns = [
     { field: 'id', headerName: 'ID', width: 30 },
     {
@@ -90,6 +90,9 @@ const Settings = () => {
                 </Grid>
                 <Grid item>
                     <Finance active={services.finance} />
+                </Grid>
+                <Grid item>
+                    <Passwords active={services.passwords} />
                 </Grid>
             </Grid>
             {!!snackbar && (

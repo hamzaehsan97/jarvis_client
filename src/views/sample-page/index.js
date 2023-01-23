@@ -5,14 +5,14 @@ import React from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import UserContext from 'UserContext';
 const columns = [
     { field: 'id', headerName: 'ID', width: 30 },
     {
@@ -52,6 +52,7 @@ const SamplePage = () => {
             token: token
         }
     };
+    const { openSnackBar } = useContext(UserContext);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
@@ -67,6 +68,7 @@ const SamplePage = () => {
                 })
                 .catch((error) => {
                     console.log(error);
+                    openSnackBar({ children: error.response.data.message, severity: 'error' });
                 });
         }
         fetchData();
@@ -91,7 +93,7 @@ const SamplePage = () => {
                         })
                         .catch((error) => {
                             console.log(error);
-                            reject(new Error("Error while saving user: name can't be empty."));
+                            reject(openSnackBar({ children: error.response.data.message, severity: 'error' }));
                         });
                 }),
             []
@@ -122,7 +124,7 @@ const SamplePage = () => {
                 setSelectedRows([]);
                 setRefresh(!refresh);
             })
-            .catch((err) => console.log('error', err));
+            .catch((err) => openSnackBar({ children: err.response.data.message, severity: 'error' }));
     };
 
     const deleteNote = () => {
@@ -136,7 +138,7 @@ const SamplePage = () => {
                     setSelectedRows([]);
                     setRefresh(!refresh);
                 })
-                .catch((error) => console.log('error', error));
+                .catch((error) => openSnackBar({ children: error.response.data.message, severity: 'error' }));
         });
         console.log(selectedRowsData);
     };

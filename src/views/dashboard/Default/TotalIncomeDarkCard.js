@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
-
+import { useState } from 'react';
+import { useEffect } from 'react';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
+import axios from 'axios';
 
 // assets
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
@@ -43,6 +46,28 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const TotalIncomeDarkCard = ({ isLoading }) => {
     const theme = useTheme();
+    const [balance, setBalance] = useState(null);
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            token: token
+        }
+    };
+    useEffect(() => {
+        async function fetchData() {
+            axios
+                .patch('https://jarvis-backend-test.herokuapp.com/finance/liabilities?item_type=liabilities_report', {}, config)
+                .then((result) => {
+                    console.log('liabilities balance', result.data.response[0].liabilities_balance);
+                    setBalance(result.data.response[0].liabilities_balance);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // openSnackBar({ children: error.response.data.message, severity: 'error' });
+                });
+        }
+        fetchData();
+    });
 
     return (
         <>
@@ -73,13 +98,19 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                                         mb: 0.45
                                     }}
                                     primary={
-                                        <Typography variant="h4" sx={{ color: '#fff' }}>
-                                            $203k
-                                        </Typography>
+                                        <>
+                                            {balance !== null ? (
+                                                <Typography variant="h4" sx={{ color: '#fff' }}>
+                                                    $ {balance}
+                                                </Typography>
+                                            ) : (
+                                                <CircularProgress color="inherit" />
+                                            )}
+                                        </>
                                     }
                                     secondary={
                                         <Typography variant="subtitle2" sx={{ color: 'primary.light', mt: 0.25 }}>
-                                            Total Income
+                                            Total Liabilities Balance
                                         </Typography>
                                     }
                                 />

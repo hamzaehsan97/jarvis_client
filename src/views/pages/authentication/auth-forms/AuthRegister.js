@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import React from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -37,6 +38,8 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
@@ -47,7 +50,10 @@ const FirebaseRegister = ({ ...others }) => {
     const customization = useSelector((state) => state.customization);
     const [showPassword, setShowPassword] = useState(false);
     const [checked, setChecked] = useState(true);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [snackbar, setSnackbar] = React.useState(null);
+    const handleCloseSnackbar = () => setSnackbar(null);
 
     const phoneRegExp = '/^[0-9]{10}$/';
 
@@ -106,7 +112,7 @@ const FirebaseRegister = ({ ...others }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     console.log('register button pressed');
-
+                    setLoading(true);
                     console.log('body', {
                         email: values.email,
                         password: values.password,
@@ -139,8 +145,10 @@ const FirebaseRegister = ({ ...others }) => {
                         .catch(function (error) {
                             // handle error
                             console.log('error', error);
+                            setSnackbar({ children: error.response.data.message, severity: 'error' });
                         })
                         .then(function () {
+                            setLoading(false);
                             console.log('executed register function');
                         });
                 }}
@@ -196,7 +204,7 @@ const FirebaseRegister = ({ ...others }) => {
                             </Grid>
                         </Grid>
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email-register"
                                 type="email"
@@ -322,23 +330,41 @@ const FirebaseRegister = ({ ...others }) => {
                         )}
 
                         <Box sx={{ mt: 2 }}>
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    color="secondary"
-                                >
-                                    Sign up
-                                </Button>
-                            </AnimateButton>
+                            {loading ? (
+                                <AnimateButton>
+                                    <Button disableElevation fullWidth size="large" variant="contained" color="secondary" disabled>
+                                        Sign up
+                                    </Button>
+                                </AnimateButton>
+                            ) : (
+                                <AnimateButton>
+                                    <Button
+                                        disableElevation
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        type="submit"
+                                        variant="contained"
+                                        color="secondary"
+                                    >
+                                        Sign up
+                                    </Button>
+                                </AnimateButton>
+                            )}
                         </Box>
                     </form>
                 )}
             </Formik>
+            {!!snackbar && (
+                <Snackbar
+                    open
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    onClose={handleCloseSnackbar}
+                    autoHideDuration={6000}
+                >
+                    <Alert {...snackbar} onClose={handleCloseSnackbar} />
+                </Snackbar>
+            )}
         </>
     );
 };

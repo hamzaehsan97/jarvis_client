@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-
+import React from 'react';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -35,6 +35,8 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import UserContext from 'UserContext';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 // import Google from 'assets/images/icons/social-google.svg';
 
@@ -47,6 +49,10 @@ const FirebaseLogin = ({ ...others }) => {
     const customization = useSelector((state) => state.customization);
     const [checked, setChecked] = useState(true);
     const { user, setUser, token, setToken } = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
+    const { openSnackBar } = useContext(UserContext);
+    const [snackbar, setSnackbar] = React.useState(null);
+    const handleCloseSnackbar = () => setSnackbar(null);
 
     const googleHandler = async () => {
         console.error('Login');
@@ -74,10 +80,10 @@ const FirebaseLogin = ({ ...others }) => {
                     password: Yup.string().max(255).required('Password is required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    console.log('Just pressed submit');
+                    console.log('Log in button pressed');
                     console.log('user', user);
                     console.log('token', token);
-
+                    setLoading(true);
                     // Make a request for a user with a given ID
                     axios
                         .get('https://jarvis-backend-test.herokuapp.com/auth', {
@@ -89,10 +95,11 @@ const FirebaseLogin = ({ ...others }) => {
                             setToken(response.data.token);
                         })
                         .catch(function (error) {
-                            // handle error
-                            console.log('error', error);
+                            console.log('error', error.response.data);
+                            setSnackbar({ children: error.response.data.message, severity: 'error' });
                         })
                         .then(function () {
+                            setLoading(false);
                             console.log('executed login function');
                         });
                 }}
@@ -177,22 +184,37 @@ const FirebaseLogin = ({ ...others }) => {
 
                         <Box sx={{ mt: 2 }}>
                             <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    color="secondary"
-                                >
-                                    Sign in
-                                </Button>
+                                {loading ? (
+                                    <Button disableElevation fullWidth size="large" variant="contained" color="secondary" disabled>
+                                        Sign in
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        type="submit"
+                                        variant="contained"
+                                        color="secondary"
+                                    >
+                                        Sign in
+                                    </Button>
+                                )}
                             </AnimateButton>
                         </Box>
                     </form>
                 )}
             </Formik>
+            {!!snackbar && (
+                <Snackbar
+                    open
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    onClose={handleCloseSnackbar}
+                    autoHideDuration={6000}
+                >
+                    <Alert {...snackbar} onClose={handleCloseSnackbar} />
+                </Snackbar>
+            )}
         </>
     );
 };

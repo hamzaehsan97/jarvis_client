@@ -6,9 +6,8 @@ import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { gridSpacing } from 'store/constant';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
@@ -49,6 +48,10 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const TotalIncomeDarkCard = ({ isLoading, title, value, prev_val }) => {
     const theme = useTheme();
+    const change = {
+        positive: <ArrowUpwardIcon sx={{ color: '#FC100D' }} />,
+        negative: <ArrowDownwardIcon sx={{ color: '#4BB543' }} />
+    };
 
     return (
         <>
@@ -69,11 +72,16 @@ const TotalIncomeDarkCard = ({ isLoading, title, value, prev_val }) => {
                                             color: '#fff'
                                         }}
                                     >
-                                        {value - prev_val > 0 ? (
-                                            <ArrowDropUpIcon sx={{ color: '#FC100D' }} />
-                                        ) : (
-                                            <ArrowDropDownIcon sx={{ color: '#4BB543' }} />
-                                        )}
+                                        <Grid container direction="column" alignContent="center">
+                                            <Grid item>
+                                                {value - prev_val > 0 ? (
+                                                    <ArrowUpwardIcon sx={{ color: '#FC100D' }} />
+                                                ) : (
+                                                    <ArrowDownwardIcon sx={{ color: '#4BB543' }} />
+                                                )}
+                                            </Grid>
+                                            <Grid item>{/* <Typography variant="subtitle2">{value - prev_val}</Typography> */}</Grid>
+                                        </Grid>
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText

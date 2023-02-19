@@ -17,7 +17,10 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import BalanceIcon from '@mui/icons-material/Balance';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary[800],
@@ -63,12 +66,42 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const TotalOrderLineChartCard = ({ isLoading, value, title }) => {
+const TotalOrderLineChartCard = ({ isLoading, value, title, prev_val, data }) => {
     const theme = useTheme();
 
     const [timeValue, setTimeValue] = useState(false);
     const handleChangeTime = (event, newValue) => {
         setTimeValue(newValue);
+    };
+    const change = {
+        positive: <ArrowUpwardIcon sx={{ color: '#4BB543' }} />,
+        negative: <ArrowDownwardIcon sx={{ color: '#FC100D' }} />,
+        balance: <BalanceIcon />
+    };
+    const change_icon = () => {
+        if (value - prev_val > 0) {
+            return change['positive'];
+        } else if (value - prev_val < 0) {
+            return change['negative'];
+        } else if (value - prev_val == 0) {
+            return change['balance'];
+        } else {
+            return <QuestionMarkIcon />;
+        }
+    };
+    const monthData = () => {
+        let assets_data = [];
+        data.records.forEach((record) => {
+            assets_data.push(record.assets.total_assets);
+        });
+        let months = ChartDataMonth;
+        months.series = [
+            {
+                name: 'Total Cash',
+                data: assets_data
+            }
+        ];
+        return months;
     };
 
     return (
@@ -92,7 +125,8 @@ const TotalOrderLineChartCard = ({ isLoading, value, title }) => {
                                                 mt: 1
                                             }}
                                         >
-                                            <LocalMallOutlinedIcon fontSize="inherit" />
+                                            {/* <LocalMallOutlinedIcon fontSize="inherit" /> */}
+                                            {change_icon()}
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
@@ -158,7 +192,7 @@ const TotalOrderLineChartCard = ({ isLoading, value, title }) => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {timeValue ? <Chart {...ChartDataMonth} /> : <Chart {...ChartDataYear} />}
+                                        {timeValue ? <Chart {...monthData()} /> : <Chart {...monthData()} />}
                                     </Grid>
                                 </Grid>
                             </Grid>

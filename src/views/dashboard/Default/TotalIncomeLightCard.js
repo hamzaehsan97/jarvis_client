@@ -7,6 +7,10 @@ import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography }
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import BalanceIcon from '@mui/icons-material/Balance';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
 // assets
 import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
@@ -39,8 +43,25 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const TotalIncomeLightCard = ({ isLoading, title, value }) => {
+const TotalIncomeLightCard = ({ isLoading, title, value, prev_val }) => {
     const theme = useTheme();
+    const change = {
+        positive: <ArrowUpwardIcon sx={{ color: '#4BB543' }} />,
+        negative: <ArrowDownwardIcon sx={{ color: '#FC100D' }} />,
+        balance: <BalanceIcon />
+    };
+
+    const change_icon = () => {
+        if (value - prev_val > 0) {
+            return change['positive'];
+        } else if (value - prev_val < 0) {
+            return change['negative'];
+        } else if (value - prev_val == 0) {
+            return change['balance'];
+        } else {
+            return <QuestionMarkIcon />;
+        }
+    };
 
     return (
         <>
@@ -61,7 +82,8 @@ const TotalIncomeLightCard = ({ isLoading, title, value }) => {
                                             color: theme.palette.warning.dark
                                         }}
                                     >
-                                        <StorefrontTwoToneIcon fontSize="inherit" />
+                                        {/* <StorefrontTwoToneIcon fontSize="inherit" /> */}
+                                        {change_icon()}
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText

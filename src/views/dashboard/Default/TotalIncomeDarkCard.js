@@ -8,6 +8,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { gridSpacing } from 'store/constant';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import BalanceIcon from '@mui/icons-material/Balance';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
@@ -50,7 +52,20 @@ const TotalIncomeDarkCard = ({ isLoading, title, value, prev_val }) => {
     const theme = useTheme();
     const change = {
         positive: <ArrowUpwardIcon sx={{ color: '#FC100D' }} />,
-        negative: <ArrowDownwardIcon sx={{ color: '#4BB543' }} />
+        negative: <ArrowDownwardIcon sx={{ color: '#4BB543' }} />,
+        balance: <BalanceIcon />
+    };
+
+    const change_icon = () => {
+        if (value - prev_val > 0) {
+            return change['positive'];
+        } else if (value - prev_val < 0) {
+            return change['negative'];
+        } else if (value - prev_val == 0) {
+            return change['balance'];
+        } else {
+            return <QuestionMarkIcon />;
+        }
     };
 
     return (
@@ -74,11 +89,12 @@ const TotalIncomeDarkCard = ({ isLoading, title, value, prev_val }) => {
                                     >
                                         <Grid container direction="column" alignContent="center">
                                             <Grid item>
-                                                {value - prev_val > 0 ? (
+                                                {/* {value - prev_val > 0 ? (
                                                     <ArrowUpwardIcon sx={{ color: '#FC100D' }} />
                                                 ) : (
                                                     <ArrowDownwardIcon sx={{ color: '#4BB543' }} />
-                                                )}
+                                                )} */}
+                                                {change_icon()}
                                             </Grid>
                                             <Grid item>{/* <Typography variant="subtitle2">{value - prev_val}</Typography> */}</Grid>
                                         </Grid>

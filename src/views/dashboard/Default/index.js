@@ -22,6 +22,9 @@ const Dashboard = () => {
     const [recentPayments, setRecentPayments] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(null);
     const [cashAssets, setCashAssets] = useState(null);
+    const [prev_cashAssets, setPrevCashAssets] = useState(null);
+    const [prevRecentPayments, setPrevRecentPayments] = useState(null);
+    const [data, setData] = useState(null);
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -33,12 +36,15 @@ const Dashboard = () => {
             axios
                 .get('https://jarvis-backend-test.herokuapp.com/finance/report?item_type=finance_report&token=' + token, {}, config)
                 .then((result) => {
-                    console.log('results', result.data.response[0]);
+                    console.log('leangth of records', result.data.response[0].records.length);
                     setLastUpdated(result.data.response[0].lastUpdate);
                     setLiabilitiesBalance(result.data.response[0].liabilities.liabilities_balance);
                     setPrevLiabilitiesBalance(result.data.response[0].liabilities.prev_liabilities_balance);
                     setRecentPayments(result.data.response[0].liabilities.last_payment);
                     setCashAssets(result.data.response[0].assets.total_assets);
+                    setPrevCashAssets(result.data.response[0].assets.prev_total_assets);
+                    setPrevRecentPayments(result.data.response[0].liabilities.prev_last_payment);
+                    setData(result.data.response[0]);
                     setLoading(false);
                 })
                 .catch((error) => {
@@ -47,7 +53,9 @@ const Dashboard = () => {
                     // openSnackBar({ children: error.response.data.message, severity: 'error' });
                 });
         }
-        fetchData();
+        if (isLoading === true) {
+            fetchData();
+        }
     });
 
     return (
@@ -61,7 +69,13 @@ const Dashboard = () => {
                     </Grid>
                     <Grid item lg={6} md={6} sm={6} xs={12}>
                         {/* <EarningCard isLoading={isLoading} title="Total Cash Assets" value={cashAssets} /> */}
-                        <TotalOrderLineChartCard isLoading={isLoading} title="Total Cash Assets" value={cashAssets} />
+                        <TotalOrderLineChartCard
+                            isLoading={isLoading}
+                            title="Total Cash Assets"
+                            value={cashAssets}
+                            prev_val={prev_cashAssets}
+                            data={data}
+                        />
                     </Grid>
                     <Grid item lg={3} md={6} sm={6} xs={12}>
                         <Grid container spacing={gridSpacing - 2}>
@@ -74,12 +88,22 @@ const Dashboard = () => {
                                 />
                             </Grid>
                             <Grid item sm={12} xs={12} md={12} lg={12}>
-                                <TotalIncomeDarkCard isLoading={isLoading} title="Recent Liabilities Payment" value={recentPayments} />
+                                <TotalIncomeDarkCard
+                                    isLoading={isLoading}
+                                    title="Recent Liabilities Payment"
+                                    value={recentPayments}
+                                    prev_val={prevRecentPayments}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item sm={4} xs={12} md={6} lg={3}>
-                        <TotalIncomeLightCard isLoading={isLoading} title="Total Cash Assets" value={cashAssets} />
+                        <TotalIncomeLightCard
+                            isLoading={isLoading}
+                            title="Total Cash Assets"
+                            prev_val={prev_cashAssets}
+                            value={cashAssets}
+                        />
                     </Grid>
                 </Grid>
             </Grid>

@@ -15,6 +15,7 @@ import Alert from '@mui/material/Alert';
 import { gridSpacing } from 'store/constant';
 import UserContext from 'UserContext';
 import axios from 'axios';
+import ChartDataMonth from './chart-data/total-order-month-line-chart';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -68,6 +69,60 @@ const Dashboard = () => {
         }
     });
 
+    const liabilitiesMonthData = () => {
+        if (data) {
+            let liabilities_data = [];
+            data.records.forEach((record) => {
+                liabilities_data.push(record.liabilities.liabilities_balance);
+            });
+            let months = ChartDataMonth;
+            months.series = [
+                {
+                    name: 'Total Liabilities',
+                    data: liabilities_data
+                }
+            ];
+            return months;
+        }
+        return null;
+    };
+
+    const liabilitiesPaymentsData = () => {
+        if (data) {
+            let liabilities_data = [];
+            data.records.forEach((record) => {
+                liabilities_data.push(record.liabilities.last_payment);
+            });
+            let months = ChartDataMonth;
+            months.series = [
+                {
+                    name: 'Liabilities Payments',
+                    data: liabilities_data
+                }
+            ];
+            return months;
+        }
+        return null;
+    };
+
+    const assetsMonthData = () => {
+        if (data) {
+            let assets_data = [];
+            data.records.forEach((record) => {
+                assets_data.push(record.assets.total_assets);
+            });
+            let months = ChartDataMonth;
+            months.series = [
+                {
+                    name: 'Total Cash',
+                    data: assets_data
+                }
+            ];
+            return months;
+        }
+        return null;
+    };
+
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
@@ -81,10 +136,32 @@ const Dashboard = () => {
                         {/* <EarningCard isLoading={isLoading} title="Total Cash Assets" value={cashAssets} /> */}
                         <TotalOrderLineChartCard
                             isLoading={isLoading}
-                            title="Total Cash Assets"
                             value={cashAssets}
                             prev_val={prev_cashAssets}
-                            data={data}
+                            dataA={assetsMonthData}
+                            dataB={assetsMonthData}
+                            data={{
+                                title: 'Total Assets',
+                                labelA: 'Assets',
+                                labelB: 'Liquid Cash',
+                                stat_type: 'positive'
+                            }}
+                        />
+                    </Grid>
+                    <Grid item lg={6} md={6} sm={6} xs={12}>
+                        {/* <EarningCard isLoading={isLoading} title="Total Cash Assets" value={cashAssets} /> */}
+                        <TotalOrderLineChartCard
+                            isLoading={isLoading}
+                            value={liabilitiesBalance}
+                            prev_val={prevLiabilitiesBalance}
+                            dataA={liabilitiesMonthData}
+                            dataB={liabilitiesPaymentsData}
+                            data={{
+                                title: 'Total Debt',
+                                labelA: 'Liabilities',
+                                labelB: 'Payments',
+                                stat_type: 'negative'
+                            }}
                         />
                     </Grid>
                     <Grid item lg={3} md={6} sm={6} xs={12}>
@@ -92,16 +169,16 @@ const Dashboard = () => {
                             <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <TotalIncomeDarkCard
                                     isLoading={isLoading}
-                                    title="Total Liabilities"
-                                    value={liabilitiesBalance}
+                                    title="Liabilities Change"
+                                    value={liabilitiesBalance - prevLiabilitiesBalance}
                                     prev_val={prevLiabilitiesBalance}
                                 />
                             </Grid>
                             <Grid item sm={12} xs={12} md={12} lg={12}>
                                 <TotalIncomeDarkCard
                                     isLoading={isLoading}
-                                    title="Recent Liabilities Payment"
-                                    value={recentPayments}
+                                    title="Change in Liabilities Payments"
+                                    value={recentPayments - prevRecentPayments}
                                     prev_val={prevRecentPayments}
                                 />
                             </Grid>

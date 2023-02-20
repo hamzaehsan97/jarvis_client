@@ -66,7 +66,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const TotalOrderLineChartCard = ({ isLoading, value, title, prev_val, data }) => {
+const TotalOrderLineChartCard = ({ isLoading, value, prev_val, dataA, dataB, data }) => {
     const theme = useTheme();
 
     const [timeValue, setTimeValue] = useState(false);
@@ -80,29 +80,37 @@ const TotalOrderLineChartCard = ({ isLoading, value, title, prev_val, data }) =>
     };
     const change_icon = () => {
         if (value - prev_val > 0) {
-            return change['positive'];
+            if (data.stat_type === 'negative') {
+                return change['negative'];
+            } else {
+                return change['positive'];
+            }
         } else if (value - prev_val < 0) {
-            return change['negative'];
+            if (stat_type === 'negative') {
+                return change['positive'];
+            } else {
+                return change['negative'];
+            }
         } else if (value - prev_val == 0) {
             return change['balance'];
         } else {
             return <QuestionMarkIcon />;
         }
     };
-    const monthData = () => {
-        let assets_data = [];
-        data.records.forEach((record) => {
-            assets_data.push(record.assets.total_assets);
-        });
-        let months = ChartDataMonth;
-        months.series = [
-            {
-                name: 'Total Cash',
-                data: assets_data
-            }
-        ];
-        return months;
-    };
+    // const monthData = () => {
+    //     let assets_data = [];
+    //     data.records.forEach((record) => {
+    //         assets_data.push(record.liabilities.liabilities_balance);
+    //     });
+    //     let months = ChartDataMonth;
+    //     months.series = [
+    //         {
+    //             name: 'Total Cash',
+    //             data: assets_data
+    //         }
+    //     ];
+    //     return months;
+    // };
 
     return (
         <>
@@ -137,7 +145,7 @@ const TotalOrderLineChartCard = ({ isLoading, value, title, prev_val, data }) =>
                                             sx={{ color: 'inherit' }}
                                             onClick={(e) => handleChangeTime(e, true)}
                                         >
-                                            Month
+                                            {data.labelA}
                                         </Button>
                                         <Button
                                             disableElevation
@@ -146,7 +154,7 @@ const TotalOrderLineChartCard = ({ isLoading, value, title, prev_val, data }) =>
                                             sx={{ color: 'inherit' }}
                                             onClick={(e) => handleChangeTime(e, false)}
                                         >
-                                            Year
+                                            {data.labelB}
                                         </Button>
                                     </Grid>
                                 </Grid>
@@ -186,13 +194,17 @@ const TotalOrderLineChartCard = ({ isLoading, value, title, prev_val, data }) =>
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    {title}
+                                                    {data.title}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {timeValue ? <Chart {...monthData()} /> : <Chart {...monthData()} />}
+                                        {timeValue ? (
+                                            <Chart {...dataA()} style={{ paddingTop: 20 + 'px' }} />
+                                        ) : (
+                                            <Chart {...dataB()} style={{ paddingTop: 20 + 'px' }} />
+                                        )}
                                     </Grid>
                                 </Grid>
                             </Grid>

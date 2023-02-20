@@ -2,12 +2,16 @@
 
 const chartData = {
     type: 'line',
-    height: 90,
+    height: 100,
     options: {
         chart: {
             sparkline: {
                 enabled: true
             }
+        },
+        markers: {
+            size: 2,
+            show: true
         },
         dataLabels: {
             enabled: false
@@ -22,7 +26,10 @@ const chartData = {
             width: 3
         },
         yaxis: {
-            min: 0
+            forceNiceScale: true,
+            labels: {
+                show: true
+            }
         },
         tooltip: {
             theme: 'dark',

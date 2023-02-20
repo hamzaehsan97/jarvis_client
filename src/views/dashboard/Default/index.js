@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 // material-ui
 import { Grid, Typography } from '@mui/material';
@@ -10,7 +10,10 @@ import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { gridSpacing } from 'store/constant';
+import UserContext from 'UserContext';
 import axios from 'axios';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
@@ -25,6 +28,8 @@ const Dashboard = () => {
     const [prev_cashAssets, setPrevCashAssets] = useState(null);
     const [prevRecentPayments, setPrevRecentPayments] = useState(null);
     const [data, setData] = useState(null);
+    const { openSnackBar } = useContext(UserContext);
+
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -36,16 +41,21 @@ const Dashboard = () => {
             axios
                 .get('https://jarvis-backend-test.herokuapp.com/finance/report?item_type=finance_report&token=' + token, {}, config)
                 .then((result) => {
-                    console.log('leangth of records', result.data.response[0].records.length);
-                    setLastUpdated(result.data.response[0].lastUpdate);
-                    setLiabilitiesBalance(result.data.response[0].liabilities.liabilities_balance);
-                    setPrevLiabilitiesBalance(result.data.response[0].liabilities.prev_liabilities_balance);
-                    setRecentPayments(result.data.response[0].liabilities.last_payment);
-                    setCashAssets(result.data.response[0].assets.total_assets);
-                    setPrevCashAssets(result.data.response[0].assets.prev_total_assets);
-                    setPrevRecentPayments(result.data.response[0].liabilities.prev_last_payment);
-                    setData(result.data.response[0]);
-                    setLoading(false);
+                    if (result.data.message) {
+                        openSnackBar({ children: result.data.message, severity: 'error' });
+                    }
+                    if (result.data.response.length > 0) {
+                        console.log('length of finance records', result.data.response[0].records.length);
+                        setLastUpdated(result.data.response[0].lastUpdate);
+                        setLiabilitiesBalance(result.data.response[0].liabilities.liabilities_balance);
+                        setPrevLiabilitiesBalance(result.data.response[0].liabilities.prev_liabilities_balance);
+                        setRecentPayments(result.data.response[0].liabilities.last_payment);
+                        setCashAssets(result.data.response[0].assets.total_assets);
+                        setPrevCashAssets(result.data.response[0].assets.prev_total_assets);
+                        setPrevRecentPayments(result.data.response[0].liabilities.prev_last_payment);
+                        setData(result.data.response[0]);
+                        setLoading(false);
+                    }
                 })
                 .catch((error) => {
                     setLoading(false);

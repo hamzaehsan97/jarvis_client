@@ -53,7 +53,7 @@ function Finance(props) {
                 axios
                     .get('https://jarvis-backend-test.herokuapp.com/finance/plaid/create_link_token', backend_config)
                     .then((result) => {
-                        console.log('Result', result);
+                        // console.log('Result', result);
                         setToken(result.data.link_token);
                         localStorage.setItem('link_token', result.data.link_token);
                     })
@@ -95,7 +95,7 @@ function Finance(props) {
             console.log('setting token');
             createLinkToken();
         } else {
-            console.log('THE TOKEN', token);
+            // console.log('THE TOKEN', token);
         }
         if (isOauth && ready) {
             console.log('OPEN', open);

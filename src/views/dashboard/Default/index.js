@@ -46,7 +46,6 @@ const Dashboard = () => {
                         openSnackBar({ children: result.data.message, severity: 'error' });
                     }
                     if (result.data.response.length > 0) {
-                        console.log('length of finance records', result.data.response[0].records.length);
                         setLastUpdated(result.data.response[0].lastUpdate);
                         setLiabilitiesBalance(result.data.response[0].liabilities.liabilities_balance);
                         setPrevLiabilitiesBalance(result.data.response[0].liabilities.prev_liabilities_balance);
@@ -133,7 +132,6 @@ const Dashboard = () => {
                         </Typography>
                     </Grid>
                     <Grid item lg={6} md={6} sm={6} xs={12}>
-                        {/* <EarningCard isLoading={isLoading} title="Total Cash Assets" value={cashAssets} /> */}
                         <TotalOrderLineChartCard
                             isLoading={isLoading}
                             value={cashAssets}

@@ -69,11 +69,11 @@ const SamplePage = () => {
     useEffect(() => {
         async function fetchData() {
             const noteSearhcReq = noteSearch ? '?content=' + noteSearch : '';
-            console.log('noteSearch', noteSearhcReq);
+            // console.log('noteSearch', noteSearhcReq);
             axios
                 .get('https://jarvis-backend-test.herokuapp.com/texties' + noteSearhcReq, config)
                 .then((result) => {
-                    console.log('all note', result.data);
+                    // console.log('all note', result.data);
                     let collectRows = [];
                     result.data.forEach(function (val, index) {
                         collectRows.push({ id: index, ...val });
@@ -119,7 +119,7 @@ const SamplePage = () => {
     const processRowUpdate = React.useCallback(
         async (newRow) => {
             // Make the HTTP request to save in the backend
-            console.log('in here');
+            // console.log('in here');
             const response = await mutateRow(newRow);
             setSnackbar({ children: 'User successfully saved', severity: 'success' });
             return response;

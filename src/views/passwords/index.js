@@ -127,7 +127,6 @@ const Passwords = () => {
                     const type = user.type;
                     const username = user.username;
                     const portal = user.portal;
-                    const base_req = 'https://jarvis-backend-test.herokuapp.com/passwords';
                     const req =
                         'https://jarvis-backend-test.herokuapp.com/passwords?content=' +
                         content +
@@ -140,16 +139,16 @@ const Passwords = () => {
                         '&username=' +
                         username;
                     axios
-                        .patch(correctPin ? req : base_req, {}, config)
+                        .patch(req, {}, config)
                         .then((result) => {
+                            openSnackBar({ children: 'Password field updated successfully', severity: 'success' });
                             resolve({ ...user, name: user.name?.toUpperCase() });
                         })
                         .catch((error) => {
                             console.log(error);
                             reject(openSnackBar({ children: error.response.data.message, severity: 'error' }));
                         });
-                }),
-            [correctPin]
+                })
         );
     };
 
@@ -159,10 +158,6 @@ const Passwords = () => {
         async (newRow) => {
             // Make the HTTP request to save in the backend
             const response = await mutateRow(newRow);
-            console.log('THIS is correctPin', correctPin);
-            correctPin
-                ? setSnackbar({ children: 'Successfully saved', severity: 'success' })
-                : setSnackbar({ children: 'Incorrect decryption pin', severity: 'error' });
             return response;
         },
         [mutateRow, correctPin]

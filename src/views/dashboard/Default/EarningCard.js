@@ -56,7 +56,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const EarningCard = ({ isLoading }) => {
+const EarningCard = ({ isLoading, title, value }) => {
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -79,19 +79,6 @@ const EarningCard = ({ isLoading }) => {
                         <Grid container direction="column">
                             <Grid item>
                                 <Grid container justifyContent="space-between">
-                                    <Grid item>
-                                        {/* <Avatar
-                                            variant="rounded"
-                                            sx={{
-                                                ...theme.typography.commonAvatar,
-                                                ...theme.typography.largeAvatar,
-                                                backgroundColor: theme.palette.secondary[800],
-                                                mt: 1
-                                            }}
-                                        >
-                                            <img src={EarningIcon} alt="Notification" />
-                                        </Avatar> */}
-                                    </Grid>
                                     <Grid item>
                                         <Avatar
                                             variant="rounded"
@@ -144,7 +131,7 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            $500.00
+                                            ${value}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -169,7 +156,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total Earning
+                                    {title}
                                 </Typography>
                             </Grid>
                         </Grid>

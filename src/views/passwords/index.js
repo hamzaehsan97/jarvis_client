@@ -81,6 +81,7 @@ const Passwords = () => {
     const [selectedRows, setSelectedRows] = useState([]);
     const [password, setPassword] = useState('');
     const { secretKey, openSnackBar } = useContext(UserContext);
+    const [passwordSearch, setPasswordSearch] = useState('');
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -92,7 +93,8 @@ const Passwords = () => {
     useEffect(() => {
         async function fetchData() {
             console.log('this is decryption key', decryptionKey);
-            const req = 'https://jarvis-backend-test.herokuapp.com/passwords?key=' + decryptionKey;
+            const passwordSearchReq = passwordSearch ? '&portal=' + passwordSearch : '';
+            const req = 'https://jarvis-backend-test.herokuapp.com/passwords?key=' + decryptionKey + passwordSearchReq;
             axios
                 .get(req, config)
                 .then((result) => {
@@ -113,7 +115,7 @@ const Passwords = () => {
                 });
         }
         fetchData();
-    }, [refresh, decryptionKey]);
+    }, [refresh, decryptionKey, passwordSearch]);
 
     const [snackbar, setSnackbar] = React.useState(null);
     const handleCloseSnackbar = () => setSnackbar(null);
@@ -200,12 +202,16 @@ const Passwords = () => {
         setDecryptionKey(e.target.value);
     };
 
+    const handlePasswordSearchChange = (e) => {
+        setPasswordSearch(e.target.value);
+    };
+
     const handleDataChange = (e) => {
         setPassword(e.target.value);
     };
 
     return (
-        <div style={{ padding: 10 + 'px' }}>
+        <div>
             {secretKey ? (
                 <MainCard title="Passwords">
                     <Grid container spacing={1} styling={{ padding: 20 + 'px' }}>
@@ -217,12 +223,22 @@ const Passwords = () => {
                                 <DeleteIcon />
                             </IconButton>
                         </Grid>
-                        <Grid item xs={8}></Grid>
-                        <Grid item xs={3}>
-                            <TextField id="outlined-basic" label="Decryption Pin" variant="outlined" onChange={handlePinChange} />
+                        <Grid item xs={2} />
+                        <Grid item xs={4}>
+                            <TextField
+                                id="outlined-basic"
+                                label="Search Passwords"
+                                variant="outlined"
+                                onChange={handlePasswordSearchChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={3} />
+                        <Grid item xs={2}>
+                            <TextField id="outlined-basic" label="Decryption Pin" variant="outlined" onChange={handlePinChange} fullWidth />
                         </Grid>
                     </Grid>
-                    <Box sx={{ height: 400, width: '100%', paddingTop: 20 + 'px' }}>
+                    <Box sx={{ height: 800, width: '100%', paddingTop: 20 + 'px' }}>
                         <DataGrid
                             initialState={{
                                 sorting: {
@@ -231,8 +247,8 @@ const Passwords = () => {
                             }}
                             rows={rows}
                             columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
+                            pageSize={20}
+                            rowsPerPageOptions={[20]}
                             checkboxSelection
                             disableSelectionOnClick
                             processRowUpdate={processRowUpdate}

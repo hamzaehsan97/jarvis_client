@@ -1,12 +1,19 @@
 import PropTypes from 'prop-types';
-
+import { useState } from 'react';
+import { useEffect } from 'react';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
-import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
-
+import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import { gridSpacing } from 'store/constant';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import BalanceIcon from '@mui/icons-material/Balance';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
+import axios from 'axios';
 
 // assets
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
@@ -41,8 +48,25 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME DARK CARD ||============================== //
 
-const TotalIncomeDarkCard = ({ isLoading }) => {
+const TotalIncomeDarkCard = ({ isLoading, title, value, prev_val }) => {
     const theme = useTheme();
+    const change = {
+        positive: <ArrowUpwardIcon sx={{ color: '#FC100D' }} />,
+        negative: <ArrowDownwardIcon sx={{ color: '#4BB543' }} />,
+        balance: <BalanceIcon />
+    };
+
+    const change_icon = () => {
+        if (value - prev_val > 0) {
+            return change['positive'];
+        } else if (value - prev_val < 0) {
+            return change['negative'];
+        } else if (value - prev_val == 0) {
+            return change['balance'];
+        } else {
+            return <QuestionMarkIcon />;
+        }
+    };
 
     return (
         <>
@@ -63,7 +87,17 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                                             color: '#fff'
                                         }}
                                     >
-                                        <TableChartOutlinedIcon fontSize="inherit" />
+                                        <Grid container direction="column" alignContent="center">
+                                            <Grid item>
+                                                {/* {value - prev_val > 0 ? (
+                                                    <ArrowUpwardIcon sx={{ color: '#FC100D' }} />
+                                                ) : (
+                                                    <ArrowDownwardIcon sx={{ color: '#4BB543' }} />
+                                                )} */}
+                                                {change_icon()}
+                                            </Grid>
+                                            <Grid item>{/* <Typography variant="subtitle2">{value - prev_val}</Typography> */}</Grid>
+                                        </Grid>
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText
@@ -73,13 +107,19 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                                         mb: 0.45
                                     }}
                                     primary={
-                                        <Typography variant="h4" sx={{ color: '#fff' }}>
-                                            $203k
-                                        </Typography>
+                                        <>
+                                            {value !== null ? (
+                                                <Typography variant="h4" sx={{ color: '#fff' }}>
+                                                    $ {value}
+                                                </Typography>
+                                            ) : (
+                                                <CircularProgress color="inherit" />
+                                            )}
+                                        </>
                                     }
                                     secondary={
                                         <Typography variant="subtitle2" sx={{ color: 'primary.light', mt: 0.25 }}>
-                                            Total Income
+                                            {title}
                                         </Typography>
                                     }
                                 />

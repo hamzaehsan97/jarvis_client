@@ -10,35 +10,45 @@ import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Grid from '@mui/material/Grid';
 import UserContext from 'UserContext';
 const columns = [
-    { field: 'id', headerName: 'ID', width: 30 },
+    { field: 'id', headerName: 'ID', width: 30, hide: true },
     {
         field: 'content',
         headerName: 'Content',
-        width: 600,
+        width: 800,
         editable: true
     },
     {
         field: 'type',
         headerName: 'Type',
         type: 'text',
-        width: 80,
+        width: 120,
+        editable: true
+    },
+    {
+        field: 'date',
+        headerName: 'Creation Date',
+        width: 120,
         editable: true
     },
     {
         field: 'creationTime',
         headerName: 'Time',
         width: 150,
-        editable: true
+        editable: true,
+        hide: true
     },
     {
         field: '_id',
         headerName: 'IDENTITY',
         width: 150,
-        editable: true
+        editable: true,
+        hide: true
     }
 ];
 
@@ -46,6 +56,7 @@ const SamplePage = () => {
     const [refresh, setRefresh] = useState(false);
     const [rows, setRows] = useState([{ id: 0 }]);
     const [selectedRows, setSelectedRows] = useState([]);
+    const [noteSearch, setNoteSearch] = useState('');
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -57,9 +68,12 @@ const SamplePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         async function fetchData() {
+            const noteSearhcReq = noteSearch ? '?content=' + noteSearch : '';
+            // console.log('noteSearch', noteSearhcReq);
             axios
-                .get('https://jarvis-backend-test.herokuapp.com/texties', config)
+                .get('https://jarvis-backend-test.herokuapp.com/texties' + noteSearhcReq, config)
                 .then((result) => {
+                    // console.log('all note', result.data);
                     let collectRows = [];
                     result.data.forEach(function (val, index) {
                         collectRows.push({ id: index, ...val });
@@ -72,7 +86,7 @@ const SamplePage = () => {
                 });
         }
         fetchData();
-    }, [refresh]);
+    }, [refresh, noteSearch]);
 
     const [snackbar, setSnackbar] = React.useState(null);
     const handleCloseSnackbar = () => setSnackbar(null);
@@ -105,7 +119,7 @@ const SamplePage = () => {
     const processRowUpdate = React.useCallback(
         async (newRow) => {
             // Make the HTTP request to save in the backend
-            console.log('in here');
+            // console.log('in here');
             const response = await mutateRow(newRow);
             setSnackbar({ children: 'User successfully saved', severity: 'success' });
             return response;
@@ -143,15 +157,27 @@ const SamplePage = () => {
         console.log(selectedRowsData);
     };
 
+    const handleNoteSearchChange = (e) => {
+        setNoteSearch(e.target.value);
+    };
+
     return (
         <MainCard title="Notes">
-            <IconButton aria-label="add" color="primary" onClick={addNote}>
-                <AddBoxIcon />
-            </IconButton>
-            <IconButton aria-label="add" color="error" onClick={deleteNote}>
-                <DeleteIcon />
-            </IconButton>
-            <Box sx={{ height: 400, width: '100%' }}>
+            <Grid container direction="row" style={{ margin: 10 }}>
+                <Grid item xs={2}>
+                    <IconButton aria-label="add" color="primary" onClick={addNote}>
+                        <AddBoxIcon />
+                    </IconButton>
+                    <IconButton aria-label="add" color="error" onClick={deleteNote}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Grid>
+                <Grid item xs={8}>
+                    <TextField id="outlined-basic" label="Search Notes" variant="outlined" onChange={handleNoteSearchChange} fullWidth />
+                </Grid>
+            </Grid>
+
+            <Box sx={{ height: 600, width: '100%' }}>
                 <DataGrid
                     initialState={{
                         sorting: {
@@ -160,8 +186,8 @@ const SamplePage = () => {
                     }}
                     rows={rows}
                     columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
+                    pageSize={10}
+                    rowsPerPageOptions={[10]}
                     checkboxSelection
                     disableSelectionOnClick
                     processRowUpdate={processRowUpdate}

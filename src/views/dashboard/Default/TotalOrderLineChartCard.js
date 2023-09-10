@@ -17,10 +17,13 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import BalanceIcon from '@mui/icons-material/Balance';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.secondary[800],
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
@@ -63,13 +66,51 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const TotalOrderLineChartCard = ({ isLoading }) => {
+const TotalOrderLineChartCard = ({ isLoading, value, prev_val, dataA, dataB, data }) => {
     const theme = useTheme();
 
     const [timeValue, setTimeValue] = useState(false);
     const handleChangeTime = (event, newValue) => {
         setTimeValue(newValue);
     };
+    const change = {
+        positive: <ArrowUpwardIcon sx={{ color: '#4BB543' }} />,
+        negative: <ArrowDownwardIcon sx={{ color: '#FC100D' }} />,
+        balance: <BalanceIcon />
+    };
+    const change_icon = () => {
+        if (value - prev_val > 0) {
+            if (data.stat_type === 'negative') {
+                return change['negative'];
+            } else {
+                return change['positive'];
+            }
+        } else if (value - prev_val < 0) {
+            if (stat_type === 'negative') {
+                return change['positive'];
+            } else {
+                return change['negative'];
+            }
+        } else if (value - prev_val == 0) {
+            return change['balance'];
+        } else {
+            return <QuestionMarkIcon />;
+        }
+    };
+    // const monthData = () => {
+    //     let assets_data = [];
+    //     data.records.forEach((record) => {
+    //         assets_data.push(record.liabilities.liabilities_balance);
+    //     });
+    //     let months = ChartDataMonth;
+    //     months.series = [
+    //         {
+    //             name: 'Total Cash',
+    //             data: assets_data
+    //         }
+    //     ];
+    //     return months;
+    // };
 
     return (
         <>
@@ -92,7 +133,8 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                 mt: 1
                                             }}
                                         >
-                                            <LocalMallOutlinedIcon fontSize="inherit" />
+                                            {/* <LocalMallOutlinedIcon fontSize="inherit" /> */}
+                                            {change_icon()}
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
@@ -103,7 +145,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                             sx={{ color: 'inherit' }}
                                             onClick={(e) => handleChangeTime(e, true)}
                                         >
-                                            Month
+                                            {data.labelA}
                                         </Button>
                                         <Button
                                             disableElevation
@@ -112,7 +154,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                             sx={{ color: 'inherit' }}
                                             onClick={(e) => handleChangeTime(e, false)}
                                         >
-                                            Year
+                                            {data.labelB}
                                         </Button>
                                     </Grid>
                                 </Grid>
@@ -124,11 +166,11 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                             <Grid item>
                                                 {timeValue ? (
                                                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                        $108
+                                                        ${value}
                                                     </Typography>
                                                 ) : (
                                                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                        $961
+                                                        ${value}
                                                     </Typography>
                                                 )}
                                             </Grid>
@@ -152,13 +194,17 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    {data.title}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {timeValue ? <Chart {...ChartDataMonth} /> : <Chart {...ChartDataYear} />}
+                                        {timeValue ? (
+                                            <Chart {...dataA()} style={{ paddingTop: 20 + 'px' }} />
+                                        ) : (
+                                            <Chart {...dataB()} style={{ paddingTop: 20 + 'px' }} />
+                                        )}
                                     </Grid>
                                 </Grid>
                             </Grid>

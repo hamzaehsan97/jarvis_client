@@ -8,7 +8,8 @@ import MinimalLayout from 'layout/MinimalLayout';
 const AuthLogin3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Login3')));
 const AuthRegister3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
 const PasswordReset = Loadable(lazy(() => import('views/pages/authentication/authentication3/PasswordReset')));
-// const Settings = Loadable(lazy(() => import('views/settings/index')));
+const PrivacyPolicy = Loadable(lazy(() => import('views/pages/PrivacyPolicy')));
+const TermsOfService = Loadable(lazy(() => import('views/pages/TermsOfService')));
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
@@ -16,16 +17,24 @@ const AuthenticationRoutes = {
     element: <MinimalLayout />,
     children: [
         {
-            path: '/pages/login/login3',
+            path: '/login',
             element: <AuthLogin3 />
         },
         {
-            path: '/pages/register/register3',
+            path: '/register',
             element: <AuthRegister3 />
         },
         {
-            path: '/pages/settings/password',
+            path: '/password-reset',
             element: <PasswordReset />
+        },
+        {
+            path: '/privacy-policy',
+            element: <PrivacyPolicy />
+        },
+        {
+            path: '/terms-of-service',
+            element: <TermsOfService />
         }
     ]
 };

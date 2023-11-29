@@ -22,6 +22,7 @@ import Alert from '@mui/material/Alert';
 // ==============================|| APP ||============================== //
 
 const App = () => {
+    const nonAuthRoutes = ['/login', '/register', '/password-reset', '/privacy-policy', '/terms-of-service'];
     const customization = useSelector((state) => state.customization);
     const [user, setUser] = useState(localStorage.getItem('user'));
     const [token, setToken] = useState(localStorage.getItem('token'));
@@ -66,20 +67,19 @@ const App = () => {
         console.log('path', location.pathname);
         // setUser(localStorage.getItem('user'));
         // setToken(localStorage.getItem('token'));
-        if (validateAuth(user, token) && location.pathname === '/pages/login/login3') {
+        if (validateAuth(user, token) && location.pathname === '/login') {
             // console.log('path', Router.pathname());
             console.log('changing route');
             console.log('user', user);
             console.log('token', token);
             console.log('auth is valid');
             navigate('/');
-        } else if (!validateAuth(user, token) && location.pathname !== '/pages/login/login3') {
+        } else if (!validateAuth(user, token) && !nonAuthRoutes.includes(location.pathname)) {
             console.log('changing route');
             console.log('user', user);
             console.log('toke', token);
             console.log('auth is not valid');
-            navigate('/pages/login/login3');
-            // navigate('/pages/login/login3');
+            navigate('/login');
         }
     }, [user, token]);
 

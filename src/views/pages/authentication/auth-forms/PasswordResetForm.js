@@ -110,7 +110,7 @@ const PasswordResetForm = ({ ...others }) => {
                                     setSnackbar({ children: response.data.message, severity: 'success' });
                                     setToken(null);
                                     setUser(null);
-                                    navigate('/pages/login/login3');
+                                    navigate('/login');
                                 });
                             })
                             .catch(function (error) {

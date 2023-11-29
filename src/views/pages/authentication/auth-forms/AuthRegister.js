@@ -137,7 +137,7 @@ const FirebaseRegister = ({ ...others }) => {
                             console.log(response);
                             if (response.status === 200) {
                                 console.log('Register success');
-                                navigate('/pages/login/login3');
+                                navigate('/login');
                             } else {
                                 console.log('register unsuccessful');
                             }

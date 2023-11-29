@@ -61,7 +61,7 @@ const Passwords = (props) => {
     //             setSnackbar({ children: result.data.message, severity: 'success' });
     //             sleep(2500).then(() => {
     //                 setOpenPasswordReset(true);
-    //                 // navigate('/pages/settings/password');
+    //                 // navigate('/password-reset');
     //             });
     //         })
     //         .catch((error) => {

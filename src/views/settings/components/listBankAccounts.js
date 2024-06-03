@@ -55,7 +55,7 @@ const BankAccountsList = () => {
     useEffect(() => {
         async function fetchData() {
             axios
-                .get('https://jarvis-backend-test.herokuapp.com/finance/accounts', config)
+                .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/accounts', config)
                 .then((result) => {
                     // console.log(result);
                     if (loading == true) {
@@ -74,7 +74,7 @@ const BankAccountsList = () => {
     }, [accounts]);
     const deleteAccount = () => {
         axios
-            .get('https://jarvis-backend-test.herokuapp.com/finance/accounts', config)
+            .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/accounts', config)
             .then((result) => {
                 // console.log(result);
                 if (loading == true) {

@@ -71,7 +71,7 @@ const SamplePage = () => {
             const noteSearhcReq = noteSearch ? '?content=' + noteSearch : '';
             // console.log('noteSearch', noteSearhcReq);
             axios
-                .get('https://jarvis-backend-test.herokuapp.com/texties' + noteSearhcReq, config)
+                .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties' + noteSearhcReq, config)
                 .then((result) => {
                     // console.log('all note', result.data);
                     let collectRows = [];
@@ -99,7 +99,7 @@ const SamplePage = () => {
                     const content = user.content;
                     const type = user.type;
                     const req =
-                        'https://jarvis-backend-test.herokuapp.com/texties?content=' + content + '&id=' + identity + '&type=' + type;
+                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?content=' + content + '&id=' + identity + '&type=' + type;
                     axios
                         .patch(req, {}, config)
                         .then((result) => {
@@ -133,7 +133,7 @@ const SamplePage = () => {
 
     const addNote = () => {
         axios
-            .post('https://jarvis-backend-test.herokuapp.com/texties?content=' + '', {}, config)
+            .post('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?content=' + '', {}, config)
             .then((result) => {
                 setSelectedRows([]);
                 setRefresh(!refresh);
@@ -146,7 +146,7 @@ const SamplePage = () => {
         selectedRowsData.forEach(function (val, index) {
             const delete_id = val._id;
             axios
-                .delete('https://jarvis-backend-test.herokuapp.com/texties?id=' + delete_id, config)
+                .delete('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?id=' + delete_id, config)
                 .then((result) => {
                     console.log('result', result);
                     setSelectedRows([]);

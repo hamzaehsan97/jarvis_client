@@ -97,7 +97,7 @@ const PasswordResetForm = ({ ...others }) => {
                     if (values.newPassword === values.confirmPassword) {
                         console.log('user', user);
                         const req =
-                            'https://jarvis-backend-test.herokuapp.com/users/password?email=' +
+                            'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users/password?email=' +
                             user +
                             '&otp=' +
                             values.otpCode +

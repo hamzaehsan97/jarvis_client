@@ -66,7 +66,7 @@ const Settings = () => {
                     setServices(result.data);
                 })
                 .catch((error) => {
-                    console.log('err', error);
+                    // console.log('err', error);
                 });
         }
         fetchData();

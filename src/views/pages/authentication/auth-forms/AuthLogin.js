@@ -80,9 +80,6 @@ const FirebaseLogin = ({ ...others }) => {
                     password: Yup.string().max(255).required('Password is required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    console.log('Log in button pressed');
-                    console.log('user', user);
-                    console.log('token', token);
                     setLoading(true);
                     // Make a request for a user with a given ID
                     axios
@@ -95,12 +92,10 @@ const FirebaseLogin = ({ ...others }) => {
                             setToken(response.data.token);
                         })
                         .catch(function (error) {
-                            console.log('error', error.response.data);
                             setSnackbar({ children: error.response.data.message, severity: 'error' });
                         })
                         .then(function () {
                             setLoading(false);
-                            console.log('executed login function');
                         });
                 }}
             >

@@ -57,7 +57,6 @@ const Passwords = (props) => {
     //     axios
     //         .patch('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users/otp?email=' + user, config)
     //         .then((result) => {
-    //             console.log('result', result);
     //             setSnackbar({ children: result.data.message, severity: 'success' });
     //             sleep(2500).then(() => {
     //                 setOpenPasswordReset(true);
@@ -65,7 +64,6 @@ const Passwords = (props) => {
     //             });
     //         })
     //         .catch((error) => {
-    //             console.log(error);
     //             errorHandle(error);
     //         });
     // };

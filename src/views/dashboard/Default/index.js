@@ -64,7 +64,6 @@ const Dashboard = () => {
                 })
                 .catch((error) => {
                     setLoading(false);
-                    console.log(error);
                     // openSnackBar({ children: error.response.data.message, severity: 'error' });
                 });
         }

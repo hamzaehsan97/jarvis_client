@@ -57,16 +57,13 @@ const BankAccountsList = () => {
             axios
                 .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/accounts', config)
                 .then((result) => {
-                    // console.log(result);
                     if (loading == true) {
-                        console.log(result.data.data);
                         setAccounts(result.data.data);
                         setMessage(result.data.message);
                         setLoading(false);
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
                     // openSnackBar({ children: error.response.data.message, severity: 'error' });
                 });
         }
@@ -76,16 +73,13 @@ const BankAccountsList = () => {
         axios
             .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/accounts', config)
             .then((result) => {
-                // console.log(result);
                 if (loading == true) {
-                    console.log(result.data.data);
                     setAccounts(result.data.data);
                     setMessage(result.data.message);
                     setLoading(false);
                 }
             })
             .catch((error) => {
-                console.log(error);
                 // openSnackBar({ children: error.response.data.message, severity: 'error' });
             });
     };

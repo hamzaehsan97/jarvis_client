@@ -53,7 +53,7 @@ const Profile = () => {
                     setFinance(result.data.finance);
                 })
                 .catch((error) => {
-                    console.log('err', error);
+                    // console.log('err', error);
                 });
         }
         fetchData();
@@ -75,12 +75,10 @@ const Profile = () => {
         axios
             .post(req, {}, config)
             .then((result) => {
-                console.log('RESULT', result);
                 setRefresh(!refresh);
                 return true;
             })
             .catch((error) => {
-                console.log('error', error);
                 return false;
             });
     };

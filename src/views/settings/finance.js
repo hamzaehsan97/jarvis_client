@@ -24,7 +24,8 @@ function Finance(props) {
         async function fetchData() {
             axios
                 .post(
-                    'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/set_access_token?public_token=' + publicToken,
+                    'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/set_access_token?public_token=' +
+                        publicToken,
                     {},
                     backend_config
                 )
@@ -51,7 +52,10 @@ function Finance(props) {
         } else {
             async function fetchData() {
                 axios
-                    .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/create_link_token', backend_config)
+                    .get(
+                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/create_link_token',
+                        backend_config
+                    )
                     .then((result) => {
                         // console.log('Result', result);
                         setToken(result.data.link_token);

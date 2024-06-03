@@ -70,7 +70,8 @@ const Profile = () => {
     }
 
     const updateServices = async (service_name, status) => {
-        const req = 'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/services?service=' + service_name + '&active=' + status;
+        const req =
+            'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/services?service=' + service_name + '&active=' + status;
         axios
             .post(req, {}, config)
             .then((result) => {

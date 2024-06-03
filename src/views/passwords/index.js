@@ -94,7 +94,8 @@ const Passwords = () => {
         async function fetchData() {
             console.log('this is decryption key', decryptionKey);
             const passwordSearchReq = passwordSearch ? '&portal=' + passwordSearch : '';
-            const req = 'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/passwords?key=' + decryptionKey + passwordSearchReq;
+            const req =
+                'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/passwords?key=' + decryptionKey + passwordSearchReq;
             axios
                 .get(req, config)
                 .then((result) => {

@@ -99,7 +99,12 @@ const SamplePage = () => {
                     const content = user.content;
                     const type = user.type;
                     const req =
-                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?content=' + content + '&id=' + identity + '&type=' + type;
+                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?content=' +
+                        content +
+                        '&id=' +
+                        identity +
+                        '&type=' +
+                        type;
                     axios
                         .patch(req, {}, config)
                         .then((result) => {

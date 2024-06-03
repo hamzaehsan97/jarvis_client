@@ -122,7 +122,7 @@ const FirebaseRegister = ({ ...others }) => {
                     });
                     axios
                         .post(
-                            'https://jarvis-backend-test.herokuapp.com/users?email=' +
+                            'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users?email=' +
                                 values.email +
                                 '&password=' +
                                 values.password +

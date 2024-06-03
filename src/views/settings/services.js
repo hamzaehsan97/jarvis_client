@@ -44,7 +44,7 @@ const Profile = () => {
     useEffect(() => {
         // const service_list = userObject.services;
         async function fetchData() {
-            const req = 'https://jarvis-backend-test.herokuapp.com/services';
+            const req = 'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/services';
             axios
                 .get(req, config)
                 .then((result) => {
@@ -70,7 +70,7 @@ const Profile = () => {
     }
 
     const updateServices = async (service_name, status) => {
-        const req = 'https://jarvis-backend-test.herokuapp.com/services?service=' + service_name + '&active=' + status;
+        const req = 'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/services?service=' + service_name + '&active=' + status;
         axios
             .post(req, {}, config)
             .then((result) => {

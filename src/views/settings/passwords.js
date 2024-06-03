@@ -55,7 +55,7 @@ const Passwords = (props) => {
 
     // const sendPasswordEmail = async function () {
     //     axios
-    //         .patch('https://jarvis-backend-test.herokuapp.com/users/otp?email=' + user, config)
+    //         .patch('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users/otp?email=' + user, config)
     //         .then((result) => {
     //             console.log('result', result);
     //             setSnackbar({ children: result.data.message, severity: 'success' });

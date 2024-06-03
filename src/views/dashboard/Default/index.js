@@ -40,7 +40,7 @@ const Dashboard = () => {
     useEffect(() => {
         async function fetchData() {
             axios
-                .get('https://jarvis-backend-test.herokuapp.com/finance/report?item_type=finance_report&token=' + token, {}, config)
+                .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/report?item_type=finance_report&token=' + token, {}, config)
                 .then((result) => {
                     if (result.data.message) {
                         openSnackBar({ children: result.data.message, severity: 'error' });

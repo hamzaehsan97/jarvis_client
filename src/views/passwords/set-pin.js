@@ -35,7 +35,7 @@ const SetPin = () => {
     };
     const setPinRequest = () => {
         axios
-            .post('https://jarvis-backend-test.herokuapp.com/users/secret?secret=' + pin, {}, config)
+            .post('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users/secret?secret=' + pin, {}, config)
             .then((res) => {
                 console.log('set pin res: ', res);
                 setSnackbar({ children: 'Secret saved successfully', severity: 'success' });

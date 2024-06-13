@@ -93,8 +93,7 @@ const Passwords = () => {
     useEffect(() => {
         async function fetchData() {
             const passwordSearchReq = passwordSearch ? '&portal=' + passwordSearch : '';
-            const req =
-                'https://logic-theorist.com/passwords?key=' + decryptionKey + passwordSearchReq;
+            const req = 'https://logic-theorist.com/passwords?key=' + decryptionKey + passwordSearchReq;
             axios
                 .get(req, config)
                 .then((result) => {

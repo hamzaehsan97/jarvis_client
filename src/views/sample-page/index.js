@@ -95,13 +95,7 @@ const SamplePage = () => {
                     const identity = user._id;
                     const content = user.content;
                     const type = user.type;
-                    const req =
-                        'https://logic-theorist.com/texties?content=' +
-                        content +
-                        '&id=' +
-                        identity +
-                        '&type=' +
-                        type;
+                    const req = 'https://logic-theorist.com/texties?content=' + content + '&id=' + identity + '&type=' + type;
                     axios
                         .patch(req, {}, config)
                         .then((result) => {

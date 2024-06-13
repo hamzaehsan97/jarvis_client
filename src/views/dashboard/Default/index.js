@@ -40,12 +40,7 @@ const Dashboard = () => {
     useEffect(() => {
         async function fetchData() {
             axios
-                .get(
-                    'https://logic-theorist.com/finance/report?item_type=finance_report&token=' +
-                        token,
-                    {},
-                    config
-                )
+                .get('https://logic-theorist.com/finance/report?item_type=finance_report&token=' + token, {}, config)
                 .then((result) => {
                     if (result.data.message) {
                         openSnackBar({ children: result.data.message, severity: 'error' });

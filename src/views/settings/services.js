@@ -70,8 +70,7 @@ const Profile = () => {
     }
 
     const updateServices = async (service_name, status) => {
-        const req =
-            'https://logic-theorist.com/services?service=' + service_name + '&active=' + status;
+        const req = 'https://logic-theorist.com/services?service=' + service_name + '&active=' + status;
         axios
             .post(req, {}, config)
             .then((result) => {

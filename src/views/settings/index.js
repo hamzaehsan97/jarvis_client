@@ -59,14 +59,14 @@ const Settings = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         async function fetchData() {
-            const req = 'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/services';
+            const req = 'https://logic-theorist.com/services';
             axios
                 .get(req, config)
                 .then((result) => {
                     setServices(result.data);
                 })
                 .catch((error) => {
-                    console.log('err', error);
+                    // console.log('err', error);
                 });
         }
         fetchData();

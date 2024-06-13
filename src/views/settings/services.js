@@ -44,7 +44,7 @@ const Profile = () => {
     useEffect(() => {
         // const service_list = userObject.services;
         async function fetchData() {
-            const req = 'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/services';
+            const req = 'https://logic-theorist.com/services';
             axios
                 .get(req, config)
                 .then((result) => {
@@ -53,7 +53,7 @@ const Profile = () => {
                     setFinance(result.data.finance);
                 })
                 .catch((error) => {
-                    console.log('err', error);
+                    // console.log('err', error);
                 });
         }
         fetchData();
@@ -70,17 +70,14 @@ const Profile = () => {
     }
 
     const updateServices = async (service_name, status) => {
-        const req =
-            'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/services?service=' + service_name + '&active=' + status;
+        const req = 'https://logic-theorist.com/services?service=' + service_name + '&active=' + status;
         axios
             .post(req, {}, config)
             .then((result) => {
-                console.log('RESULT', result);
                 setRefresh(!refresh);
                 return true;
             })
             .catch((error) => {
-                console.log('error', error);
                 return false;
             });
     };

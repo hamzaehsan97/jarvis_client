@@ -40,12 +40,7 @@ const Dashboard = () => {
     useEffect(() => {
         async function fetchData() {
             axios
-                .get(
-                    'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/report?item_type=finance_report&token=' +
-                        token,
-                    {},
-                    config
-                )
+                .get('https://logic-theorist.com/finance/report?item_type=finance_report&token=' + token, {}, config)
                 .then((result) => {
                     if (result.data.message) {
                         openSnackBar({ children: result.data.message, severity: 'error' });
@@ -64,7 +59,6 @@ const Dashboard = () => {
                 })
                 .catch((error) => {
                     setLoading(false);
-                    console.log(error);
                     // openSnackBar({ children: error.response.data.message, severity: 'error' });
                 });
         }

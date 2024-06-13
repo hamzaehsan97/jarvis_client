@@ -111,18 +111,10 @@ const FirebaseRegister = ({ ...others }) => {
                     lname: Yup.string().max(64).required('last name is required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    console.log('register button pressed');
                     setLoading(true);
-                    console.log('body', {
-                        email: values.email,
-                        password: values.password,
-                        first_name: values.fname,
-                        last_name: values.lname,
-                        phone_number: values.phone_number
-                    });
                     axios
                         .post(
-                            'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users?email=' +
+                            'https://logic-theorist.com/users?email=' +
                                 values.email +
                                 '&password=' +
                                 values.password +
@@ -134,22 +126,17 @@ const FirebaseRegister = ({ ...others }) => {
                                 values.phone_number
                         )
                         .then(function (response) {
-                            console.log(response);
                             if (response.status === 200) {
-                                console.log('Register success');
                                 navigate('/login');
                             } else {
-                                console.log('register unsuccessful');
                             }
                         })
                         .catch(function (error) {
                             // handle error
-                            console.log('error', error);
                             setSnackbar({ children: error.response.data.message, severity: 'error' });
                         })
                         .then(function () {
                             setLoading(false);
-                            console.log('executed register function');
                         });
                 }}
             >

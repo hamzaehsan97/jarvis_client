@@ -35,13 +35,11 @@ const SetPin = () => {
     };
     const setPinRequest = () => {
         axios
-            .post('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users/secret?secret=' + pin, {}, config)
+            .post('https://logic-theorist.com/users/secret?secret=' + pin, {}, config)
             .then((res) => {
-                console.log('set pin res: ', res);
                 setSnackbar({ children: 'Secret saved successfully', severity: 'success' });
             })
             .catch((error) => {
-                console.log(error);
                 setSnackbar({ children: error.message, severity: 'error' });
             });
     };

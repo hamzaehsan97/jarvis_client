@@ -23,19 +23,12 @@ function Finance(props) {
         setLoading(true);
         async function fetchData() {
             axios
-                .post(
-                    'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/set_access_token?public_token=' +
-                        publicToken,
-                    {},
-                    backend_config
-                )
+                .post('https://logic-theorist.com/finance/plaid/set_access_token?public_token=' + publicToken, {}, backend_config)
                 .then((result) => {
                     setLoading(false);
-                    console.log('Set Public Token = ', result);
                     setSnackbar({ children: result.data.message, severity: 'success' });
                 })
                 .catch((error) => {
-                    console.log('THIS IS THE ERROR', error);
                     setSnackbar({ children: result.data.message, severity: 'error' });
                 });
         }
@@ -52,18 +45,13 @@ function Finance(props) {
         } else {
             async function fetchData() {
                 axios
-                    .get(
-                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/create_link_token',
-                        backend_config
-                    )
+                    .get('https://logic-theorist.com/finance/plaid/create_link_token', backend_config)
                     .then((result) => {
-                        // console.log('Result', result);
                         setToken(result.data.link_token);
                         localStorage.setItem('link_token', result.data.link_token);
                     })
                     .catch((error) => {
-                        console.log('error', error);
-                        console.log(error);
+                        // console.log('error', error);
                     });
             }
             fetchData();
@@ -88,7 +76,6 @@ function Finance(props) {
 
     // For OAuth, configure the received redirect URI
     if (window.location.href.includes('?oauth_state_id=')) {
-        // console.log('This is the config', config);
         config.receivedRedirectUri = window.location.href;
         isOauth = true;
     }
@@ -96,13 +83,10 @@ function Finance(props) {
 
     useEffect(() => {
         if (token == null) {
-            console.log('setting token');
             createLinkToken();
         } else {
-            // console.log('THE TOKEN', token);
         }
         if (isOauth && ready) {
-            console.log('OPEN', open);
             open();
         }
     }, [token, isOauth, ready, open]);

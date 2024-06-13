@@ -39,15 +39,9 @@ const App = () => {
     const location = useLocation();
     const validateAuth = (user, token) => {
         if (token !== undefined && token !== null && token !== 'null') {
-            console.log('✅ variable is NOT undefined or null', token);
-            console.log('decode', jwt(token));
-            console.log('user', user);
-            console.log('token', token);
             const decode_token = jwt(token);
             let dateString = String(Date.now()).substring(0, 10);
             let dateNum = Number(dateString);
-            console.log('decode time', decode_token.exp);
-            console.log('curr_time', dateNum);
             if (decode_token.exp < dateNum) {
                 return false;
             } else {
@@ -58,27 +52,13 @@ const App = () => {
                 return true;
             }
         }
-        console.log('user', user);
-        console.log('token', token);
         return false;
     };
 
     useEffect(() => {
-        console.log('path', location.pathname);
-        // setUser(localStorage.getItem('user'));
-        // setToken(localStorage.getItem('token'));
         if (validateAuth(user, token) && location.pathname === '/login') {
-            // console.log('path', Router.pathname());
-            console.log('changing route');
-            console.log('user', user);
-            console.log('token', token);
-            console.log('auth is valid');
             navigate('/');
         } else if (!validateAuth(user, token) && !nonAuthRoutes.includes(location.pathname)) {
-            console.log('changing route');
-            console.log('user', user);
-            console.log('toke', token);
-            console.log('auth is not valid');
             navigate('/login');
         }
     }, [user, token]);

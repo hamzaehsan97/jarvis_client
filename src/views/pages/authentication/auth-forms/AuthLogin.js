@@ -83,7 +83,7 @@ const FirebaseLogin = ({ ...others }) => {
                     setLoading(true);
                     // Make a request for a user with a given ID
                     axios
-                        .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/auth', {
+                        .get('https://logic-theorist.com/auth', {
                             params: { email: values.email, password: values.password }
                         })
                         .then(function (response) {

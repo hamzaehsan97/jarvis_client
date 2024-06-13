@@ -41,7 +41,7 @@ const Dashboard = () => {
         async function fetchData() {
             axios
                 .get(
-                    'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/report?item_type=finance_report&token=' +
+                    'https://logic-theorist.com/finance/report?item_type=finance_report&token=' +
                         token,
                     {},
                     config

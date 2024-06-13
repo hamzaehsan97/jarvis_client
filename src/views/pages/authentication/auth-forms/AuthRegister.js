@@ -114,7 +114,7 @@ const FirebaseRegister = ({ ...others }) => {
                     setLoading(true);
                     axios
                         .post(
-                            'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users?email=' +
+                            'https://logic-theorist.com/users?email=' +
                                 values.email +
                                 '&password=' +
                                 values.password +

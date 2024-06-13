@@ -24,7 +24,7 @@ function Finance(props) {
         async function fetchData() {
             axios
                 .post(
-                    'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/set_access_token?public_token=' +
+                    'https://logic-theorist.com/finance/plaid/set_access_token?public_token=' +
                         publicToken,
                     {},
                     backend_config
@@ -51,7 +51,7 @@ function Finance(props) {
             async function fetchData() {
                 axios
                     .get(
-                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/finance/plaid/create_link_token',
+                        'https://logic-theorist.com/finance/plaid/create_link_token',
                         backend_config
                     )
                     .then((result) => {

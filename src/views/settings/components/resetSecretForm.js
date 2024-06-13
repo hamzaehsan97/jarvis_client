@@ -91,7 +91,7 @@ const ResetSecretForm = ({ ...others }) => {
                     // Make a request for a user with a given ID
                     if (values.newSecret === values.confirmSecret) {
                         const req =
-                            'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/users/password?email=' +
+                            'https://logic-theorist.com/users/password?email=' +
                             user +
                             '&otp=' +
                             values.otpCode +

@@ -24,5 +24,5 @@
 [production](https://jarvis-production.netlify.app)
 
 #### Back-end
-[staging](http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/) &rarr; 
-[production](https://jarvis-backend-production.herokuapp.com/)
+[staging](https://logic-theorist.com/) &rarr; 
+[production](https://logic-theorist.com/)

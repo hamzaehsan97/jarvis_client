@@ -70,7 +70,7 @@ const SamplePage = () => {
         async function fetchData() {
             const noteSearhcReq = noteSearch ? '?content=' + noteSearch : '';
             axios
-                .get('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties' + noteSearhcReq, config)
+                .get('https://logic-theorist.com/texties' + noteSearhcReq, config)
                 .then((result) => {
                     let collectRows = [];
                     result.data.forEach(function (val, index) {
@@ -96,7 +96,7 @@ const SamplePage = () => {
                     const content = user.content;
                     const type = user.type;
                     const req =
-                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?content=' +
+                        'https://logic-theorist.com/texties?content=' +
                         content +
                         '&id=' +
                         identity +
@@ -133,7 +133,7 @@ const SamplePage = () => {
 
     const addNote = () => {
         axios
-            .post('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?content=' + '', {}, config)
+            .post('https://logic-theorist.com/texties?content=' + '', {}, config)
             .then((result) => {
                 setSelectedRows([]);
                 setRefresh(!refresh);
@@ -146,7 +146,7 @@ const SamplePage = () => {
         selectedRowsData.forEach(function (val, index) {
             const delete_id = val._id;
             axios
-                .delete('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/texties?id=' + delete_id, config)
+                .delete('https://logic-theorist.com/texties?id=' + delete_id, config)
                 .then((result) => {
                     setSelectedRows([]);
                     setRefresh(!refresh);

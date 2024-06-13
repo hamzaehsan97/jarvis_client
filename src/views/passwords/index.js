@@ -94,7 +94,7 @@ const Passwords = () => {
         async function fetchData() {
             const passwordSearchReq = passwordSearch ? '&portal=' + passwordSearch : '';
             const req =
-                'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/passwords?key=' + decryptionKey + passwordSearchReq;
+                'https://logic-theorist.com/passwords?key=' + decryptionKey + passwordSearchReq;
             axios
                 .get(req, config)
                 .then((result) => {
@@ -128,7 +128,7 @@ const Passwords = () => {
                     const username = user.username;
                     const portal = user.portal;
                     const req =
-                        'http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/passwords?content=' +
+                        'https://logic-theorist.com/passwords?content=' +
                         content +
                         '&id=' +
                         identity +
@@ -168,7 +168,7 @@ const Passwords = () => {
 
     const addNote = () => {
         axios
-            .post('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/passwords?content=' + '', {}, config)
+            .post('https://logic-theorist.com/passwords?content=' + '', {}, config)
             .then((result) => {
                 setRefresh(!refresh);
             })
@@ -180,7 +180,7 @@ const Passwords = () => {
         selectedRowsData.forEach(function (val, index) {
             const delete_id = val._id;
             axios
-                .delete('http://jarvisloadbalancer-800577279.us-west-2.elb.amazonaws.com:8080/passwords?id=' + delete_id, config)
+                .delete('https://logic-theorist.com/passwords?id=' + delete_id, config)
                 .then((result) => {
                     openSnackBar({ children: 'Password deletion successful', severity: 'success' });
                     setSelectedRows([]);

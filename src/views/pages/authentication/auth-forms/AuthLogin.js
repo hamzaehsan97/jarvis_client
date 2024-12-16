@@ -83,8 +83,9 @@ const FirebaseLogin = ({ ...others }) => {
                     setLoading(true);
                     // Make a request for a user with a given ID
                     axios
-                        .get('https://logic-theorist.com/auth', {
-                            params: { email: values.email, password: values.password }
+                        .post('https://logic-theorist.com/auth', {
+                            email: values.email,
+                            password: values.password
                         })
                         .then(function (response) {
                             localStorage.setItem('token', response.data.token);

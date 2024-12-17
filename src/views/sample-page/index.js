@@ -70,7 +70,7 @@ const SamplePage = () => {
         async function fetchData() {
             const noteSearhcReq = noteSearch ? '?content=' + noteSearch : '';
             axios
-                .get('https://logic-theorist.com/shared/texties' + noteSearhcReq, config)
+                .get('https://logic-theorist.com/texties' + noteSearhcReq, config)
                 .then((result) => {
                     let collectRows = [];
                     result.data.forEach(function (val, index) {

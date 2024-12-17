@@ -44,7 +44,7 @@ const Profile = () => {
     useEffect(() => {
         // const service_list = userObject.services;
         async function fetchData() {
-            const req = 'https://logic-theorist.com/services';
+            const req = 'https://logic-theorist.com/shared/services';
             axios
                 .get(req, config)
                 .then((result) => {
@@ -70,7 +70,7 @@ const Profile = () => {
     }
 
     const updateServices = async (service_name, status) => {
-        const req = 'https://logic-theorist.com/services?service=' + service_name + '&active=' + status;
+        const req = 'https://logic-theorist.com/shared/services?service=' + service_name + '&active=' + status;
         axios
             .post(req, {}, config)
             .then((result) => {

@@ -23,7 +23,7 @@ function Finance(props) {
         setLoading(true);
         async function fetchData() {
             axios
-                .post('https://logic-theorist.com/finance/plaid/set_access_token?public_token=' + publicToken, {}, backend_config)
+                .post('https://logic-theorist.com/shared/finance/plaid/set_access_token?public_token=' + publicToken, {}, backend_config)
                 .then((result) => {
                     setLoading(false);
                     setSnackbar({ children: result.data.message, severity: 'success' });
@@ -45,7 +45,7 @@ function Finance(props) {
         } else {
             async function fetchData() {
                 axios
-                    .get('https://logic-theorist.com/finance/plaid/create_link_token', backend_config)
+                    .get('https://logic-theorist.com/shared/finance/plaid/create_link_token', backend_config)
                     .then((result) => {
                         setToken(result.data.link_token);
                         localStorage.setItem('link_token', result.data.link_token);

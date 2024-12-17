@@ -35,7 +35,7 @@ const SetPin = () => {
     };
     const setPinRequest = () => {
         axios
-            .post('https://logic-theorist.com/users/secret?secret=' + pin, {}, config)
+            .post('https://logic-theorist.com/shared/users/secret?secret=' + pin, {}, config)
             .then((res) => {
                 setSnackbar({ children: 'Secret saved successfully', severity: 'success' });
             })

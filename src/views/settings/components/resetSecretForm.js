@@ -91,7 +91,7 @@ const ResetSecretForm = ({ ...others }) => {
                     // Make a request for a user with a given ID
                     if (values.newSecret === values.confirmSecret) {
                         const req =
-                            'https://logic-theorist.com/users/password?email=' +
+                            'https://logic-theorist.com/shared/users/password?email=' +
                             user +
                             '&otp=' +
                             values.otpCode +

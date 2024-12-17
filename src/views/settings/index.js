@@ -59,7 +59,7 @@ const Settings = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         async function fetchData() {
-            const req = 'https://logic-theorist.com/services';
+            const req = 'https://logic-theorist.com/shared/services';
             axios
                 .get(req, config)
                 .then((result) => {

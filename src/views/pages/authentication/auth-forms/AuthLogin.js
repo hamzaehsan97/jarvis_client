@@ -83,7 +83,7 @@ const FirebaseLogin = ({ ...others }) => {
                     setLoading(true);
                     // Make a request for a user with a given ID
                     axios
-                        .post('https://logic-theorist.com/auth', {
+                        .post('https://logic-theorist.com/shared/auth', {
                             email: values.email,
                             password: values.password
                         })

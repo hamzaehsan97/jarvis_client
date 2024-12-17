@@ -70,7 +70,7 @@ const SamplePage = () => {
         async function fetchData() {
             const noteSearhcReq = noteSearch ? '?content=' + noteSearch : '';
             axios
-                .get('https://logic-theorist.com/texties' + noteSearhcReq, config)
+                .get('https://logic-theorist.com/shared/texties' + noteSearhcReq, config)
                 .then((result) => {
                     let collectRows = [];
                     result.data.forEach(function (val, index) {
@@ -95,7 +95,7 @@ const SamplePage = () => {
                     const identity = user._id;
                     const content = user.content;
                     const type = user.type;
-                    const req = 'https://logic-theorist.com/texties?content=' + content + '&id=' + identity + '&type=' + type;
+                    const req = 'https://logic-theorist.com/shared/texties?content=' + content + '&id=' + identity + '&type=' + type;
                     axios
                         .patch(req, {}, config)
                         .then((result) => {
@@ -127,7 +127,7 @@ const SamplePage = () => {
 
     const addNote = () => {
         axios
-            .post('https://logic-theorist.com/texties?content=' + '', {}, config)
+            .post('https://logic-theorist.com/shared/texties?content=' + '', {}, config)
             .then((result) => {
                 setSelectedRows([]);
                 setRefresh(!refresh);
@@ -140,7 +140,7 @@ const SamplePage = () => {
         selectedRowsData.forEach(function (val, index) {
             const delete_id = val._id;
             axios
-                .delete('https://logic-theorist.com/texties?id=' + delete_id, config)
+                .delete('https://logic-theorist.com/shared/texties?id=' + delete_id, config)
                 .then((result) => {
                     setSelectedRows([]);
                     setRefresh(!refresh);

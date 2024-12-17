@@ -96,7 +96,7 @@ const PasswordResetForm = ({ ...others }) => {
                     // Make a request for a user with a given ID
                     if (values.newPassword === values.confirmPassword) {
                         const req =
-                            'https://logic-theorist.com/users/password?email=' +
+                            'https://logic-theorist.com/shared/users/password?email=' +
                             user +
                             '&otp=' +
                             values.otpCode +

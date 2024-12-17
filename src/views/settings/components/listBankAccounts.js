@@ -55,7 +55,7 @@ const BankAccountsList = () => {
     useEffect(() => {
         async function fetchData() {
             axios
-                .get('https://logic-theorist.com/finance/accounts', config)
+                .get('https://logic-theorist.com/shared/finance/accounts', config)
                 .then((result) => {
                     if (loading == true) {
                         setAccounts(result.data.data);
@@ -71,7 +71,7 @@ const BankAccountsList = () => {
     }, [accounts]);
     const deleteAccount = () => {
         axios
-            .get('https://logic-theorist.com/finance/accounts', config)
+            .get('https://logic-theorist.com/shared/finance/accounts', config)
             .then((result) => {
                 if (loading == true) {
                     setAccounts(result.data.data);

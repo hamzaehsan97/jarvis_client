@@ -114,7 +114,7 @@ const FirebaseRegister = ({ ...others }) => {
                     setLoading(true);
                     axios
                         .post(
-                            'https://logic-theorist.com/users?email=' +
+                            'https://logic-theorist.com/shared/users?email=' +
                                 values.email +
                                 '&password=' +
                                 values.password +

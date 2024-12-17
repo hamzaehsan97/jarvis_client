@@ -61,7 +61,7 @@ const Profile = () => {
 
     const sendPasswordEmail = async function () {
         axios
-            .patch('https://logic-theorist.com/users/otp?email=' + user, config)
+            .patch('https://logic-theorist.com/shared/users/otp?email=' + user, config)
             .then((result) => {
                 setSnackbar({ children: result.data.message, severity: 'success' });
                 sleep(2500).then(() => {

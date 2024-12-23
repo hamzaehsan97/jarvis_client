@@ -9,10 +9,10 @@ import axios from 'axios';
 import Routes from 'routes';
 
 // defaultTheme
-import themes from 'themes';
+import themes from 'configs/themes';
 
 // project imports
-import NavigationScroll from 'layout/NavigationScroll';
+import NavigationScroll from 'ui/layout/NavigationScroll';
 import UserContext from 'UserContext';
 import { useState } from 'react';
 import { useEffect } from 'react';

@@ -7,10 +7,10 @@ import { Provider } from 'react-redux';
 // project imports
 import * as serviceWorker from 'serviceWorker';
 import App from 'App';
-import { store } from 'store';
+import { store } from './configs/store';
 
 // style + assets
-import 'assets/scss/style.scss';
+import 'configs/assets/scss/style.scss';
 import config from './config';
 
 // ==============================|| REACT DOM RENDER  ||============================== //

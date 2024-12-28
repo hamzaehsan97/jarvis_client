@@ -5,6 +5,7 @@ import { lazy } from 'react';
 import MainLayout from '../ui/layout/MainLayout';
 import Loadable from '../ui/components/Loadable';
 
+const Dashboard = Loadable(lazy(() => import('../ui/pages/dashboard')));
 const Notes = Loadable(lazy(() => import('../ui/pages/notes')));
 const Passwords = Loadable(lazy(() => import('../ui/pages/passwords')));
 const Settings = Loadable(lazy(() => import('../ui/pages/settings')));
@@ -20,12 +21,7 @@ const MainRoutes = {
         },
         {
             path: 'dashboard',
-            children: [
-                {
-                    path: 'default',
-                    element: <Notes />
-                }
-            ]
+            element: <Dashboard />
         },
         {
             path: 'notes',

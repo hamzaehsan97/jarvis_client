@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import NavigationScroll from './ui/layout/NavigationScroll';
 import { ThemeRoutes } from './routes';
+
+import Routes from './routes';
 // defaultTheme
 import themes from './configs/themes';
 

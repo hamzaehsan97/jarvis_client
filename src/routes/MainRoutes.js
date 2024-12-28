@@ -1,11 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { lazy } from 'react';
 
 // project imports
 import MainLayout from '../ui/layout/MainLayout';
 import Loadable from '../ui/components/Loadable';
-
-// dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('../ui/pages/dashboard')));
 
 const Notes = Loadable(lazy(() => import('../ui/pages/notes')));
 const Passwords = Loadable(lazy(() => import('../ui/pages/passwords')));

@@ -1,14 +1,13 @@
 // material-ui
 import React from 'react';
 // project imports
-import MainCard from 'ui/components/cards/MainCard';
 import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
-import UserContext from 'UserContext';
+import UserContext from '../../../UserContext';
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';

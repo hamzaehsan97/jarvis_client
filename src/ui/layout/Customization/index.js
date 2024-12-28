@@ -22,10 +22,10 @@ import { IconSettings } from '@tabler/icons';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // project imports
-import SubCard from 'ui/components/cards/SubCard';
-import AnimateButton from 'ui/components/extended/AnimateButton';
-import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from 'configs/store/actions';
-import { gridSpacing } from 'configs/store/constant';
+import SubCard from '../../components/cards/SubCard';
+import AnimateButton from '../../components/extended/AnimateButton';
+import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from '../../../configs/store/actions';
+import { gridSpacing } from '../../../configs/store/constant';
 
 // concat 'px'
 function valueText(value) {

@@ -30,16 +30,10 @@ import {
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
-// project imports
-import MainCard from 'ui/components/cards/MainCard';
-import Transitions from 'ui/components/extended/Transitions';
-import UpgradePlanCard from './UpgradePlanCard';
-// import User1 from 'assets/images/users/user-round.svg';
-
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import { useContext } from 'react';
-import UserContext from 'UserContext';
+import UserContext from '../../../../../UserContext';
 
 // ==============================|| PROFILE MENU ||============================== //
 

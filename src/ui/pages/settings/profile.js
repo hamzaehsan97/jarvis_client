@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 // project imports
-import MainCard from 'ui/components/cards/MainCard';
+import MainCard from '../../components/cards/MainCard';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { useEffect, useState, useContext } from 'react';
@@ -15,11 +15,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import UserContext from 'UserContext';
-import UpdateUser from './components/updateUser';
+import UserContext from '../../../UserContext';
 import { TextField } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import PasswordResetForm from 'ui/pages/pages/authentication/auth-forms/PasswordResetForm';
+import PasswordResetForm from '../pages/authentication/auth-forms/PasswordResetForm';
 
 const Profile = () => {
     const navigate = useNavigate();

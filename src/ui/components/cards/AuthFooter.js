@@ -1,7 +1,7 @@
 // material-ui
 import { Typography, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-import PrivacyPolicy from 'ui/pages/pages/PrivacyPolicy';
+import PrivacyPolicy from '../../pages/pages/PrivacyPolicy';
 
 // ==============================|| FOOTER - AUTHENTICATION 2 & 3 ||============================== //
 

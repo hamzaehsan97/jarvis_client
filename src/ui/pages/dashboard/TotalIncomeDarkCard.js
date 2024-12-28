@@ -5,14 +5,13 @@ import { useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import { gridSpacing } from 'configs/store/constant';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import BalanceIcon from '@mui/icons-material/Balance';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 // project imports
-import MainCard from 'ui/components/cards/MainCard';
-import TotalIncomeCard from 'ui/components/cards/Skeleton/TotalIncomeCard';
+import MainCard from '../../components/cards/MainCard';
+import TotalIncomeCard from '../../components/cards/Skeleton/TotalIncomeCard';
 import axios from 'axios';
 
 // assets

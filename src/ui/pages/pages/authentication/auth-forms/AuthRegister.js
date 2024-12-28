@@ -30,10 +30,10 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project imports
-import useScriptRef from 'configs/hooks/useScriptRef';
+import useScriptRef from '../../../../../configs/hooks/useScriptRef';
 // import Google from 'assets/images/icons/social-google.svg';
-import AnimateButton from 'ui/components/extended/AnimateButton';
-import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import AnimateButton from '../../../../components/extended/AnimateButton';
+import { strengthColor, strengthIndicator } from '../../../../../utils/password-strength';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';

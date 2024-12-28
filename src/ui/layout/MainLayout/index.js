@@ -7,13 +7,13 @@ import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
 
 // project imports
-import Breadcrumbs from 'ui/components/extended/Breadcrumbs';
+import Breadcrumbs from '../../components/extended/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Customization from '../Customization';
-import navigation from 'ui/layout/menu-items';
-import { drawerWidth } from 'configs/store/constant';
-import { SET_MENU } from 'configs/store/actions';
+import navigation from '../../layout/menu-items';
+import { drawerWidth } from '../../../configs/store/constant';
+import { SET_MENU } from '../../../configs/store/actions';
 
 // assets
 import { IconChevronRight } from '@tabler/icons';

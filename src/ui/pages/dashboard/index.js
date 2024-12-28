@@ -12,8 +12,8 @@ import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { gridSpacing } from 'configs/store/constant';
-import UserContext from 'UserContext';
+import { gridSpacing } from '../../../configs/store/constant';
+import UserContext from '../../../UserContext';
 import axios from 'axios';
 import ChartDataMonth from './chart-data/total-order-month-line-chart';
 

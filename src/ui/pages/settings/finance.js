@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
-import UserContext from 'UserContext';
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import MainCard from 'ui/components/cards/MainCard';
+import MainCard from '../../components/cards/MainCard';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import BankAccountsList from './components/listBankAccounts';

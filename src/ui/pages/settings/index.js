@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 // project imports
-import MainCard from 'ui/components/cards/MainCard';
+import MainCard from '../../components/cards/MainCard';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';

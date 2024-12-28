@@ -5,8 +5,8 @@ import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 
 // project imports
-import MainCard from 'ui/components/cards/MainCard';
-import TotalIncomeCard from 'ui/components/cards/Skeleton/TotalIncomeCard';
+import MainCard from '../../components/cards/MainCard';
+import TotalIncomeCard from '../../components/cards/Skeleton/TotalIncomeCard';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import BalanceIcon from '@mui/icons-material/Balance';

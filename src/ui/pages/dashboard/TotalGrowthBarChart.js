@@ -11,9 +11,9 @@ import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
 
 // project imports
-import SkeletonTotalGrowthBarChart from 'ui/components/cards/Skeleton/TotalGrowthBarChart';
-import MainCard from 'ui/components/cards/MainCard';
-import { gridSpacing } from 'configs/store/constant';
+import SkeletonTotalGrowthBarChart from '../../components/cards/Skeleton/TotalGrowthBarChart';
+import MainCard from '../../components/cards/MainCard';
+import { gridSpacing } from '../../../configs/store/constant';
 
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';

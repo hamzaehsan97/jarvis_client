@@ -4,7 +4,7 @@ import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
-import { gridSpacing } from 'configs/store/constant';
+import { gridSpacing } from '../../../../configs/store/constant';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -32,13 +32,11 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project imports
-import useScriptRef from 'configs/hooks/useScriptRef';
-import AnimateButton from 'ui/components/extended/AnimateButton';
+import AnimateButton from '../../../components/extended/AnimateButton';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import UserContext from 'UserContext';
 import { Password } from '@mui/icons-material';
 import { useEffect, useState, useContext } from 'react';
 

@@ -2,15 +2,15 @@ import { createRoot } from 'react-dom/client';
 
 // third party
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
 // project imports
-import * as serviceWorker from 'serviceWorker';
-import App from 'App';
-import { store } from './configs/store';
+import * as serviceWorker from './serviceWorker';
+import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './configs/store'; // Adjust the path
 
 // style + assets
-import 'configs/assets/scss/style.scss';
+import './configs/assets/scss/style.scss';
 import config from './config';
 
 // ==============================|| REACT DOM RENDER  ||============================== //

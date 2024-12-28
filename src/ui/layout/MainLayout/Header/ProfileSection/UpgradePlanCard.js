@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Button, Card, CardContent, Grid, Stack, Typography } from '@mui/material';
 
 // project imports
-import AnimateButton from 'ui/components/extended/AnimateButton';
+import AnimateButton from '../../components/extended/AnimateButton';
 
 // styles
 const CardStyle = styled(Card)(({ theme }) => ({

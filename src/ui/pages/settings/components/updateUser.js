@@ -1,13 +1,12 @@
 import React from 'react';
-import UserContext from 'UserContext';
+import UserContext from '../../../../UserContext';
 import { useContext, useState } from 'react';
-import MainCard from 'ui/components/cards/MainCard';
+import MainCard from '../../../components/cards/MainCard';
 import { TextField, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import PasswordResetForm from 'ui/pages/pages/authentication/auth-forms/PasswordResetForm';
 
 const UpdateUser = () => {
     const { userObject } = useContext(UserContext);

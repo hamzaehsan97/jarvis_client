@@ -2,23 +2,18 @@ import { useSelector } from 'react-redux';
 import jwt from 'jwt-decode';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import UserContext from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-// routing
-import Routes from 'routes';
-
+import NavigationScroll from './ui/layout/NavigationScroll';
+import { ThemeRoutes } from './routes';
 // defaultTheme
-import themes from 'configs/themes';
+import themes from './configs/themes';
 
 // project imports
-import NavigationScroll from 'ui/layout/NavigationScroll';
-import UserContext from 'UserContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import React from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 // ==============================|| APP ||============================== //
 
 const App = () => {

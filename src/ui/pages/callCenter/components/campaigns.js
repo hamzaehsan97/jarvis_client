@@ -33,7 +33,7 @@ const Campaigns = () => {
                 aria-describedby="modal-modal-description"
             >
                 <SubCard title="Create a campaign" darkTitle={true} sx={style}>
-                    {/* <CreateCampaignForm /> */}
+                    <CreateCampaignForm />
                 </SubCard>
             </Modal>
         </SubCard>

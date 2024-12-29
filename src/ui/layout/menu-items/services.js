@@ -15,6 +15,14 @@ const services = {
     type: 'group',
     children: [
         {
+            id: 'call-center',
+            title: 'Call Center',
+            type: 'item',
+            url: '/call-center',
+            icon: icons.IconBrandChrome,
+            breadcrumbs: false
+        },
+        {
             id: 'notes',
             title: 'Notes',
             type: 'item',

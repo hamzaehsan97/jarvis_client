@@ -9,6 +9,8 @@ const Dashboard = Loadable(lazy(() => import('../ui/pages/dashboard')));
 const Notes = Loadable(lazy(() => import('../ui/pages/notes')));
 const Passwords = Loadable(lazy(() => import('../ui/pages/passwords')));
 const Settings = Loadable(lazy(() => import('../ui/pages/settings')));
+const CallCenter = Loadable(lazy(() => import('../ui/pages/callCenter')));
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -26,6 +28,10 @@ const MainRoutes = {
         {
             path: 'notes',
             element: <Notes />
+        },
+        {
+            path: 'call-center',
+            element: <CallCenter />
         },
         {
             path: 'passwords',

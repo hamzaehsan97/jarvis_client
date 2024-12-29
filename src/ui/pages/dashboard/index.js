@@ -1,31 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import ServiceCard from './components/serviceCard';
+import HomeIcon from '@mui/icons-material/Home';
+import { useTheme } from '@mui/material/styles';
+import MainCard from '../../components/cards/MainCard';
+import SubCard from '../../components/cards/SubCard';
+import Grid from '@mui/material/Grid';
+import Services from './components/services';
+import { gridSpacing } from '../../../configs/store/constant';
 
 const Dashboard = () => {
+    const theme = useTheme();
+
     return (
-        <div>
-            <h1>Dashboard</h1>
-            <div>
-                <Link to="/service1">
-                    <div>
-                        <h3>Service 1</h3>
-                        <p>Description of Service 1</p>
-                    </div>
-                </Link>
-                <Link to="/service2">
-                    <div>
-                        <h3>Service 2</h3>
-                        <p>Description of Service 2</p>
-                    </div>
-                </Link>
-                <Link to="/service3">
-                    <div>
-                        <h3>Service 3</h3>
-                        <p>Description of Service 3</p>
-                    </div>
-                </Link>
-            </div>
-        </div>
+        <MainCard title="Dashboard">
+            <Grid container direction={'row'} spacing={gridSpacing}>
+                <Grid item xs={6}>
+                    <Services />
+                </Grid>
+                <Grid item xs={6}>
+                    <Services />
+                </Grid>
+            </Grid>
+        </MainCard>
     );
 };
 

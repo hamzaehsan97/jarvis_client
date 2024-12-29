@@ -3,33 +3,18 @@ import { Typography } from '@mui/material';
 import React from 'react';
 // project imports
 import MainCard from '../../components/cards/MainCard';
-import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import UserContext from '../../../UserContext';
-import UpdateUser from './components/updateUser';
-import { TextField } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import ResetSecretForm from './components/resetSecretForm';
 const Passwords = (props) => {
-    const navigate = useNavigate();
-    const { user, userObject } = useContext(UserContext);
-    const [refresh, setRefresh] = useState(false);
-    const [rows, setRows] = useState([{ id: 0 }]);
-    const [selectedRows, setSelectedRows] = useState([]);
     const [openResetSecret, setOpenResetSecret] = useState(false);
     const handleOpen = () => setOpenResetSecret(true);
     const handleClose = () => setOpenResetSecret(false);
-    const [disableForm, setDisableForm] = useState(true);
     const style = {
         position: 'absolute',
         top: '50%',
@@ -52,20 +37,6 @@ const Passwords = (props) => {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    // const sendPasswordEmail = async function () {
-    //     axios
-    //         .patch('https://logic-theorist.com/shared/users/otp?email=' + user, config)
-    //         .then((result) => {
-    //             setSnackbar({ children: result.data.message, severity: 'success' });
-    //             sleep(2500).then(() => {
-    //                 setOpenPasswordReset(true);
-    //                 // navigate('/password-reset');
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             errorHandle(error);
-    //         });
-    // };
     return (
         <MainCard title="Passwords">
             {props.active === true ? (

@@ -10,7 +10,7 @@ import config from '../../../../config';
 
 const LogoSection = () => (
     <ButtonBase disableRipple component={Link} to={config.defaultPath}>
-        <h1>Jarvis</h1>
+        <h1>Pennyworth</h1>
     </ButtonBase>
 );
 

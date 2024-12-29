@@ -32,12 +32,12 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project imports
-import AnimateButton from '../../../../components/extended/AnimateButton';
+import AnimateButton from '../../../components/extended/AnimateButton';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import UserContext from '../../../../../UserContext';
+import UserContext from '../../../../UserContext';
 import { Password } from '@mui/icons-material';
 
 // import Google from 'assets/images/icons/social-google.svg';

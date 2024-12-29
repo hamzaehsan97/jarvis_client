@@ -6,11 +6,11 @@ import Loadable from '../ui/components/Loadable';
 import { MinimalLayout } from '../ui/layout/MinimalLayout';
 
 // login option 3 routing
-const AuthLogin3 = Loadable(lazy(() => import('../ui/pages/pages/authentication/authentication3/Login3')));
-const AuthRegister3 = Loadable(lazy(() => import('../ui/pages/pages/authentication/authentication3/Register3')));
-const PasswordReset = Loadable(lazy(() => import('../ui/pages/pages/authentication/authentication3/PasswordReset')));
-const PrivacyPolicy = Loadable(lazy(() => import('../ui/pages/pages/PrivacyPolicy')));
-const TermsOfService = Loadable(lazy(() => import('../ui/pages/pages/TermsOfService')));
+const AuthLogin3 = Loadable(lazy(() => import('../ui/pages/authentication/authentication3/Login3')));
+const AuthRegister3 = Loadable(lazy(() => import('../ui/pages/authentication/authentication3/Register3')));
+const PasswordReset = Loadable(lazy(() => import('../ui/pages/authentication/authentication3/PasswordReset')));
+const PrivacyPolicy = Loadable(lazy(() => import('../ui/pages/static-pages/PrivacyPolicy')));
+const TermsOfService = Loadable(lazy(() => import('../ui/pages/static-pages/TermsOfService')));
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {

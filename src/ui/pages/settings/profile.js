@@ -18,7 +18,7 @@ import Button from '@mui/material/Button';
 import UserContext from '../../../UserContext';
 import { TextField } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import PasswordResetForm from '../pages/authentication/auth-forms/PasswordResetForm';
+import PasswordResetForm from '../authentication/auth-forms/PasswordResetForm';
 
 const Profile = () => {
     const navigate = useNavigate();

@@ -28,13 +28,13 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project imports
-import useScriptRef from '../../../../../configs/hooks/useScriptRef';
-import AnimateButton from '../../../../components/extended/AnimateButton';
+import useScriptRef from '../../../../configs/hooks/useScriptRef';
+import AnimateButton from '../../../components/extended/AnimateButton';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import UserContext from '../../../../../UserContext';
+import UserContext from '../../../../UserContext';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 

@@ -1,48 +1,40 @@
 export const schema = {
     type: 'object',
     properties: {
-        name: {
+        campaignName: {
             type: 'string',
             minLength: 3,
             description: 'Please enter your name'
         },
-        vegetarian: {
-            type: 'boolean'
+        campaignType: {
+            type: 'string',
+            enum: ['Inbound', 'Outbound']
         },
-        birthDate: {
+        campaignStartDate: {
             type: 'string',
             format: 'date'
         },
-        nationality: {
+        campaignEndDate: {
             type: 'string',
-            enum: ['DE', 'IT', 'JP', 'US', 'RU', 'Other']
+            format: 'date'
         },
-        personalData: {
-            type: 'object',
-            properties: {
-                age: {
-                    type: 'integer',
-                    description: 'Please enter your age.'
-                },
-                height: {
-                    type: 'number'
-                },
-                drivingSkill: {
-                    type: 'number',
-                    maximum: 10,
-                    minimum: 1,
-                    default: 7
-                }
-            },
-            required: ['age', 'height']
-        },
-        occupation: {
-            type: 'string'
-        },
-        postalCode: {
+        campaignStatus: {
             type: 'string',
+            enum: ['Draft', 'Active', 'Inactive']
+        },
+        campaignRegion: {
+            type: 'string',
+            // AWS regions for AWS connect
+            enum: ['us-east-1', 'us-west-2', 'eu-west-1', 'ap-southeast-1', 'ap-northeast-1', 'Other']
+        },
+        campaignCountry: {
+            type: 'string',
+            enum: ['USA']
+        },
+        campaignZipCode: {
+            type: 'number',
             maxLength: 5
         }
     },
-    required: ['occupation', 'nationality']
+    required: ['campaignName', 'campaignType']
 };

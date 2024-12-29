@@ -6,38 +6,75 @@ export const uiSchema = {
             elements: [
                 {
                     type: 'Control',
-                    scope: '#/properties/name'
+                    scope: '#/properties/campaignName',
+                    options: {
+                        className: 'form-control-margin'
+                    }
                 },
                 {
                     type: 'Control',
-                    scope: '#/properties/personalData/properties/age'
-                },
-                {
-                    type: 'Control',
-                    scope: '#/properties/birthDate'
+                    scope: '#/properties/campaignType',
+                    options: {
+                        className: 'form-control-margin'
+                    }
                 }
             ]
-        },
-        {
-            type: 'Label',
-            text: 'Additional Information'
         },
         {
             type: 'HorizontalLayout',
             elements: [
                 {
                     type: 'Control',
-                    scope: '#/properties/personalData/properties/height'
-                },
-                {
-                    type: 'Control',
-                    scope: '#/properties/nationality'
-                },
-                {
-                    type: 'Control',
-                    scope: '#/properties/occupation',
+                    scope: '#/properties/campaignStartDate',
                     options: {
-                        suggestion: ['Accountant', 'Engineer', 'Freelancer', 'Journalism', 'Physician', 'Student', 'Teacher', 'Other']
+                        className: 'form-control-margin'
+                    }
+                },
+                {
+                    type: 'Control',
+                    scope: '#/properties/campaignEndDate',
+                    options: {
+                        className: 'form-control-margin'
+                    }
+                }
+            ]
+        },
+        {
+            type: 'HorizontalLayout',
+            elements: [
+                {
+                    type: 'Control',
+                    scope: '#/properties/campaignStatus',
+                    options: {
+                        className: 'form-control-margin'
+                    }
+                },
+                {
+                    type: 'Control',
+                    scope: '#/properties/campaignRegion',
+                    options: {
+                        suggestion: ['Accountant', 'Engineer', 'Freelancer', 'Journalism', 'Physician', 'Student', 'Teacher', 'Other'],
+                        className: 'form-control-margin'
+                    }
+                }
+            ]
+        },
+        {
+            type: 'HorizontalLayout',
+            elements: [
+                {
+                    type: 'Control',
+                    scope: '#/properties/campaignCountry',
+                    options: {
+                        suggestion: ['Accountant', 'Engineer', 'Freelancer', 'Journalism', 'Physician', 'Student', 'Teacher', 'Other'],
+                        className: 'form-control-margin'
+                    }
+                },
+                {
+                    type: 'Control',
+                    scope: '#/properties/campaignZipCode',
+                    options: {
+                        className: 'form-control-margin'
                     }
                 }
             ]

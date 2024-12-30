@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import CreateCampaignForm from './createCampaignForm';
+import ListCampaigns from './listCampaigns';
 
 const Campaigns = () => {
     const [createCampaign, setCreateCampaign] = useState(false);
@@ -22,10 +23,11 @@ const Campaigns = () => {
         p: 10
     };
     return (
-        <SubCard title="Campaigns" darkTitle={true}>
+        <div>
             <Button variant="text" onClick={handleOpen}>
                 Create a campaign
             </Button>
+            <ListCampaigns />
             <Modal
                 open={createCampaign}
                 aria-labelledby="modal-modal-title"
@@ -36,7 +38,7 @@ const Campaigns = () => {
                     <CreateCampaignForm />
                 </SubCard>
             </Modal>
-        </SubCard>
+        </div>
     );
 };
 

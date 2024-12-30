@@ -8,7 +8,7 @@ export const schema = {
         },
         campaignType: {
             type: 'string',
-            enum: ['Inbound', 'Outbound']
+            enum: ['VOICE', 'CHAT', 'EMAIL']
         },
         campaignStartDate: {
             type: 'string',

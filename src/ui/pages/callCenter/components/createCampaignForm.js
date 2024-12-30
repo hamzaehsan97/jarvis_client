@@ -6,41 +6,38 @@ import { uiSchema } from '../schema/ui-schema/createCampaign'; // Import your UI
 import Button from '@mui/material/Button';
 import axios from 'axios';
 
+const defaultInstanceID = '82434149-1844-49cc-af6e-4f40b54df820';
 const CreateCampaignForm = () => {
     const initialData = {
-        campaignName: 'Your Campaign Name',
+        campaignName: '',
         campaignType: 'Inbound',
-        campaignStartDate: '2024-08-01',
-        campaignEndDate: '2024-08-01',
+        campaignStartDate: '',
+        campaignEndDate: '',
         campaignStatus: 'Draft',
-        campaignRegion: 'us-east-1',
+        campaignRegion: 'us-west-2',
         campaignCountry: 'USA',
-        campaignZipCode: 98144
+        instanceID: defaultInstanceID
     };
     const [data, setData] = useState(initialData);
+    const [result, setResults] = useState('');
+
     const token = localStorage.getItem('token');
 
     const CreateCampaign = async (data) => {
-        try {
-            console.log('Data:', data);
-            await axios
-                .put('https://logic-theorist.com/amazon-connect/campaigns', data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        token: token
-                    }
-                })
-                .then((result) => {
-                    console.log('Result:', result);
-                })
-                .catch((error) => {
-                    console.error('Error updating campaign:', error.response ? error.response.data : error.message);
-                });
-
-            console.log('Response:', response.data); // Handle the response data
-        } catch (error) {
-            console.error('Error updating campaign:', error.response ? error.response.data : error.message);
-        }
+        data.instanceID = defaultInstanceID;
+        await axios
+            .put('https://logic-theorist.com/amazon-connect/campaigns', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    token: token
+                }
+            })
+            .then((result) => {
+                window.location.reload();
+            })
+            .catch((error) => {
+                setResults(error.response.data);
+            });
     };
 
     return (
@@ -56,6 +53,7 @@ const CreateCampaignForm = () => {
             <Button onClick={() => CreateCampaign(data)} color="primary">
                 Create Campaign
             </Button>
+            <div>{result}</div>
         </div>
     );
 };

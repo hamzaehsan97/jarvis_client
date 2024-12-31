@@ -10,7 +10,7 @@ const Services = () => {
                 <Grid item xs={6}>
                     <Grid container direction="column">
                         <Grid item>
-                            <ServiceCard name="Call Center" serviceUrl="/call-center" />
+                            <ServiceCard name="Call Centers" serviceUrl="/call-centers" />
                         </Grid>
                         <Grid item>
                             <ServiceCard name="Notes" serviceUrl="/notes" />

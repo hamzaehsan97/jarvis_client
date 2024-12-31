@@ -51,7 +51,7 @@ const CreateCampaignForm = () => {
                 onSubmit={({ data, _errors }) => CreateCampaign(data)}
             />
             <Button onClick={() => CreateCampaign(data)} color="primary">
-                Create Campaign
+                Create a Call Center
             </Button>
             <div>{result}</div>
         </div>

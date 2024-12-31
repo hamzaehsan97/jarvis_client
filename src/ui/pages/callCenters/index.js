@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import MainCard from '../../components/cards/MainCard';
-import Campaigns from './components/campaigns';
+import Campaigns from './campaigns';
 
-const CallCenter = () => {
+const CallCenters = () => {
     return (
         <MainCard title="Call Centers">
             <Campaigns />
@@ -10,4 +10,4 @@ const CallCenter = () => {
     );
 };
 
-export default CallCenter;
+export default CallCenters;

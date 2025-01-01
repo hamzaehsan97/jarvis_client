@@ -7,6 +7,9 @@ import axios from 'axios';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import ListFlows from './components/listFlows';
+import SubCard from '../../components/cards/SubCard';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 const CallCenter = () => {
     const location = useLocation();
@@ -24,17 +27,6 @@ const CallCenter = () => {
     const handleClose = () => setCreateCampaign(false);
 
     const token = localStorage.getItem('token');
-
-    const handleDeleteFlow = async (flowId) => {
-        axios
-            .delete(`https://logic-theorist.com/amazon-connect/connect/flows?token=${token}&flowID=${flowId}`)
-            .then(() => {
-                setUpdatePage(true);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    };
 
     useEffect(() => {
         const id = pathname.split('/')[2];
@@ -156,7 +148,24 @@ const CallCenter = () => {
                 </Box>
             )}
             <Divider sx={{ mt: 2, mb: 2 }} />
-            <ListFlows />
+            <SubCard title="Contact Flows">
+                <Button variant="contained">
+                    <Typography
+                        to={'/call-centers/' + callCenterId + '/create'}
+                        sx={{
+                            color: 'white',
+                            textDecoration: 'none', // Removes the underline
+                            '&:hover': {
+                                textDecoration: 'none' // Keeps underline removed on hover
+                            }
+                        }}
+                        component={Link}
+                    >
+                        Create Contact Flow
+                    </Typography>
+                </Button>
+                <ListFlows />
+            </SubCard>
         </MainCard>
     );
 };

@@ -50,7 +50,7 @@ const CreateCampaignForm = () => {
                 onChange={({ data, _errors }) => setData(data)}
                 onSubmit={({ data, _errors }) => CreateCampaign(data)}
             />
-            <Button onClick={() => CreateCampaign(data)} color="primary">
+            <Button onClick={() => CreateCampaign(data)} color="primary" variant="contained">
                 Create a Call Center
             </Button>
             <div>{result}</div>

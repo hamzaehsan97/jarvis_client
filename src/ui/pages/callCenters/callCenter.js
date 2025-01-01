@@ -10,6 +10,8 @@ import MainCard from '../../components/cards/MainCard';
 import axios from 'axios';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
+import { ListItemSecondaryAction, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const CallCenter = () => {
     const location = useLocation();
@@ -21,11 +23,23 @@ const CallCenter = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [flows, setFlows] = useState(null);
+    const [updatePage, setUpdatePage] = useState(false);
 
     const handleOpen = () => setCreateCampaign(true);
     const handleClose = () => setCreateCampaign(false);
 
     const token = localStorage.getItem('token');
+
+    const handleDeleteFlow = async (flowId) => {
+        axios
+            .delete(`https://logic-theorist.com/amazon-connect/connect/flows?token=${token}&flowID=${flowId}`)
+            .then(() => {
+                setUpdatePage(true);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
     useEffect(() => {
         const id = pathname.split('/')[2];
@@ -63,7 +77,7 @@ const CallCenter = () => {
             }
         };
         fetchFlows();
-    });
+    }, [updatePage, token]);
 
     return (
         <MainCard title={loading || error ? 'Loading...' : callCenter?.campaignName?.S || 'Call Center Details'}>
@@ -152,16 +166,24 @@ const CallCenter = () => {
                     <Grid container spacing={2}>
                         {flows &&
                             flows.map((flow) => (
-                                <Grid item xs={12} key={flow.flowID.S}>
-                                    <Typography variant="body1" fontWeight="bold">
-                                        {flow.flowName.S}
-                                    </Typography>
-                                    <Typography variant="body2">Flow Description: {flow.flowDescription?.S || 'NA'}</Typography>
-                                    <Typography variant="body2">Date Created: {flow.dateCreated.S}</Typography>
-                                    <Typography variant="body2">Flow Type: {flow.flowType.S}</Typography>
-                                    <Typography variant="subtitle2">Last Updated: {flow.dateUpdated.S}</Typography>
-                                    <Typography variant="body2">ID: {flow.flowID.S}</Typography>
-                                </Grid>
+                                <>
+                                    <Grid item xs={10} key={flow.flowID.S}>
+                                        <Typography variant="body1">Flow Name: {flow.flowName.S}</Typography>
+                                        <Typography variant="body2">Flow Description: {flow.flowDescription?.S || 'NA'}</Typography>
+                                        <Typography variant="body2">Date Created: {flow.dateCreated.S}</Typography>
+                                        <Typography variant="body2">Flow Type: {flow.flowType.S}</Typography>
+                                        <Typography variant="subtitle2">Last Updated: {flow.dateUpdated.S}</Typography>
+                                        <Typography variant="body2">ID: {flow.flowID.S}</Typography>
+                                        <IconButton
+                                            edge="end"
+                                            aria-label="delete"
+                                            onClick={() => handleDeleteFlow(flow.flowID.S)}
+                                            color="error"
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Grid>
+                                </>
                             ))}
                     </Grid>
                 </Box>

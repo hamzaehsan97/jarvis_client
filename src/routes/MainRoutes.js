@@ -19,7 +19,7 @@ const MainRoutes = {
     children: [
         {
             path: '/',
-            element: <Notes />
+            element: <Dashboard />
         },
         {
             path: 'dashboard',

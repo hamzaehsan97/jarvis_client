@@ -82,8 +82,8 @@ const ListFlows = (props) => {
                 {flows &&
                     flows.map((flow) => (
                         <ListItem key={flow.flowID.S} divider>
-                            <Grid container alignItems="center">
-                                <Grid item xs={9}>
+                            <Grid container direction="row" alignItems="center">
+                                <Grid item xs={7}>
                                     <ListItemText
                                         primary={
                                             <Link to={'flows/' + flow.flowID.S} underline="hover">
@@ -111,7 +111,35 @@ const ListFlows = (props) => {
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={3}>
+                                <Grid item xs={4}>
+                                    <Grid container direction="row" justifyContent="center">
+                                        <Grid item>
+                                            {flow.phoneNumber ? (
+                                                <Typography
+                                                    variant="body2"
+                                                    color="textSecondary"
+                                                    style={{
+                                                        textAlign: 'center',
+                                                        display: 'flex',
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <strong>Phone Number:&nbsp;</strong> {flow.phoneNumber.S}
+                                                </Typography>
+                                            ) : (
+                                                <Button
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    onClick={() => handleAttachPhoneNumber(flow.flowID.S, flow.flowName.S)}
+                                                >
+                                                    Attach Phone Number
+                                                </Button>
+                                            )}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={1}>
                                     <ListItemSecondaryAction>
                                         <IconButton
                                             edge="end"
@@ -131,19 +159,6 @@ const ListFlows = (props) => {
                                         >
                                             <DeleteIcon />
                                         </IconButton>
-                                        {flow.phoneNumber ? (
-                                            <Typography variant="body2" color="textSecondary">
-                                                <strong>Phone Number:</strong> {flow.phoneNumber.S}
-                                            </Typography>
-                                        ) : (
-                                            <Button
-                                                variant="outlined"
-                                                color="primary"
-                                                onClick={() => handleAttachPhoneNumber(flow.flowID.S, flow.flowName.S)}
-                                            >
-                                                Attach Phone Number
-                                            </Button>
-                                        )}
                                     </ListItemSecondaryAction>
                                 </Grid>
                             </Grid>

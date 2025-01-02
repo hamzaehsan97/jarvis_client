@@ -40,7 +40,6 @@ const CallCenter = (props) => {
                     signal: controller.signal
                 });
                 setCallCenter(response.data.Item);
-                console.log(response.data.Item);
             } catch (err) {
                 if (err.name !== 'CanceledError') {
                     setError('Failed to fetch call center details.');

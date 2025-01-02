@@ -17,20 +17,41 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import Modal from '@mui/material/Modal';
+import AttachPhoneNumberForm from './attachPhoneNumberForm';
 
-const ListFlows = () => {
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 3
+};
+
+const ListFlows = (props) => {
     const location = useLocation();
     const { pathname } = location;
 
-    const [createCampaign, setCreateCampaign] = useState(false);
+    const [attachPhoneNumber, setAttachPhoneNumber] = useState(false);
     const [error, setError] = useState(null);
     const [flows, setFlows] = useState(null);
     const [updatePage, setUpdatePage] = useState(false);
-
-    const handleOpen = () => setCreateCampaign(true);
-    const handleClose = () => setCreateCampaign(false);
+    const [phoneNumberFlowID, setPhoneNumberFlowID] = useState(null);
+    const [phoneNumberFlowName, setPhoneNumberFlowName] = useState(null);
+    const handleOpen = () => setAttachPhoneNumber(true);
+    const handleClose = () => setAttachPhoneNumber(false);
 
     const token = localStorage.getItem('token');
+
+    const handleAttachPhoneNumber = async (flowId, flowName) => {
+        handleOpen();
+        setPhoneNumberFlowID(flowId);
+        setPhoneNumberFlowName(flowName);
+    };
 
     const handleDeleteFlow = async (flowId) => {
         axios
@@ -110,15 +131,37 @@ const ListFlows = () => {
                                         >
                                             <DeleteIcon />
                                         </IconButton>
-                                        <Button variant="outlined" color="primary" onClick={() => handleAttachPhoneNumber(flow.flowID.S)}>
-                                            Attach Phone Number
-                                        </Button>
+                                        {flow.phoneNumber ? (
+                                            <Typography variant="body2" color="textSecondary">
+                                                <strong>Phone Number:</strong> {flow.phoneNumber.S}
+                                            </Typography>
+                                        ) : (
+                                            <Button
+                                                variant="outlined"
+                                                color="primary"
+                                                onClick={() => handleAttachPhoneNumber(flow.flowID.S, flow.flowName.S)}
+                                            >
+                                                Attach Phone Number
+                                            </Button>
+                                        )}
                                     </ListItemSecondaryAction>
                                 </Grid>
                             </Grid>
                         </ListItem>
                     ))}
             </List>
+            <Modal
+                open={attachPhoneNumber}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={modalStyle}>
+                    <SubCard title="Attach Phone Number" darkTitle={true}>
+                        <AttachPhoneNumberForm flowID={phoneNumberFlowID} flowName={phoneNumberFlowName} />
+                    </SubCard>
+                </Box>
+            </Modal>
         </Box>
     );
 };

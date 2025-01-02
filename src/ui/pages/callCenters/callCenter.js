@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import { Typography, CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
@@ -10,8 +10,9 @@ import ListFlows from './components/listFlows';
 import SubCard from '../../components/cards/SubCard';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import { CallCenterContext, useCallCenterContext } from '../../../configs/context/callCenterContext';
 
-const CallCenter = () => {
+const CallCenter = (props) => {
     const location = useLocation();
     const { pathname } = location;
 
@@ -39,6 +40,7 @@ const CallCenter = () => {
                     signal: controller.signal
                 });
                 setCallCenter(response.data.Item);
+                console.log(response.data.Item);
             } catch (err) {
                 if (err.name !== 'CanceledError') {
                     setError('Failed to fetch call center details.');

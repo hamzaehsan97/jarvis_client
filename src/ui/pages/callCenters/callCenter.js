@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Typography, CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
@@ -10,10 +10,8 @@ import ListFlows from './components/listFlows';
 import SubCard from '../../components/cards/SubCard';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { CallCenterContext, useCallCenterContext } from '../../../configs/context/callCenterContext';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import IconButton from '@mui/material/IconButton';
 import HoursOfOperation from './components/hoursOfOperation';
+import { height } from '@mui/system';
 
 const CallCenter = (props) => {
     const location = useLocation();
@@ -191,7 +189,12 @@ const CallCenter = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <SubCard title="Hours of Operation">
-                        <HoursOfOperation />
+                        {callCenter && (
+                            <HoursOfOperation
+                                instanceID={callCenter.connectInstanceID?.S}
+                                hoursOfOperationId={callCenter.campaignHrsOfOperation?.S}
+                            />
+                        )}
                     </SubCard>
                 </Grid>
             </Grid>

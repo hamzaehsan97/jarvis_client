@@ -77,7 +77,7 @@ const ListFlows = (props) => {
     }, [updatePage, token]);
 
     return (
-        <Box>
+        <>
             <List>
                 {flows &&
                     flows.map((flow) => (
@@ -167,7 +167,7 @@ const ListFlows = (props) => {
                     </SubCard>
                 </Box>
             </Modal>
-        </Box>
+        </>
     );
 };
 

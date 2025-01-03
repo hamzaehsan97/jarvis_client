@@ -12,7 +12,9 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import HoursOfOperation from './components/hoursOfOperation';
 import { height } from '@mui/system';
-
+import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import TtyIcon from '@mui/icons-material/Tty';
 const CallCenter = (props) => {
     const location = useLocation();
     const { pathname } = location;
@@ -91,9 +93,39 @@ const CallCenter = (props) => {
                             }}
                             component={Link}
                         >
-                            Create Contact Flow
+                            Create Workflows
                         </Typography>
                     </Button>
+                </Grid>
+            </Grid>
+        );
+    };
+
+    const ContactFlowTitle = () => {
+        return (
+            <Grid container direction={'row'} spacing={1} alignItems={'center'}>
+                <Grid item>
+                    <TtyIcon />
+                </Grid>
+                <Grid item>
+                    <Typography variant="h4" fontWeight="bold">
+                        Communication Workflows
+                    </Typography>
+                </Grid>
+            </Grid>
+        );
+    };
+
+    const HoursOfOperationTitle = () => {
+        return (
+            <Grid container direction={'row'} spacing={1} alignItems={'center'}>
+                <Grid item>
+                    <QueryBuilderIcon />
+                </Grid>
+                <Grid item>
+                    <Typography variant="h4" fontWeight="bold">
+                        Hours of Operation
+                    </Typography>
                 </Grid>
             </Grid>
         );
@@ -133,62 +165,22 @@ const CallCenter = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Typography variant="body1" fontWeight="bold">
-                                Region:
-                            </Typography>
-                            <Typography variant="body2">{callCenter?.campaignRegion?.S || 'No region available.'}</Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Last Updated:
-                            </Typography>
-                            <Typography variant="body2">{callCenter?.dateUpdated?.S || 'No last update date available.'}</Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
                                 Country:
                             </Typography>
                             <Typography variant="body2">{callCenter?.campaignCountry?.S || 'No country available.'}</Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Hours of Operation:
-                            </Typography>
-                            <Typography variant="body2">
-                                {callCenter?.campaignHrsOfOperation?.S || 'No hours of operation available.'}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Call Center ID:
-                            </Typography>
-                            <Typography variant="body2">{callCenterId}</Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Queue:
-                            </Typography>
-                            <Typography variant="body2">{callCenter?.campaignQueue?.S || 'No queue available.'}</Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Routing Profile:
-                            </Typography>
-                            <Typography variant="body2">
-                                {callCenter?.campaignRoutingProfile?.S || 'No routing profile available.'}
-                            </Typography>
                         </Grid>
                     </Grid>
                 </Box>
             )}
             <Divider sx={{ mt: 2, mb: 2 }} />
-            <Grid container direction={'row'} justifyContent={'space-around'} spacing={1}>
+            <Grid container direction={'row'} justifyContent={'space-around'} spacing={2}>
                 <Grid item xs={12} md={6}>
-                    <SubCard title="Contact Flows" titleChildren={designCallButton()}>
+                    <SubCard title={ContactFlowTitle()} titleChildren={designCallButton()}>
                         <ListFlows />
                     </SubCard>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <SubCard title="Hours of Operation">
+                    <SubCard title={HoursOfOperationTitle()}>
                         {callCenter && (
                             <HoursOfOperation
                                 instanceID={callCenter.connectInstanceID?.S}

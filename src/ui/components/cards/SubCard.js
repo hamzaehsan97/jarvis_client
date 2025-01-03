@@ -1,33 +1,37 @@
 import PropTypes from 'prop-types';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import Grid from '@mui/material/Grid';
-
-// material-ui
 import { useTheme } from '@mui/material/styles';
-import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, Divider, Typography, IconButton } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 // ==============================|| CUSTOM SUB CARD ||============================== //
 
 const SubCard = forwardRef(
     ({ children, content, contentClass, darkTitle, secondary, sx = {}, contentSX = {}, title, titleChildren, ...others }, ref) => {
         const theme = useTheme();
+        const [isContentVisible, setIsContentVisible] = useState(!content);
+
+        const handleToggleContent = () => {
+            setIsContentVisible((prevState) => !prevState);
+        };
 
         return (
             <Card
                 ref={ref}
                 sx={{
                     border: '1px solid',
-                    borderColor: theme.palette.primary.light,
+                    borderColor: theme.palette.grey[200],
                     ':hover': {
-                        boxShadow: '0 2px 14px 0 rgb(32 40 45 / 8%)'
+                        boxShadow: '0 6px 18px 0 rgb(26 35 40 / 8%)'
                     },
                     ...sx
                 }}
                 {...others}
             >
                 {/* card header and action */}
-                <Grid container direction={'row'} justifyContent={'space-around'} spacing={1}>
-                    <Grid item xs={12} md={6}>
+                <Grid container direction={'row'} justifyContent={'space-between'} spacing={1}>
+                    <Grid item xs={12} md={7}>
                         {!darkTitle && title && (
                             <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h5">{title}</Typography>} action={secondary} />
                         )}
@@ -38,7 +42,7 @@ const SubCard = forwardRef(
                     <Grid
                         item
                         xs={12}
-                        md={6}
+                        md={4}
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -46,6 +50,24 @@ const SubCard = forwardRef(
                         }}
                     >
                         {titleChildren && titleChildren}
+                    </Grid>
+                    {/* Dropdown icon */}
+                    <Grid
+                        item
+                        xs={12}
+                        md={1}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            pr: 2.5
+                        }}
+                    >
+                        <IconButton onClick={handleToggleContent}>
+                            <ExpandMoreIcon
+                                sx={{ transform: isContentVisible ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+                            />
+                        </IconButton>
                     </Grid>
                 </Grid>
                 {/* content & header divider */}
@@ -59,7 +81,7 @@ const SubCard = forwardRef(
                 )}
 
                 {/* card content */}
-                {content && (
+                {isContentVisible && content && (
                     <CardContent sx={{ p: 2.5, ...contentSX }} className={contentClass || ''}>
                         {children}
                     </CardContent>

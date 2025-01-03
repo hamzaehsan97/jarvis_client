@@ -118,7 +118,7 @@ const AttachPhoneNumberForm = (props) => {
                 <Grid container direction="row" spacing={1} justifyContent="flex-end">
                     <Grid item>
                         <Button onClick={() => handleAttachPhoneNumber()} disabled={!phoneNumber} color="primary" variant="contained">
-                            Attach Phone Number
+                            Add Phone Number
                         </Button>
                     </Grid>
                 </Grid>

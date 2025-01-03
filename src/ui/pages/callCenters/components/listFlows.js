@@ -123,7 +123,7 @@ const ListFlows = (props) => {
                                                     color="primary"
                                                     onClick={() => handleAttachPhoneNumber(flow.flowID.S, flow.flowName.S)}
                                                 >
-                                                    Attach Phone Number
+                                                    Add Phone Number
                                                 </Button>
                                             )}
                                         </Grid>
@@ -162,7 +162,7 @@ const ListFlows = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={modalStyle}>
-                    <SubCard title="Attach Phone Number" darkTitle={true}>
+                    <SubCard title="Add Phone Number" darkTitle={true}>
                         <AttachPhoneNumberForm flowID={phoneNumberFlowID} flowName={phoneNumberFlowName} />
                     </SubCard>
                 </Box>

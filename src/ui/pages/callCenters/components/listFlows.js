@@ -83,35 +83,25 @@ const ListFlows = (props) => {
                     flows.map((flow) => (
                         <ListItem key={flow.flowID.S} divider>
                             <Grid container direction="row" alignItems="center">
-                                <Grid item xs={7}>
+                                <Grid item xs={12} md={5}>
                                     <ListItemText
                                         primary={
                                             <Link to={'flows/' + flow.flowID.S} underline="hover">
-                                                <b>{flow.flowName.S}</b>
+                                                <Typography variant="h5">{flow.flowName.S}</Typography>
                                             </Link>
                                         }
                                         secondary={
                                             <>
-                                                <Typography variant="body2" color="textSecondary">
-                                                    <strong>Description:</strong> {flow.flowDescription?.S || 'N/A'}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary">
-                                                    <strong>Date Created:</strong> {flow.dateCreated.S}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary">
-                                                    <strong>Flow Type:</strong> {flow.flowType.S}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary">
-                                                    <strong>Last Updated:</strong> {flow.dateUpdated.S}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary">
-                                                    <strong>ID:</strong> {flow.flowID.S}
-                                                </Typography>
+                                                {/* Description: {flow.flowDescription?.S || 'N/A'} <br />
+                                                Date Created: {flow.dateCreated.S} <br />
+                                                Flow Type: {flow.flowType.S} <br />
+                                                Last Updated: {flow.dateUpdated.S} <br /> */}
+                                                ID: {flow.flowID.S}
                                             </>
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={12} md={5}>
                                     <Grid container direction="row" justifyContent="center">
                                         <Grid item>
                                             {flow.phoneNumber ? (
@@ -125,7 +115,7 @@ const ListFlows = (props) => {
                                                         alignItems: 'center'
                                                     }}
                                                 >
-                                                    <strong>Phone Number:&nbsp;</strong> {flow.phoneNumber.S}
+                                                    Phone Number:&nbsp; {flow.phoneNumber.S}
                                                 </Typography>
                                             ) : (
                                                 <Button
@@ -139,14 +129,14 @@ const ListFlows = (props) => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={12} md={2}>
                                     <ListItemSecondaryAction>
                                         <IconButton
                                             edge="end"
                                             aria-label="edit"
                                             onClick={() => handleEditFlow(flow.flowID.S)}
                                             color="primary"
-                                            sx={{ mr: 2 }}
+                                            sx={{ mr: 1 }}
                                         >
                                             <EditIcon />
                                         </IconButton>
@@ -155,7 +145,7 @@ const ListFlows = (props) => {
                                             aria-label="delete"
                                             onClick={() => handleDeleteFlow(flow.flowID.S)}
                                             color="error"
-                                            sx={{ mr: 2 }}
+                                            sx={{ mr: 1 }}
                                         >
                                             <DeleteIcon />
                                         </IconButton>

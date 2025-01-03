@@ -77,7 +77,7 @@ const App = () => {
                 <ThemeProvider theme={themes(customization)}>
                     <CssBaseline />
                     <NavigationScroll>
-                        <Routes />
+                        <Routes future={{ v7_relativeSplatPath: true }} />
                         {!!snackbar && (
                             <Snackbar
                                 open

@@ -11,6 +11,9 @@ import SubCard from '../../components/cards/SubCard';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { CallCenterContext, useCallCenterContext } from '../../../configs/context/callCenterContext';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import IconButton from '@mui/material/IconButton';
+import HoursOfOperation from './components/hoursOfOperation';
 
 const CallCenter = (props) => {
     const location = useLocation();
@@ -66,6 +69,37 @@ const CallCenter = (props) => {
         };
         fetchFlows();
     }, [updatePage, token]);
+
+    const designCallButton = () => {
+        return (
+            <Grid
+                container
+                direction="row"
+                sx={{
+                    justifyContent: 'space-around',
+                    alignItems: 'flex-end'
+                }}
+            >
+                <Grid item>
+                    <Button variant="contained">
+                        <Typography
+                            to={'/call-centers/' + callCenterId + '/create'}
+                            sx={{
+                                color: 'white',
+                                textDecoration: 'none', // Removes the underline
+                                '&:hover': {
+                                    textDecoration: 'none' // Keeps underline removed on hover
+                                }
+                            }}
+                            component={Link}
+                        >
+                            Create Contact Flow
+                        </Typography>
+                    </Button>
+                </Grid>
+            </Grid>
+        );
+    };
 
     return (
         <MainCard title={loading || error ? 'Loading...' : callCenter?.campaignName?.S || 'Call Center Details'}>
@@ -149,24 +183,18 @@ const CallCenter = (props) => {
                 </Box>
             )}
             <Divider sx={{ mt: 2, mb: 2 }} />
-            <SubCard title="Contact Flows">
-                <Button variant="contained">
-                    <Typography
-                        to={'/call-centers/' + callCenterId + '/create'}
-                        sx={{
-                            color: 'white',
-                            textDecoration: 'none', // Removes the underline
-                            '&:hover': {
-                                textDecoration: 'none' // Keeps underline removed on hover
-                            }
-                        }}
-                        component={Link}
-                    >
-                        Create Contact Flow
-                    </Typography>
-                </Button>
-                <ListFlows />
-            </SubCard>
+            <Grid container direction={'row'} justifyContent={'space-around'} spacing={1}>
+                <Grid item xs={12} md={6}>
+                    <SubCard title="Contact Flows" titleChildren={designCallButton()}>
+                        <ListFlows />
+                    </SubCard>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <SubCard title="Hours of Operation">
+                        <HoursOfOperation />
+                    </SubCard>
+                </Grid>
+            </Grid>
         </MainCard>
     );
 };

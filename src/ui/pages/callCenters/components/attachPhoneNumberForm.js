@@ -56,12 +56,16 @@ const AttachPhoneNumberForm = (props) => {
 
     function associatePhoneNumber(phoneNumberId) {
         const associateData = {
-            phone_number_id: phoneNumberId,
-            contact_flow_id: props.flowID
+            phone_number_id: String(phoneNumberId),
+            contact_flow_id: props.flowID,
+            phone_number: phoneNumber
         };
         console.log('associateData', associateData);
         axios
-            .patch(`https://logic-theorist.com/amazon-connect/connect/number?token=${token}`, associateData)
+            .patch(
+                `https://logic-theorist.com/amazon-connect/connect/number?token=${token}&instanceID=82434149-1844-49cc-af6e-4f40b54df820`,
+                associateData
+            )
             .then((response) => {
                 console.log(response);
             })

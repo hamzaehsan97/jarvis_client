@@ -1,62 +1,50 @@
 import React, { useState } from 'react';
-import { JsonForms } from '@jsonforms/react';
-import { materialRenderers } from '@jsonforms/material-renderers';
-import { schema } from '../schema/form-schema/createFlow'; // Import your schema
-import { uiSchema } from '../schema/ui-schema/createFlow'; // Import your UI schema
-import Button from '@mui/material/Button';
-import axios from 'axios';
 import MainCard from '../../../components/cards/MainCard';
 import { useLocation } from 'react-router-dom';
+import { ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import ManualFlowForm from './manualFlowForm';
+import TemplateFlowForm from './templateFlowForm';
+import GenAiFlowForm from './genAiFlowForm';
 
-const defaultInstanceID = '82434149-1844-49cc-af6e-4f40b54df820';
 const CreateFlow = () => {
-    const initialData = {
-        contactFlowName: 'Sample Call',
-        contactFlowType: 'CONTACT_FLOW',
-        contactFlowContent:
-            '{"Version":"2019-10-30","StartAction":"1cf78dbd-febf-4604-8351-59740aea1b07","Metadata":{"entryPointPosition":{"x":40,"y":40},"ActionMetadata":{"1cf78dghbbd-febf-4604-8351-59740aea1b07":{"position":{"x":171.2,"y":52.8}}},"Annotations":[],"name":"test","description":"","type":"contactFlow","status":"published","hash":{}},"Actions":[{"Parameters":{},"Identifier":"1cf78dbd-febf-4604-8351-59740aea1b07","Type":"DisconnectParticipant","Transitions":{}}]}',
-        flowDescription: 'This is a sample call flow'
+    const [formType, setFormType] = React.useState('templates');
+    const selectFormType = (event, formType) => {
+        setFormType(formType);
     };
-    const [data, setData] = useState(initialData);
-    const [result, setResults] = useState('');
-    const location = useLocation();
-    const { pathname } = location;
-    const campaignID = pathname.split('/')[2];
-
-    const token = localStorage.getItem('token');
-
-    const CreateContactFlow = async (data) => {
-        data.campaignID = campaignID;
-        data.contactFlowContent = JSON.parse(data.contactFlowContent);
-        await axios
-            .put('https://logic-theorist.com/amazon-connect/connect/flows', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    token: token
-                }
-            })
-            .then((result) => {
-                window.location.href = `/call-centers/${campaignID}`;
-            })
-            .catch((error) => {
-                setResults(error.response.data);
-            });
+    const returnForm = (formType) => {
+        switch (formType) {
+            case 'manual':
+                return <ManualFlowForm />;
+            case 'templates':
+                return <TemplateFlowForm />;
+            case 'genai':
+                return <GenAiFlowForm />;
+            default:
+                return <ManualFlowForm />;
+        }
     };
 
     return (
-        <MainCard title="Create Flow">
-            <JsonForms
-                schema={schema}
-                uischema={uiSchema}
-                data={data}
-                renderers={materialRenderers}
-                onChange={({ data, _errors }) => setData(data)}
-                onSubmit={({ data, _errors }) => CreateContactFlow(data)}
-            />
-            <Button onClick={() => CreateContactFlow(data)} color="primary" variant="contained">
-                Create Flow
-            </Button>
-            <div>{result}</div>
+        <MainCard title="Create Communication Workflow">
+            <Grid container direction={'column'} spacing={2} alignItems={'center'}>
+                <Grid item>
+                    <ToggleButtonGroup value={formType} exclusive onChange={selectFormType} aria-label="text formType">
+                        <ToggleButton value="manual" aria-label="manual">
+                            <Typography>Manual Creation</Typography>
+                        </ToggleButton>
+                        <ToggleButton value="templates" aria-label="templates">
+                            <Typography>Use Templates (Preferred)</Typography>
+                        </ToggleButton>
+                        <ToggleButton value="genai" aria-label="genai">
+                            <Typography>Use Gen AI</Typography>
+                        </ToggleButton>
+                    </ToggleButtonGroup>
+                </Grid>
+                <Grid item xs={12} md={12} sx={{ width: 80 + '%' }}>
+                    {returnForm(formType)}
+                </Grid>
+            </Grid>
         </MainCard>
     );
 };

@@ -15,10 +15,13 @@ import { height } from '@mui/system';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TtyIcon from '@mui/icons-material/Tty';
+import HumanAgents from './components/humanAgents';
+import { useTheme } from '@mui/material/styles';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 const CallCenter = (props) => {
     const location = useLocation();
     const { pathname } = location;
-
+    const theme = useTheme();
     const [createCampaign, setCreateCampaign] = useState(false);
     const [callCenterId, setCallCenterId] = useState(null);
     const [callCenter, setCallCenter] = useState(null);
@@ -29,6 +32,8 @@ const CallCenter = (props) => {
 
     const handleOpen = () => setCreateCampaign(true);
     const handleClose = () => setCreateCampaign(false);
+    const flowLink = '/call-centers/' + callCenterId + '/create';
+    const createAgentsLink = '/call-centers/' + callCenterId + '/agents/create';
 
     const token = localStorage.getItem('token');
 
@@ -70,7 +75,7 @@ const CallCenter = (props) => {
         fetchFlows();
     }, [updatePage, token]);
 
-    const designCallButton = () => {
+    const createTitleChildren = (buttonText, link) => {
         return (
             <Grid
                 container
@@ -83,7 +88,7 @@ const CallCenter = (props) => {
                 <Grid item>
                     <Button variant="contained">
                         <Typography
-                            to={'/call-centers/' + callCenterId + '/create'}
+                            to={link}
                             sx={{
                                 color: 'white',
                                 textDecoration: 'none', // Removes the underline
@@ -93,7 +98,7 @@ const CallCenter = (props) => {
                             }}
                             component={Link}
                         >
-                            Create Workflows
+                            {buttonText}
                         </Typography>
                     </Button>
                 </Grid>
@@ -101,30 +106,15 @@ const CallCenter = (props) => {
         );
     };
 
-    const ContactFlowTitle = () => {
+    const returnTitle = (title, Icon) => {
         return (
             <Grid container direction={'row'} spacing={1} alignItems={'center'}>
                 <Grid item>
-                    <TtyIcon />
+                    <Icon />
                 </Grid>
                 <Grid item>
                     <Typography variant="h4" fontWeight="bold">
-                        Communication Workflows
-                    </Typography>
-                </Grid>
-            </Grid>
-        );
-    };
-
-    const HoursOfOperationTitle = () => {
-        return (
-            <Grid container direction={'row'} spacing={1} alignItems={'center'}>
-                <Grid item>
-                    <QueryBuilderIcon />
-                </Grid>
-                <Grid item>
-                    <Typography variant="h4" fontWeight="bold">
-                        Hours of Operation
+                        {title}
                     </Typography>
                 </Grid>
             </Grid>
@@ -167,7 +157,10 @@ const CallCenter = (props) => {
                             <Typography variant="body1" fontWeight="bold">
                                 Country:
                             </Typography>
-                            <Typography variant="body2">{callCenter?.campaignCountry?.S || 'No country available.'}</Typography>
+                            <Typography variant="body2">
+                                {callCenter?.campaignCountry?.S || 'No country available.'} /{' '}
+                                {callCenter?.campaignRegion?.S || 'No Region available.'}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Box>
@@ -175,12 +168,34 @@ const CallCenter = (props) => {
             <Divider sx={{ mt: 2, mb: 2 }} />
             <Grid container direction={'row'} justifyContent={'space-around'} spacing={2}>
                 <Grid item xs={12} md={6}>
-                    <SubCard title={ContactFlowTitle()} titleChildren={designCallButton()}>
+                    <SubCard
+                        title={returnTitle('Communication Workflows', TtyIcon)}
+                        titleChildren={createTitleChildren('Create Workflows', flowLink)}
+                        hideContentIcon={true}
+                    >
                         <ListFlows />
                     </SubCard>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <SubCard title={HoursOfOperationTitle()}>
+                    <SubCard
+                        title={returnTitle('Human Agents', SupportAgentIcon)}
+                        titleChildren={createTitleChildren('Create Agents', createAgentsLink)}
+                        hideContentIcon={true}
+                    >
+                        {callCenter && <HumanAgents campaignId={callCenter.campaignID?.S} />}
+                    </SubCard>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <SubCard
+                        title={returnTitle('AI Agents', SmartToyIcon)}
+                        titleChildren={createTitleChildren('Create AI Agents', '/link')}
+                        hideContentIcon={true}
+                    >
+                        {callCenter && <HumanAgents campaignId={callCenter.campaignID?.S} />}
+                    </SubCard>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <SubCard title={returnTitle('Hours of Operation', QueryBuilderIcon)} hideContentIcon={true}>
                         {callCenter && (
                             <HoursOfOperation
                                 instanceID={callCenter.connectInstanceID?.S}

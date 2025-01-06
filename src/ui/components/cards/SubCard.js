@@ -8,7 +8,22 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // ==============================|| CUSTOM SUB CARD ||============================== //
 
 const SubCard = forwardRef(
-    ({ children, content, contentClass, darkTitle, secondary, sx = {}, contentSX = {}, title, titleChildren, ...others }, ref) => {
+    (
+        {
+            children,
+            content,
+            contentClass,
+            darkTitle,
+            secondary,
+            sx = {},
+            contentSX = {},
+            title,
+            titleChildren,
+            hideContentIcon,
+            ...others
+        },
+        ref
+    ) => {
         const theme = useTheme();
         const [isContentVisible, setIsContentVisible] = useState(!content);
 
@@ -52,23 +67,25 @@ const SubCard = forwardRef(
                         {titleChildren && titleChildren}
                     </Grid>
                     {/* Dropdown icon */}
-                    <Grid
-                        item
-                        xs={12}
-                        md={1}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                            pr: 2.5
-                        }}
-                    >
-                        <IconButton onClick={handleToggleContent}>
-                            <ExpandMoreIcon
-                                sx={{ transform: isContentVisible ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
-                            />
-                        </IconButton>
-                    </Grid>
+                    {hideContentIcon && (
+                        <Grid
+                            item
+                            xs={12}
+                            md={1}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                pr: 2.5
+                            }}
+                        >
+                            <IconButton onClick={handleToggleContent}>
+                                <ExpandMoreIcon
+                                    sx={{ transform: isContentVisible ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+                                />
+                            </IconButton>
+                        </Grid>
+                    )}
                 </Grid>
                 {/* content & header divider */}
                 {title && (
@@ -81,7 +98,7 @@ const SubCard = forwardRef(
                 )}
 
                 {/* card content */}
-                {isContentVisible && content && (
+                {((isContentVisible && content) || !hideContentIcon) && (
                     <CardContent sx={{ p: 2.5, ...contentSX }} className={contentClass || ''}>
                         {children}
                     </CardContent>
@@ -101,7 +118,8 @@ SubCard.propTypes = {
     secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
     sx: PropTypes.object,
     contentSX: PropTypes.object,
-    title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object])
+    title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
+    hideContentIcon: PropTypes.bool
 };
 
 SubCard.defaultProps = {

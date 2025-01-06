@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import CreateCampaignForm from './components/createCampaignForm';
 import ListCampaigns from './components/listCampaigns';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const modalStyle = {
     position: 'absolute',
@@ -17,6 +18,10 @@ const modalStyle = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 3
+};
+
+const returnInfoIcon = () => {
+    return <InfoOutlinedIcon />;
 };
 
 const Campaigns = () => {
@@ -50,7 +55,7 @@ const Campaigns = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={modalStyle}>
-                    <SubCard title="Create a Call Center" darkTitle={true}>
+                    <SubCard title="Create a Call Center" darkTitle={true} titleChildren={returnInfoIcon()}>
                         <CreateCampaignForm />
                     </SubCard>
                 </Box>

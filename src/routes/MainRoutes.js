@@ -12,6 +12,7 @@ const Settings = Loadable(lazy(() => import('../ui/pages/settings')));
 const CallCenters = Loadable(lazy(() => import('../ui/pages/callCenters')));
 const CallCenter = Loadable(lazy(() => import('../ui/pages/callCenters/callCenter')));
 const CreateFlow = Loadable(lazy(() => import('../ui/pages/callCenters/components/createFlow')));
+const CreateCampaign = Loadable(lazy(() => import('../ui/pages/callCenters/components/CreateAgents')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -41,6 +42,10 @@ const MainRoutes = {
         {
             path: 'call-centers/:id/create',
             element: <CreateFlow />
+        },
+        {
+            path: 'call-centers/:id/agents/create',
+            element: <CreateCampaign />
         },
         {
             path: 'passwords',

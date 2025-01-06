@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Transitions from '../../../../components/extended/Transitions';
+import MainCard from '../../../../components/cards/MainCard';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';

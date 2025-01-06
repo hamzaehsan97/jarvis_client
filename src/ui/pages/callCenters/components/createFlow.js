@@ -6,8 +6,10 @@ import Grid from '@mui/material/Grid';
 import ManualFlowForm from './manualFlowForm';
 import TemplateFlowForm from './templateFlowForm';
 import GenAiFlowForm from './genAiFlowForm';
+import { useTheme } from '@mui/material/styles';
 
 const CreateFlow = () => {
+    const theme = useTheme();
     const [formType, setFormType] = React.useState('templates');
     const selectFormType = (event, formType) => {
         setFormType(formType);
@@ -26,7 +28,7 @@ const CreateFlow = () => {
     };
 
     return (
-        <MainCard title="Create Communication Workflow">
+        <MainCard>
             <Grid container direction={'column'} spacing={2} alignItems={'center'}>
                 <Grid item>
                     <ToggleButtonGroup value={formType} exclusive onChange={selectFormType} aria-label="text formType">
@@ -34,7 +36,13 @@ const CreateFlow = () => {
                             <Typography>Manual Creation</Typography>
                         </ToggleButton>
                         <ToggleButton value="templates" aria-label="templates">
-                            <Typography>Use Templates (Preferred)</Typography>
+                            <Typography>
+                                Use Templates (
+                                <span style={{ color: theme.palette.success.dark }}>
+                                    <b>Preferred</b>
+                                </span>
+                                )
+                            </Typography>
                         </ToggleButton>
                         <ToggleButton value="genai" aria-label="genai">
                             <Typography>Use Gen AI</Typography>

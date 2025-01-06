@@ -16,8 +16,10 @@ import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TtyIcon from '@mui/icons-material/Tty';
 import HumanAgents from './components/humanAgents';
-import { useTheme } from '@mui/material/styles';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import { styled, useTheme } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 const CallCenter = (props) => {
     const location = useLocation();
     const { pathname } = location;
@@ -36,6 +38,23 @@ const CallCenter = (props) => {
     const createAgentsLink = '/call-centers/' + callCenterId + '/agents/create';
 
     const token = localStorage.getItem('token');
+
+    const CardStyle = styled(Card)(({ theme }) => ({
+        background: theme.palette.primary.light,
+        overflow: 'hidden',
+        position: 'relative',
+        boxShadow: theme.shadows[1],
+        '&:after': {
+            content: '""',
+            position: 'absolute',
+            width: '157px',
+            height: '157px',
+            background: theme.palette.secondary[200],
+            borderRadius: '50%',
+            top: '-105px',
+            right: '-96px'
+        }
+    }));
 
     useEffect(() => {
         const id = pathname.split('/')[2];
@@ -134,33 +153,48 @@ const CallCenter = (props) => {
             ) : (
                 <Box>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Date Created:
-                            </Typography>
-                            <Typography variant="body2">{callCenter?.dateCreated?.S || 'N/A'}</Typography>
+                        <Grid item xs={6} sm={3}>
+                            <CardStyle>
+                                <CardContent>
+                                    <Typography variant="body1" fontWeight="bold">
+                                        Date Created:
+                                    </Typography>
+                                    <Typography variant="body2">{callCenter?.dateCreated?.S || 'N/A'}</Typography>
+                                </CardContent>
+                            </CardStyle>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Type:
-                            </Typography>
-                            <Typography variant="body2">{callCenter?.campaignType?.S || 'No type available.'}</Typography>
+                        <Grid item xs={6} sm={3}>
+                            <CardStyle>
+                                <CardContent>
+                                    <Typography variant="body1" fontWeight="bold">
+                                        Type:
+                                    </Typography>
+                                    <Typography variant="body2">{callCenter?.campaignType?.S || 'No type available.'}</Typography>
+                                </CardContent>
+                            </CardStyle>
                         </Grid>
-
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Status:
-                            </Typography>
-                            <Typography variant="body2">{callCenter?.campaignStatus?.S || 'No status available.'}</Typography>
+                        <Grid item xs={6} sm={3}>
+                            <CardStyle>
+                                <CardContent>
+                                    <Typography variant="body1" fontWeight="bold">
+                                        Status:
+                                    </Typography>
+                                    <Typography variant="body2">{callCenter?.campaignStatus?.S || 'No status available.'}</Typography>
+                                </CardContent>
+                            </CardStyle>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="body1" fontWeight="bold">
-                                Country:
-                            </Typography>
-                            <Typography variant="body2">
-                                {callCenter?.campaignCountry?.S || 'No country available.'} /{' '}
-                                {callCenter?.campaignRegion?.S || 'No Region available.'}
-                            </Typography>
+                        <Grid item xs={6} sm={3}>
+                            <CardStyle>
+                                <CardContent>
+                                    <Typography variant="body1" fontWeight="bold">
+                                        Country:
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {callCenter?.campaignCountry?.S || 'No country available.'} /{' '}
+                                        {callCenter?.campaignRegion?.S || 'No Region available.'}
+                                    </Typography>
+                                </CardContent>
+                            </CardStyle>
                         </Grid>
                     </Grid>
                 </Box>

@@ -28,7 +28,7 @@ const Login = () => {
                             <AuthCardWrapper>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
-                                        <h1>Pennyworth</h1>
+                                        <h1>Simply-cx</h1>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid

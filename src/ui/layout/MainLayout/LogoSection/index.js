@@ -5,12 +5,13 @@ import { ButtonBase } from '@mui/material';
 
 // project imports
 import config from '../../../../config';
+import Logo from '../../../components/Logo';
 
 // ==============================|| MAIN LOGO ||============================== //
 
 const LogoSection = () => (
     <ButtonBase disableRipple component={Link} to={config.defaultPath}>
-        <h1>Pennyworth</h1>
+        <Logo />
     </ButtonBase>
 );
 

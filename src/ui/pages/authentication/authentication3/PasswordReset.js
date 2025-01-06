@@ -29,7 +29,7 @@ const PasswordReset = () => {
                             <AuthCardWrapper>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
-                                        <h1>Pennyworth Password Reset</h1>
+                                        <h1>Simply-cx Password Reset</h1>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <PasswordResetForm />

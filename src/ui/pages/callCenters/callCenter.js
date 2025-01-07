@@ -20,6 +20,27 @@ import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { styled, useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CallCentersFloatingMenu from './components/CallCentersFloatingMenu';
+import CreateCampaignForm from './components/createCampaignForm';
+import Modal from '@mui/material/Modal';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 3
+};
+
+const returnInfoIcon = () => {
+    return <InfoOutlinedIcon />;
+};
+
 const CallCenter = (props) => {
     const location = useLocation();
     const { pathname } = location;
@@ -55,6 +76,16 @@ const CallCenter = (props) => {
             right: '-96px'
         }
     }));
+
+    const returnCreateButton = () => {
+        return (
+            <Box mt={2}>
+                <Button variant="contained" color="primary" onClick={handleOpen}>
+                    Create Call Center
+                </Button>
+            </Box>
+        );
+    };
 
     useEffect(() => {
         const id = pathname.split('/')[2];
@@ -141,7 +172,14 @@ const CallCenter = (props) => {
     };
 
     return (
-        <MainCard title={loading || error ? 'Loading...' : callCenter?.campaignName?.S || 'Call Center Details'}>
+        <MainCard
+            title={
+                loading || error
+                    ? 'Loading...'
+                    : <CallCentersFloatingMenu callCenterName={callCenter?.campaignName?.S} /> || 'Call Center Details'
+            }
+            secondary={returnCreateButton()}
+        >
             {loading ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="150px">
                     <CircularProgress />
@@ -239,6 +277,18 @@ const CallCenter = (props) => {
                     </SubCard>
                 </Grid>
             </Grid>
+            <Modal
+                open={createCampaign}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={modalStyle}>
+                    <SubCard title="Create a Call Center" darkTitle={true} titleChildren={returnInfoIcon()}>
+                        <CreateCampaignForm />
+                    </SubCard>
+                </Box>
+            </Modal>
         </MainCard>
     );
 };

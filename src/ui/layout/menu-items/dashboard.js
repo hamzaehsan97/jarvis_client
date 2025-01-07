@@ -1,8 +1,8 @@
 // assets
-import { IconDashboard } from '@tabler/icons';
+import { IconLayoutGrid } from '@tabler/icons';
 
 // constant
-const icons = { IconDashboard };
+const icons = { IconLayoutGrid };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
@@ -16,7 +16,7 @@ const dashboard = {
             title: 'Dashboard',
             type: 'item',
             url: '/dashboard',
-            icon: icons.IconDashboard,
+            icon: icons.IconLayoutGrid,
             breadcrumbs: false
         }
     ]

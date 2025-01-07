@@ -14,10 +14,7 @@ const Dashboard = () => {
     return (
         <MainCard title="Dashboard">
             <Grid container direction={'row'} spacing={gridSpacing}>
-                <Grid item xs={6}>
-                    <Services />
-                </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Services />
                 </Grid>
             </Grid>

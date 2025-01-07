@@ -2,23 +2,21 @@ import { useSelector } from 'react-redux';
 import jwt from 'jwt-decode';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import UserContext from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-// routing
-import Routes from 'routes';
+import NavigationScroll from './ui/layout/NavigationScroll';
+import { ThemeRoutes } from './routes';
+import ErrorBoundary from './ui/components/error/ErrorBoundary';
 
+import Routes from './routes';
 // defaultTheme
-import themes from 'themes';
+import themes from './configs/themes';
 
 // project imports
-import NavigationScroll from 'layout/NavigationScroll';
-import UserContext from 'UserContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import React from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 // ==============================|| APP ||============================== //
 
 const App = () => {
@@ -65,35 +63,37 @@ const App = () => {
 
     return (
         <StyledEngineProvider injectFirst>
-            <UserContext.Provider
-                value={{
-                    user: user,
-                    token: token,
-                    setUser: setUser,
-                    setToken: setToken,
-                    user_name: user_name,
-                    secretKey: secretKey,
-                    userObject: userObject,
-                    openSnackBar: setSnackbar
-                }}
-            >
-                <ThemeProvider theme={themes(customization)}>
-                    <CssBaseline />
-                    <NavigationScroll>
-                        <Routes />
-                        {!!snackbar && (
-                            <Snackbar
-                                open
-                                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                                onClose={handleCloseSnackbar}
-                                autoHideDuration={6000}
-                            >
-                                <Alert {...snackbar} onClose={handleCloseSnackbar} />
-                            </Snackbar>
-                        )}
-                    </NavigationScroll>
-                </ThemeProvider>
-            </UserContext.Provider>
+            <ErrorBoundary>
+                <UserContext.Provider
+                    value={{
+                        user: user,
+                        token: token,
+                        setUser: setUser,
+                        setToken: setToken,
+                        user_name: user_name,
+                        secretKey: secretKey,
+                        userObject: userObject,
+                        openSnackBar: setSnackbar
+                    }}
+                >
+                    <ThemeProvider theme={themes(customization)}>
+                        <CssBaseline />
+                        <NavigationScroll>
+                            <Routes future={{ v7_relativeSplatPath: true }} />
+                            {!!snackbar && (
+                                <Snackbar
+                                    open
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                                    onClose={handleCloseSnackbar}
+                                    autoHideDuration={6000}
+                                >
+                                    <Alert {...snackbar} onClose={handleCloseSnackbar} />
+                                </Snackbar>
+                            )}
+                        </NavigationScroll>
+                    </ThemeProvider>
+                </UserContext.Provider>
+            </ErrorBoundary>
         </StyledEngineProvider>
     );
 };

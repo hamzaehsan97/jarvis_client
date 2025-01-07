@@ -1,23 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { lazy } from 'react';
 
 // project imports
-import MainLayout from 'layout/MainLayout';
-import Loadable from 'ui-component/Loadable';
+import MainLayout from '../ui/layout/MainLayout';
+import Loadable from '../ui/components/Loadable';
 
-// dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-
-// utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
-const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
-const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
-const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
-const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
-
-// sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
-const Passwords = Loadable(lazy(() => import('views/passwords')));
-const Settings = Loadable(lazy(() => import('views/settings')));
+const Dashboard = Loadable(lazy(() => import('../ui/pages/dashboard')));
+const Notes = Loadable(lazy(() => import('../ui/pages/notes')));
+const Passwords = Loadable(lazy(() => import('../ui/pages/passwords')));
+const Settings = Loadable(lazy(() => import('../ui/pages/settings')));
+const CallCenters = Loadable(lazy(() => import('../ui/pages/callCenters')));
+const CallCenter = Loadable(lazy(() => import('../ui/pages/callCenters/callCenter')));
+const CreateFlow = Loadable(lazy(() => import('../ui/pages/callCenters/components/createFlow')));
+const CreateCampaign = Loadable(lazy(() => import('../ui/pages/callCenters/components/CreateAgents')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -26,65 +21,31 @@ const MainRoutes = {
     children: [
         {
             path: '/',
-            element: <SamplePage />
+            element: <Dashboard />
         },
         {
             path: 'dashboard',
-            children: [
-                {
-                    path: 'default',
-                    element: <SamplePage />
-                }
-            ]
+            element: <Dashboard />
         },
         {
-            path: 'utils',
-            children: [
-                {
-                    path: 'util-typography',
-                    element: <UtilsTypography />
-                }
-            ]
+            path: 'notes',
+            element: <Notes />
         },
         {
-            path: 'utils',
-            children: [
-                {
-                    path: 'util-color',
-                    element: <UtilsColor />
-                }
-            ]
+            path: 'call-centers',
+            element: <CallCenters />
         },
         {
-            path: 'utils',
-            children: [
-                {
-                    path: 'util-shadow',
-                    element: <UtilsShadow />
-                }
-            ]
+            path: 'call-centers/:id',
+            element: <CallCenter />
         },
         {
-            path: 'icons',
-            children: [
-                {
-                    path: 'tabler-icons',
-                    element: <UtilsTablerIcons />
-                }
-            ]
+            path: 'call-centers/:id/create',
+            element: <CreateFlow />
         },
         {
-            path: 'icons',
-            children: [
-                {
-                    path: 'material-icons',
-                    element: <UtilsMaterialIcons />
-                }
-            ]
-        },
-        {
-            path: 'sample-page',
-            element: <SamplePage />
+            path: 'call-centers/:id/agents/create',
+            element: <CreateCampaign />
         },
         {
             path: 'passwords',

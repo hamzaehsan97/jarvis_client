@@ -1,11 +1,14 @@
 {
-    "name": "berry-material-react-free",
+    "name": "Simply-cx",
     "version": "3.2.0",
     "private": true,
     "dependencies": {
         "@emotion/cache": "^11.9.3",
         "@emotion/react": "^11.9.3",
         "@emotion/styled": "^11.9.3",
+        "@jsonforms/core": "^3.4.1",
+        "@jsonforms/material-renderers": "^3.4.1",
+        "@jsonforms/react": "^3.4.1",
         "@mui/icons-material": "^5.8.4",
         "@mui/lab": "^5.0.0-alpha.88",
         "@mui/material": "^5.8.6",
@@ -13,6 +16,8 @@
         "@mui/system": "^5.8.6",
         "@mui/utils": "^5.8.6",
         "@mui/x-data-grid": "^5.17.17",
+        "@mui/x-date-pickers": "^6.0.0",
+        "@reduxjs/toolkit": "^2.5.0",
         "@tabler/icons": "^1.72.0",
         "apexcharts": "^3.35.3",
         "axios": "^1.2.1",
@@ -34,6 +39,7 @@
         "react-router-dom": "^6.6.1",
         "react-scripts": "^5.0.1",
         "redux": "^4.2.0",
+        "sass-loader": "^16.0.4",
         "yup": "^0.32.11"
     },
     "scripts": {
@@ -81,6 +87,6 @@
         "eslint-plugin-react": "^7.30.1",
         "eslint-plugin-react-hooks": "4.6.0",
         "prettier": "^2.7.1",
-        "sass": "^1.53.0"
+        "sass": "^1.83.0"
     }
 }

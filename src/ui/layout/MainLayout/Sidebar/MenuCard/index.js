@@ -85,22 +85,23 @@ const MenuCard = () => {
     const theme = useTheme();
 
     return (
-        <CardStyle>
-            <CardContent>
-                <Grid container spacing={2} direction="row">
-                    <Grid item>
-                        <Typography variant="subtitle1" sx={{ color: theme.palette.primary[800] }}>
-                            Road works ahead
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <WarningAmberIcon color="error" />
-                    </Grid>
-                </Grid>
+        <></>
+        // <CardStyle>
+        //     <CardContent>
+        //         <Grid container spacing={2} direction="row">
+        //             <Grid item>
+        //                 <Typography variant="subtitle1" sx={{ color: theme.palette.primary[800] }}>
+        //                     Road works ahead
+        //                 </Typography>
+        //             </Grid>
+        //             <Grid item>
+        //                 <WarningAmberIcon color="error" />
+        //             </Grid>
+        //         </Grid>
 
-                <LinearProgressWithLabel value={80} />
-            </CardContent>
-        </CardStyle>
+        //         <LinearProgressWithLabel value={80} />
+        //     </CardContent>
+        // </CardStyle>
     );
 };
 

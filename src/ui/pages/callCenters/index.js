@@ -4,7 +4,7 @@ import Campaigns from './campaigns';
 
 const CallCenters = () => {
     return (
-        <MainCard title="Call Centers">
+        <MainCard>
             <Campaigns />
         </MainCard>
     );

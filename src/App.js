@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import NavigationScroll from './ui/layout/NavigationScroll';
 import { ThemeRoutes } from './routes';
+import ErrorBoundary from './ui/components/error/ErrorBoundary';
 
 import Routes from './routes';
 // defaultTheme
@@ -62,35 +63,37 @@ const App = () => {
 
     return (
         <StyledEngineProvider injectFirst>
-            <UserContext.Provider
-                value={{
-                    user: user,
-                    token: token,
-                    setUser: setUser,
-                    setToken: setToken,
-                    user_name: user_name,
-                    secretKey: secretKey,
-                    userObject: userObject,
-                    openSnackBar: setSnackbar
-                }}
-            >
-                <ThemeProvider theme={themes(customization)}>
-                    <CssBaseline />
-                    <NavigationScroll>
-                        <Routes future={{ v7_relativeSplatPath: true }} />
-                        {!!snackbar && (
-                            <Snackbar
-                                open
-                                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                                onClose={handleCloseSnackbar}
-                                autoHideDuration={6000}
-                            >
-                                <Alert {...snackbar} onClose={handleCloseSnackbar} />
-                            </Snackbar>
-                        )}
-                    </NavigationScroll>
-                </ThemeProvider>
-            </UserContext.Provider>
+            <ErrorBoundary>
+                <UserContext.Provider
+                    value={{
+                        user: user,
+                        token: token,
+                        setUser: setUser,
+                        setToken: setToken,
+                        user_name: user_name,
+                        secretKey: secretKey,
+                        userObject: userObject,
+                        openSnackBar: setSnackbar
+                    }}
+                >
+                    <ThemeProvider theme={themes(customization)}>
+                        <CssBaseline />
+                        <NavigationScroll>
+                            <Routes future={{ v7_relativeSplatPath: true }} />
+                            {!!snackbar && (
+                                <Snackbar
+                                    open
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                                    onClose={handleCloseSnackbar}
+                                    autoHideDuration={6000}
+                                >
+                                    <Alert {...snackbar} onClose={handleCloseSnackbar} />
+                                </Snackbar>
+                            )}
+                        </NavigationScroll>
+                    </ThemeProvider>
+                </UserContext.Provider>
+            </ErrorBoundary>
         </StyledEngineProvider>
     );
 };

@@ -7,10 +7,11 @@ import ManualFlowForm from './manualFlowForm';
 import TemplateFlowForm from './templateFlowForm';
 import GenAiFlowForm from './genAiFlowForm';
 import { useTheme } from '@mui/material/styles';
+import BlockBuilder from './blockBuilder';
 
 const CreateFlow = () => {
     const theme = useTheme();
-    const [formType, setFormType] = React.useState('templates');
+    const [formType, setFormType] = React.useState('block-builder');
     const selectFormType = (event, formType) => {
         setFormType(formType);
     };
@@ -20,8 +21,10 @@ const CreateFlow = () => {
                 return <ManualFlowForm />;
             case 'templates':
                 return <TemplateFlowForm />;
-            case 'genai':
-                return <GenAiFlowForm />;
+            // case 'genai':
+            //     return <GenAiFlowForm />;
+            case 'block-builder':
+                return <BlockBuilder />;
             default:
                 return <ManualFlowForm />;
         }
@@ -44,12 +47,15 @@ const CreateFlow = () => {
                                 )
                             </Typography>
                         </ToggleButton>
-                        <ToggleButton value="genai" aria-label="genai">
-                            <Typography>Use Gen AI</Typography>
+                        <ToggleButton value="block-builder" aria-label="block-builder">
+                            <Typography>Block Builder</Typography>
                         </ToggleButton>
+                        {/* <ToggleButton value="genai" aria-label="genai">
+                            <Typography>Gen AI</Typography>
+                        </ToggleButton> */}
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item xs={12} md={12} sx={{ width: 80 + '%' }}>
+                <Grid item xs={12} md={12} sx={{ width: 100 + '%' }}>
                     {returnForm(formType)}
                 </Grid>
             </Grid>

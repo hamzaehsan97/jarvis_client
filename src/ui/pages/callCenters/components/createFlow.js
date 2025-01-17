@@ -38,17 +38,17 @@ const CreateFlow = () => {
                         <ToggleButton value="manual" aria-label="manual">
                             <Typography>Manual Creation</Typography>
                         </ToggleButton>
-                        <ToggleButton value="templates" aria-label="templates">
+                        <ToggleButton value="block-builder" aria-label="block-builder">
                             <Typography>
-                                Use Templates (
+                                Block Builder (
                                 <span style={{ color: theme.palette.success.dark }}>
                                     <b>Preferred</b>
                                 </span>
                                 )
                             </Typography>
                         </ToggleButton>
-                        <ToggleButton value="block-builder" aria-label="block-builder">
-                            <Typography>Block Builder</Typography>
+                        <ToggleButton value="templates" aria-label="templates">
+                            <Typography>Use Templates</Typography>
                         </ToggleButton>
                         {/* <ToggleButton value="genai" aria-label="genai">
                             <Typography>Gen AI</Typography>

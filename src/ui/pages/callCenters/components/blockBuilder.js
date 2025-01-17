@@ -20,6 +20,7 @@ import Box from '@mui/material/Box';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import { TextField } from '@mui/material';
 
 const modalStyle = {
     position: 'absolute',
@@ -44,6 +45,8 @@ const BlockBuilder = () => {
     const [blockModal, setBlockModal] = useState(null);
     const [blockForm, setBlockForm] = useState(null);
     const [formData, setFormData] = useState({});
+    const [flowName, setFlowName] = useState('');
+    const [flowDescription, setFlowDescription] = useState('');
 
     const handleClose = () => {
         setFormData({});
@@ -183,20 +186,12 @@ const BlockBuilder = () => {
         );
     }
 
-    // {
-    //     "contactFlowName": "Sample Call",
-    //     "contactFlowType": "CONTACT_FLOW",
-    //     "contactFlowContent": "{\"Version\":\"2019-10-30\",\"StartAction\":\"1cf78dbd-febf-4604-8351-59740aea1b07\",\"Metadata\":{\"entryPointPosition\":{\"x\":40,\"y\":40},\"ActionMetadata\":{\"1cf78dghbbd-febf-4604-8351-59740aea1b07\":{\"position\":{\"x\":171.2,\"y\":52.8}}},\"Annotations\":[],\"name\":\"test\",\"description\":\"\",\"type\":\"contactFlow\",\"status\":\"published\",\"hash\":{}},\"Actions\":[{\"Parameters\":{},\"Identifier\":\"1cf78dbd-febf-4604-8351-59740aea1b07\",\"Type\":\"DisconnectParticipant\",\"Transitions\":{}}]}",
-    //     "flowDescription": "This is a sample call flow",
-    //     "campaignID": "cc71f768-8c00-4405-b0ec-1477cb370"
-    // }
-
     const CreateContactFlow = async () => {
         var data = {
-            contactFlowName: 'Sample Call1443',
+            contactFlowName: flowName,
             contactFlowType: 'CONTACT_FLOW',
-            contactFlowContent: JSON.stringify(flow),
-            flowDescription: 'This is a sample call flow',
+            contactFlowContent: flow,
+            flowDescription: flowDescription,
             campaignID: campaignID
         };
         // data.campaignID = campaignID;
@@ -288,64 +283,81 @@ const BlockBuilder = () => {
         </MainCard>
     );
 
+    const updateFlowName = (event) => {
+        setFlowName(event.target.value);
+    };
+
     return (
-        <Grid container direction={'row'} spacing={1}>
-            <Grid item md={9} xl={10}>
-                <SubCard
-                    title="Designer"
-                    titleChildren={
-                        <Button variant="outlined" onClick={async () => CreateContactFlow()}>
-                            Create Workflow
-                        </Button>
-                    }
-                >
-                    <>
-                        {flow && flow.Actions && (
-                            <Grid container direction={'row'} spacing={1}>
-                                <Grid item xs={3}>
-                                    <BlockDesignerComponent key={'startBlock'} block={{ Type: 'Start Block' }} />
-                                </Grid>
-                                {flow.Actions.map((block) => (
-                                    <Grid item xs={3}>
-                                        <BlockDesignerComponent key={block.Identifier} block={block} />
+        <Grid container direction={'column'} spacing={1}>
+            <Grid item>
+                <TextField
+                    id="standard-basic"
+                    label="Workflow Name"
+                    variant="filled"
+                    onChange={updateFlowName}
+                    style={{ marginLeft: 10 }}
+                />
+            </Grid>
+            <Grid item>
+                <Grid container direction={'row'} spacing={1}>
+                    <Grid item md={9} xl={10}>
+                        <SubCard
+                            title="Designer"
+                            titleChildren={
+                                <Button variant="outlined" disabled={flowName === ''} onClick={async () => CreateContactFlow()}>
+                                    Create Workflow
+                                </Button>
+                            }
+                        >
+                            <>
+                                {flow && flow.Actions && (
+                                    <Grid container direction={'row'} spacing={1}>
+                                        <Grid item xs={3}>
+                                            <BlockDesignerComponent key={'startBlock'} block={{ Type: 'Start Block' }} />
+                                        </Grid>
+                                        {flow.Actions.map((block) => (
+                                            <Grid item xs={3} key={block.Identifier}>
+                                                <BlockDesignerComponent key={block.Identifier} block={block} />
+                                            </Grid>
+                                        ))}
                                     </Grid>
-                                ))}
-                            </Grid>
-                        )}
-                    </>
-                </SubCard>
-            </Grid>
-            <Grid item md={3} xl={2}>
-                <SubCard title="Blocks List">
-                    {blocksList ? (
-                        <>
-                            {blocksList
-                                .filter((block) => block.type !== 'DisconnectParticipant') // Exclude blocks with type DisconnectParticipant
-                                .map((block) => (
-                                    <NavigationScroll key={block.type}>
-                                        <BlockComponent block={block} />
-                                    </NavigationScroll>
-                                ))}
-                        </>
-                    ) : (
-                        <IconLoader />
-                    )}
-                </SubCard>
-            </Grid>
-            {blockModal && (
-                <Modal
-                    open={openModal}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={modalStyle}>
-                        <SubCard title={blockModal.friendlyName} darkTitle={true}>
-                            {createBlockForm(blockModal)}
+                                )}
+                            </>
                         </SubCard>
-                    </Box>
-                </Modal>
-            )}
+                    </Grid>
+                    <Grid item md={3} xl={2}>
+                        <SubCard title="Blocks List">
+                            {blocksList ? (
+                                <>
+                                    {blocksList
+                                        .filter((block) => block.type !== 'DisconnectParticipant') // Exclude blocks with type DisconnectParticipant
+                                        .map((block) => (
+                                            <NavigationScroll key={block.type}>
+                                                <BlockComponent block={block} />
+                                            </NavigationScroll>
+                                        ))}
+                                </>
+                            ) : (
+                                <IconLoader />
+                            )}
+                        </SubCard>
+                    </Grid>
+                    {blockModal && (
+                        <Modal
+                            open={openModal}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={modalStyle}>
+                                <SubCard title={blockModal.friendlyName} darkTitle={true}>
+                                    {createBlockForm(blockModal)}
+                                </SubCard>
+                            </Box>
+                        </Modal>
+                    )}
+                </Grid>
+            </Grid>
         </Grid>
     );
 };

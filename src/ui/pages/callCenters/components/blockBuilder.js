@@ -70,7 +70,6 @@ const BlockBuilder = () => {
             }
         };
         const Errors = [];
-        // const blockTransitions = returnBlockTransitions(block.type);
         const blockTransitions = blockConfigsList[block.type].Transitions.errorTypes;
         if (blockTransitions.length > 0) {
             for (const transition of blockTransitions) {
@@ -83,7 +82,6 @@ const BlockBuilder = () => {
             }
         }
         formObject.Transitions.Errors = Errors;
-        // const blockParameters = returnBlockParameters(block.type);
         const blockParameters = blockConfigsList[block.type].Parameters;
         if (blockParameters.length > 0) {
             formObject.Parameters = formData.parameters;
@@ -97,10 +95,7 @@ const BlockBuilder = () => {
         if (!block.type) return <></>;
 
         // Retrieve transitions and parameters for the block
-        // const blockTransitions = returnBlockTransitions(block.type);
         const blockTransitions = blockConfigsList[block.type].Transitions.errorTypes;
-
-        // const blockParameters = returnBlockParameters(block.type);
         const blockParameters = blockConfigsList[block.type].Parameters;
 
         // Extract action identifiers from the flow
@@ -198,8 +193,6 @@ const BlockBuilder = () => {
             flowDescription: flowDescription,
             campaignID: campaignID
         };
-        // data.campaignID = campaignID;
-        // data.contactFlowContent = JSON.parse(data.contactFlowContent);
         await axios
             .put('https://logic-theorist.com/amazon-connect/connect/flows', data, {
                 headers: {
@@ -211,7 +204,6 @@ const BlockBuilder = () => {
                 window.location.href = `/call-centers/${campaignID}`;
             })
             .catch((error) => {
-                // setResults(error.response.data);
                 console.log('ERROR', error);
             });
     };
@@ -226,7 +218,6 @@ const BlockBuilder = () => {
             style={{
                 border: '1px solid #ccc',
                 margin: '5px 0',
-                // padding: '5px',
                 position: 'relative',
                 zIndex: 1,
                 transition: 'box-shadow 0.3s ease'
@@ -262,13 +253,11 @@ const BlockBuilder = () => {
             style={{
                 border: '1px solid #ccc',
                 margin: '5px 5px',
-                // padding: '5px',
                 position: 'relative',
                 zIndex: 1,
                 width: 100 + '%',
                 transition: 'box-shadow 0.3s ease'
             }}
-            // onClick={handleOpen()}
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 4px 20px rgba(144, 202, 249, 0.2), 0 8px 30px rgba(0, 0, 255, 0.2)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
         >

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MainCard from '../../../components/cards/MainCard';
+import MainCard from '../../../../components/cards/MainCard';
 import { useLocation } from 'react-router-dom';
 import { ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -7,7 +7,7 @@ import ManualFlowForm from './manualFlowForm';
 import TemplateFlowForm from './templateFlowForm';
 import GenAiFlowForm from './genAiFlowForm';
 import { useTheme } from '@mui/material/styles';
-import BlockBuilder from './blockBuilder';
+import BlockBuilder from './blockBuilder/blockBuilder';
 
 const CreateFlow = () => {
     const theme = useTheme();

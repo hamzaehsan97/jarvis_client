@@ -1,37 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { JsonForms } from '@jsonforms/react';
 import { materialRenderers } from '@jsonforms/material-renderers';
-import { schema } from '../schema/form-schema/createFlow'; // Import your schema
-import { uiSchema } from '../schema/ui-schema/createFlow'; // Import your UI schema
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import SubCard from '../../../components/cards/SubCard';
+import SubCard from '../../../../../components/cards/SubCard';
 import { IconLoader } from '@tabler/icons';
-import { blocksList, blockConfigsList } from '../../../../configs/utilConfigs/blockConfigs';
+import { blocksList, blockConfigsList } from '../../../../../../configs/utilConfigs/blockConfigs';
 import { Typography } from '@mui/material';
-import NavigationScroll from '../../../layout/NavigationScroll';
-import { createContactFlow, addBlock } from '../../../../utils/flowBuilderUtil';
-import { width } from '@mui/system';
-import MainCard from '../../../components/cards/MainCard';
+import NavigationScroll from '../../../../../layout/NavigationScroll';
+import { createContactFlow, addBlock } from '../../../../../../utils/flowBuilderUtil';
+import MainCard from '../../../../../components/cards/MainCard';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import { TextField } from '@mui/material';
-
+import PlayCircleFilledWhiteSharpIcon from '@mui/icons-material/PlayCircleFilledWhiteSharp';
 const modalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400
-};
-
-const returnBlockIcon = () => {
-    return <SupportAgentIcon />;
 };
 
 const BlockBuilder = () => {
@@ -234,7 +227,7 @@ const BlockBuilder = () => {
                 }}
             >
                 <Grid item xs={2}>
-                    {returnBlockIcon(block.friendlyName ? block.friendlyName : block.Type)}
+                    {block.icon}
                 </Grid>
                 <Grid item xs={8}>
                     <Typography>{block.friendlyName ? block.friendlyName : block.Type}</Typography>
@@ -268,9 +261,17 @@ const BlockBuilder = () => {
                     justifyContent: 'space-between',
                     alignItems: 'center'
                 }}
+                spacing={3}
             >
+                <Grid item xs={2}>
+                    {blockConfigsList[block.Type] ? blockConfigsList[block.Type].icon : <PlayCircleFilledWhiteSharpIcon />}
+                </Grid>
                 <Grid item xs={10}>
-                    <Typography>{block.friendlyName ? block.friendlyName : block.Type}</Typography>
+                    <Typography>
+                        {blockConfigsList[block.Type] && blockConfigsList[block.Type].friendlyName
+                            ? blockConfigsList[block.Type].friendlyName
+                            : block.Type}
+                    </Typography>
                 </Grid>
             </Grid>
         </MainCard>
@@ -293,7 +294,7 @@ const BlockBuilder = () => {
             </Grid>
             <Grid item>
                 <Grid container direction={'row'} spacing={1}>
-                    <Grid item md={9} xl={10}>
+                    <Grid item md={8} xl={9}>
                         <SubCard
                             title="Designer"
                             titleChildren={
@@ -304,12 +305,12 @@ const BlockBuilder = () => {
                         >
                             <>
                                 {flow && flow.Actions && (
-                                    <Grid container direction={'row'} spacing={1}>
-                                        <Grid item xs={3}>
+                                    <Grid container direction={'column'}>
+                                        <Grid item xs={4}>
                                             <BlockDesignerComponent key={'startBlock'} block={{ Type: 'Start Block' }} />
                                         </Grid>
                                         {flow.Actions.map((block) => (
-                                            <Grid item xs={3} key={block.Identifier}>
+                                            <Grid item xs={4} key={block.Identifier}>
                                                 <BlockDesignerComponent key={block.Identifier} block={block} />
                                             </Grid>
                                         ))}
@@ -318,7 +319,7 @@ const BlockBuilder = () => {
                             </>
                         </SubCard>
                     </Grid>
-                    <Grid item md={3} xl={2}>
+                    <Grid item md={4} xl={3}>
                         <SubCard title="Blocks List">
                             {blocksList ? (
                                 <>

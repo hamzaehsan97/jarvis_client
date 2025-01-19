@@ -11,7 +11,7 @@ const Passwords = Loadable(lazy(() => import('../ui/pages/passwords')));
 const Settings = Loadable(lazy(() => import('../ui/pages/settings')));
 const CallCenters = Loadable(lazy(() => import('../ui/pages/callCenters')));
 const CallCenter = Loadable(lazy(() => import('../ui/pages/callCenters/callCenter')));
-const CreateFlow = Loadable(lazy(() => import('../ui/pages/callCenters/components/createFlow')));
+const CreateFlow = Loadable(lazy(() => import('../ui/pages/callCenters/components/createFlow/createFlow')));
 const CreateCampaign = Loadable(lazy(() => import('../ui/pages/callCenters/components/CreateAgents')));
 // ==============================|| MAIN ROUTING ||============================== //
 

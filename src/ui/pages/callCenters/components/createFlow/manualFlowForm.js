@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { JsonForms } from '@jsonforms/react';
 import { materialRenderers } from '@jsonforms/material-renderers';
-import { schema } from '../schema/form-schema/createFlow'; // Import your schema
-import { uiSchema } from '../schema/ui-schema/createFlow'; // Import your UI schema
+import { schema } from '../../schema/form-schema/createFlow'; // Import your schema
+import { uiSchema } from '../../schema/ui-schema/createFlow'; // Import your UI schema
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import SubCard from '../../../components/cards/SubCard';
-const TemplateFlowForm = () => {
+import SubCard from '../../../../components/cards/SubCard';
+const ManualFlowForm = () => {
     const initialData = {
         contactFlowName: 'Sample Call',
         contactFlowType: 'CONTACT_FLOW',
@@ -42,10 +42,20 @@ const TemplateFlowForm = () => {
     };
 
     return (
-        <SubCard title={'Workflow Templates Form'}>
-            <p>Flow Templates</p>
+        <SubCard title={'Manual Workflow Creation Form'}>
+            <JsonForms
+                schema={schema}
+                uischema={uiSchema}
+                data={data}
+                renderers={materialRenderers}
+                onChange={({ data, _errors }) => setData(data)}
+                onSubmit={({ data, _errors }) => CreateContactFlow(data)}
+            />
+            <Button onClick={() => CreateContactFlow(data)} color="primary" variant="contained">
+                Create Workflow
+            </Button>
         </SubCard>
     );
 };
 
-export default TemplateFlowForm;
+export default ManualFlowForm;

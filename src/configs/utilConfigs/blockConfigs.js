@@ -1,21 +1,37 @@
+import MoveDownIcon from '@mui/icons-material/MoveDown';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import CallEndIcon from '@mui/icons-material/CallEnd';
+import WebhookIcon from '@mui/icons-material/Webhook';
+import AltRouteIcon from '@mui/icons-material/AltRoute';
 // Approved block types with configurations
 export const blocksList = [
-    'TransferContactToQueue',
-    'UpdateContactTargetQueue',
     'MessageParticipant',
-    'DisconnectParticipant',
+    'UpdateContactTargetQueue',
+    'TransferContactToQueue',
     'InvokeLambdaFunction',
-    'TransferToFlow'
+    'TransferToFlow',
+    'DisconnectParticipant'
 ];
 
 export const blockConfigsList = {
+    MessageParticipant: {
+        type: 'MessageParticipant',
+        friendlyName: 'Play Audio',
+        Transitions: {
+            errorTypes: ['NoMatchingError']
+        },
+        Parameters: ['Text'],
+        icon: <CampaignIcon />
+    },
     TransferContactToQueue: {
         type: 'TransferContactToQueue',
         friendlyName: 'Transfer to Agent',
         Transitions: {
             errorTypes: ['QueueAtCapacity', 'NoMatchingError']
         },
-        Parameters: []
+        Parameters: [],
+        icon: <SupportAgentIcon />
     },
     UpdateContactTargetQueue: {
         type: 'UpdateContactTargetQueue',
@@ -23,21 +39,15 @@ export const blockConfigsList = {
         Transitions: {
             errorTypes: ['NoMatchingError']
         },
-        Parameters: ['QueueId']
-    },
-    MessageParticipant: {
-        type: 'MessageParticipant',
-        friendlyName: 'Play Audio',
-        Transitions: {
-            errorTypes: ['NoMatchingError']
-        },
-        Parameters: ['Text']
+        Parameters: ['QueueId'],
+        icon: <MoveDownIcon />
     },
     DisconnectParticipant: {
         type: 'DisconnectParticipant',
         friendlyName: 'Disconnect Customer',
         Transitions: {},
-        Parameters: []
+        Parameters: [],
+        icon: <CallEndIcon />
     },
     InvokeLambdaFunction: {
         type: 'InvokeLambdaFunction',
@@ -45,7 +55,8 @@ export const blockConfigsList = {
         Transitions: {
             errorTypes: ['NoMatchingError']
         },
-        Parameters: ['LambdaFunctionARN', 'InvocationTimeLimitSeconds', 'ResponseValidation']
+        Parameters: ['LambdaFunctionARN', 'InvocationTimeLimitSeconds', 'ResponseValidation'],
+        icon: <WebhookIcon />
     },
     TransferToFlow: {
         type: 'TransferToFlow',
@@ -53,7 +64,8 @@ export const blockConfigsList = {
         Parameters: ['ContactFlowId'],
         Transitions: {
             errorTypes: ['NoMatchingError']
-        }
+        },
+        icon: <AltRouteIcon />
     }
 };
 

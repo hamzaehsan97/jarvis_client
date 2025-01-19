@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { JsonForms } from '@jsonforms/react';
 import { materialRenderers } from '@jsonforms/material-renderers';
-import { schema } from '../schema/form-schema/createFlow'; // Import your schema
-import { uiSchema } from '../schema/ui-schema/createFlow'; // Import your UI schema
+import { schema } from '../../schema/form-schema/createFlow'; // Import your schema
+import { uiSchema } from '../../schema/ui-schema/createFlow'; // Import your UI schema
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import SubCard from '../../../components/cards/SubCard';
+import SubCard from '../../../../components/cards/SubCard';
 const GenAiFlowForm = () => {
     const initialData = {
         contactFlowName: 'Sample Call',

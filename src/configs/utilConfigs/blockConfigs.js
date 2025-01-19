@@ -1,4 +1,62 @@
 // Approved block types with configurations
+export const blocksList = [
+    'TransferContactToQueue',
+    'UpdateContactTargetQueue',
+    'MessageParticipant',
+    'DisconnectParticipant',
+    'InvokeLambdaFunction',
+    'TransferToFlow'
+];
+
+export const blockConfigsList = {
+    TransferContactToQueue: {
+        type: 'TransferContactToQueue',
+        friendlyName: 'Transfer to Agent',
+        Transitions: {
+            errorTypes: ['QueueAtCapacity', 'NoMatchingError']
+        },
+        Parameters: []
+    },
+    UpdateContactTargetQueue: {
+        type: 'UpdateContactTargetQueue',
+        friendlyName: 'Choose Agent Queue',
+        Transitions: {
+            errorTypes: ['NoMatchingError']
+        },
+        Parameters: ['QueueId']
+    },
+    MessageParticipant: {
+        type: 'MessageParticipant',
+        friendlyName: 'Play Audio',
+        Transitions: {
+            errorTypes: ['NoMatchingError']
+        },
+        Parameters: ['Text']
+    },
+    DisconnectParticipant: {
+        type: 'DisconnectParticipant',
+        friendlyName: 'Disconnect Customer',
+        Transitions: {},
+        Parameters: []
+    },
+    InvokeLambdaFunction: {
+        type: 'InvokeLambdaFunction',
+        friendlyName: 'Lambda Function',
+        Transitions: {
+            errorTypes: ['NoMatchingError']
+        },
+        Parameters: ['LambdaFunctionARN', 'InvocationTimeLimitSeconds', 'ResponseValidation']
+    },
+    TransferToFlow: {
+        type: 'TransferToFlow',
+        friendlyName: 'Transfer to Workflow',
+        Parameters: ['ContactFlowId'],
+        Transitions: {
+            errorTypes: ['NoMatchingError']
+        }
+    }
+};
+
 export const blocks = [
     {
         type: 'TransferContactToQueue',
@@ -29,62 +87,21 @@ export const blocks = [
         friendlyName: 'Disconnect Customer',
         Transitions: {},
         Parameters: []
+    },
+    {
+        type: 'InvokeLambdaFunction',
+        friendlyName: 'Lambda Function',
+        Transitions: {
+            errorTypes: ['NoMatchingError']
+        },
+        Parameters: ['LambdaFunctionARN', 'InvocationTimeLimitSeconds', 'ResponseValidation']
+    },
+    {
+        type: 'TransferToFlow',
+        friendlyName: 'Transfer to Workflow',
+        Parameters: ['ContactFlowId'],
+        Transitions: {
+            errorTypes: ['NoMatchingError']
+        }
     }
 ];
-
-export const returnBlockConfigs = (blockName) => {
-    const blockConfigs = {
-        TransferContactToQueue: {
-            friendlyName: 'Transfer to Agent'
-        },
-        UpdateContactTargetQueue: {
-            friendlyName: 'Choose Agent Queue'
-        },
-        MessageParticipant: {
-            friendlyName: 'Play Audio'
-        },
-        DisconnectParticipant: {
-            friendlyName: 'Disconnect Customer'
-        }
-    };
-
-    return blockConfigs[blockName].friendlyName;
-};
-
-export const returnBlockTransitions = (blockName) => {
-    const blockConfigs = {
-        TransferContactToQueue: {
-            transitions: ['QueueAtCapacity', 'NoMatchingError']
-        },
-        UpdateContactTargetQueue: {
-            transitions: ['NoMatchingError']
-        },
-        MessageParticipant: {
-            transitions: ['NoMatchingError']
-        },
-        DisconnectParticipant: {
-            transitions: []
-        }
-    };
-
-    return blockConfigs[blockName].transitions;
-};
-
-export const returnBlockParameters = (blockName) => {
-    const blockConfigs = {
-        TransferContactToQueue: {
-            Parameters: []
-        },
-        UpdateContactTargetQueue: {
-            Parameters: ['QueueId']
-        },
-        MessageParticipant: {
-            Parameters: ['Text']
-        },
-        DisconnectParticipant: {
-            Parameters: []
-        }
-    };
-
-    return blockConfigs[blockName].Parameters;
-};

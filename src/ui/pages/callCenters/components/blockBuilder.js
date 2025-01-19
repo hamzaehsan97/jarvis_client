@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import SubCard from '../../../components/cards/SubCard';
 import { IconLoader } from '@tabler/icons';
-import { blocks, returnBlockConfigs, returnBlockTransitions, returnBlockParameters } from '../../../../configs/utilConfigs/blockConfigs';
+import { blocksList, blockConfigsList } from '../../../../configs/utilConfigs/blockConfigs';
 import { Typography } from '@mui/material';
 import NavigationScroll from '../../../layout/NavigationScroll';
 import { createContactFlow, addBlock } from '../../../../utils/flowBuilderUtil';
@@ -35,7 +35,6 @@ const returnBlockIcon = () => {
 };
 
 const BlockBuilder = () => {
-    const blocksList = blocks;
     const location = useLocation();
     const { pathname } = location;
     const campaignID = pathname.split('/')[2];
@@ -71,7 +70,8 @@ const BlockBuilder = () => {
             }
         };
         const Errors = [];
-        const blockTransitions = returnBlockTransitions(block.type);
+        // const blockTransitions = returnBlockTransitions(block.type);
+        const blockTransitions = blockConfigsList[block.type].Transitions.errorTypes;
         if (blockTransitions.length > 0) {
             for (const transition of blockTransitions) {
                 const singleTransition = transition;
@@ -83,7 +83,8 @@ const BlockBuilder = () => {
             }
         }
         formObject.Transitions.Errors = Errors;
-        const blockParameters = returnBlockParameters(block.type);
+        // const blockParameters = returnBlockParameters(block.type);
+        const blockParameters = blockConfigsList[block.type].Parameters;
         if (blockParameters.length > 0) {
             formObject.Parameters = formData.parameters;
         }
@@ -96,8 +97,11 @@ const BlockBuilder = () => {
         if (!block.type) return <></>;
 
         // Retrieve transitions and parameters for the block
-        const blockTransitions = returnBlockTransitions(block.type);
-        const blockParameters = returnBlockParameters(block.type);
+        // const blockTransitions = returnBlockTransitions(block.type);
+        const blockTransitions = blockConfigsList[block.type].Transitions.errorTypes;
+
+        // const blockParameters = returnBlockParameters(block.type);
+        const blockParameters = blockConfigsList[block.type].Parameters;
 
         // Extract action identifiers from the flow
         const actionIdentifiers = flow.Actions.map((action) => action.Identifier);
@@ -330,10 +334,10 @@ const BlockBuilder = () => {
                             {blocksList ? (
                                 <>
                                     {blocksList
-                                        .filter((block) => block.type !== 'DisconnectParticipant') // Exclude blocks with type DisconnectParticipant
+                                        // .filter((block) => block.type !== 'DisconnectParticipant') // Exclude blocks with type DisconnectParticipant
                                         .map((block) => (
-                                            <NavigationScroll key={block.type}>
-                                                <BlockComponent block={block} />
+                                            <NavigationScroll key={block}>
+                                                <BlockComponent block={blockConfigsList[block]} />
                                             </NavigationScroll>
                                         ))}
                                 </>

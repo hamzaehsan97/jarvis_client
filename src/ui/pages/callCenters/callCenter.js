@@ -243,7 +243,7 @@ const CallCenter = (props) => {
                     <SubCard
                         title={returnTitle('Communication Workflows', TtyIcon)}
                         titleChildren={createTitleChildren('Create Workflows', flowLink)}
-                        hideContentIcon={true}
+                        // hideContentIcon={true}
                     >
                         <ListFlows />
                     </SubCard>
@@ -252,7 +252,7 @@ const CallCenter = (props) => {
                     <SubCard
                         title={returnTitle('Human Agents', SupportAgentIcon)}
                         titleChildren={createTitleChildren('Create Agents', createAgentsLink)}
-                        hideContentIcon={true}
+                        // hideContentIcon={true}
                     >
                         {callCenter && <HumanAgents campaignId={callCenter.campaignID?.S} />}
                     </SubCard>
@@ -261,13 +261,13 @@ const CallCenter = (props) => {
                     <SubCard
                         title={returnTitle('AI Agents', SmartToyIcon)}
                         titleChildren={createTitleChildren('Create AI Agents', '/link')}
-                        hideContentIcon={true}
+                        // hideContentIcon={true}
                     >
                         {callCenter && <HumanAgents campaignId={callCenter.campaignID?.S} />}
                     </SubCard>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <SubCard title={returnTitle('Hours of Operation', QueryBuilderIcon)} hideContentIcon={true}>
+                    <SubCard title={returnTitle('Hours of Operation', QueryBuilderIcon)}>
                         {callCenter && (
                             <HoursOfOperation
                                 instanceID={callCenter.connectInstanceID?.S}
